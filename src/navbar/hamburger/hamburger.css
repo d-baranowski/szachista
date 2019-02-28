@@ -1,0 +1,43 @@
+.svg-menu-toggle {
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.svg-menu-toggle .bar {
+    -webkit-transform: rotate(0) translateY(0) translateX(0);
+    transform: rotate(0) translateY(0) translateX(0);
+    opacity: 1;
+    -webkit-transform-origin: 20px 10px;
+    transform-origin: 20px 10px;
+    -webkit-transition: -webkit-transform 0.4s ease-in-out, opacity 0.2s ease-in-out;
+    transition: transform 0.4s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.svg-menu-toggle .bar:nth-of-type(1) {
+    -webkit-transform-origin: 20px 10px;
+    transform-origin: 20px 10px;
+}
+
+.svg-menu-toggle .bar:nth-of-type(3) {
+    -webkit-transform-origin: 20px 20px;
+    transform-origin: 20px 20px;
+}
+
+.open .svg-menu-toggle .bar:nth-of-type(1) {
+    -webkit-transform: rotate(-45deg) translateY(0) translateX(0);
+    transform: rotate(-45deg) translateY(0) translateX(0);
+}
+
+.open .svg-menu-toggle .bar:nth-of-type(2) {
+    opacity: 0;
+}
+
+.open .svg-menu-toggle .bar:nth-of-type(3) {
+    -webkit-transform: rotate(45deg) translateY(0em) translateX(0em);
+    transform: rotate(45deg) translateY(0em) translateX(0em);
+}
+
+.inline-svg {
+    display: block;
+    margin: 0 auto;
+}
