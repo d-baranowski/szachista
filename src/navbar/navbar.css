@@ -18,7 +18,6 @@ nav * {
 .nav .nav-btn {
     height: 100%;
     align-items: center;
-    margin-right: 12px;
 }
 
 .nav-btn svg {
@@ -51,7 +50,7 @@ nav * {
     display: flex;
     width: calc(100% - 200px);
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 900;
     justify-content: center;
 }
 
@@ -62,10 +61,13 @@ nav * {
     line-height: 24px;
     height: 24px;
     padding: 2vw;
+    border-width: 0px;
 }
 
 .nav-links > a:hover {
-    background-color: rgba(0, 0, 0, 0.3);
+    border-width: 10px;
+    border-bottom: 1px solid #38EBAE;
+    margin-bottom: -1px;
 }
 
 #nav-check {
@@ -112,7 +114,7 @@ nav * {
     .nav-btn {
         display: flex;
         position: absolute;
-        right: 0;
+        left: 12px;
         top: 0;
     }
 
@@ -120,7 +122,7 @@ nav * {
         position: absolute;
         display: block;
         width: 50%;
-        background-color: rgba(51, 51, 51, 0.4);
+        background-color: rgba(51, 51, 51, 0.97);
         height: 0;
         overflow-y: hidden;
         top: 100px;

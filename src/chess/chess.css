@@ -1,0 +1,7 @@
+.game-container {
+    min-width: 100%;
+}
+
+.game-container * {
+    margin: 0 auto;
+}
