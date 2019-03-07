@@ -52,6 +52,7 @@ nav * {
     font-size: 14px;
     font-weight: 900;
     justify-content: center;
+    z-index: 1;
 }
 
 .nav-links > a {
@@ -62,12 +63,6 @@ nav * {
     height: 24px;
     padding: 2vw;
     border-width: 0px;
-}
-
-.nav-links > a:hover {
-    border-width: 10px;
-    border-bottom: 1px solid #38EBAE;
-    margin-bottom: -1px;
 }
 
 #nav-check {
@@ -101,6 +96,12 @@ nav * {
         margin-left: 10%;
         margin-right: 10%;
     }
+
+    .nav-links > a:hover {
+        border-bottom: 1px solid #38EBAE;
+        margin-bottom: -1px;
+    }
+
 }
 
 @media (max-width: 620px) {

@@ -28,9 +28,9 @@ class Navbar extends Component {
                         <Hamburger open={this.state.open} />
                     </div>
                     <div className={"nav-links " + (open ? "open" : "")  }>
-                        <Link to="/"><Home /></Link>
-                        <Link to="/leaderboard">Leaderboard</Link>
-                        <Link to="/community">Community</Link>
+                        <Link onClick={this.toggle} to="/"><Home /></Link>
+                        <Link onClick={this.toggle} to="/leaderboard">Leaderboard</Link>
+                        <Link onClick={this.toggle} to="/community">Community</Link>
                     </div>
                 </div>
             </div>

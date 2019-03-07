@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import scriptjs from "scriptjs";
 import "./chess.css"
+import App from "./game/src/App";
 
 class ChessGame extends Component {
     componentDidMount() {
@@ -10,7 +11,7 @@ class ChessGame extends Component {
     render() {
         return (
             <div className="game-container">
-                <div id="chess-root" />
+                <App />
             </div>
         );
     }
