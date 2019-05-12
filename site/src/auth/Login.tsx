@@ -5,6 +5,8 @@ import {RouteComponentProps, withRouter} from "react-router";
 import TokenFetcher from "./TokenFetcher";
 import ErrorHandler from "../error/ErrorHandler";
 import saveSecret from "./saveSecret";
+import secureSecret from "./secureSecret";
+import setupTokenRefresh from "./setupTokenRefresh";
 
 interface MatchParams {
     code: string;
@@ -22,7 +24,8 @@ class Login extends Component<RouteComponentProps<MatchParams>> {
             const code = urlParams.get('code') as string;
             let tokenResponse = TokenFetcher.getToken(code);
             tokenResponse.then(value => {
-                saveSecret(Encryption.encrypt(btoa(JSON.stringify(value))));
+                saveSecret(secureSecret(value));
+                setupTokenRefresh();
                 this.props.history.push("/");
             });
 

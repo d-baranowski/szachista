@@ -1,18 +1,20 @@
 import createStore from "../state/createStore";
 import {IIdTokenDeceoded} from "../model/IIdTokenDeceoded";
 
+export interface IUserDetail {
+    given_name: string,
+    picture: string,
+    token_use: string,
+    auth_time: number,
+    name: string,
+    exp: number,
+    family_name: string,
+    email: string,
+}
+
 export interface IUserDetailStore {
     setUserDetail: (detail: IIdTokenDeceoded) => null
-    user: {
-        given_name: string,
-        picture: string,
-        token_use: string,
-        auth_time: number,
-        name: string,
-        exp: number,
-        family_name: string,
-        email: string,
-    }
+    user: IUserDetail
 }
 
 const UserDetailStore: IUserDetailStore = createStore({
@@ -27,14 +29,16 @@ const UserDetailStore: IUserDetailStore = createStore({
         email: "",
     },
     setUserDetail: (detail: IIdTokenDeceoded) => {
-        UserDetailStore.user.given_name = detail.given_name;
-        UserDetailStore.user.picture = detail.picture;
-        UserDetailStore.user.token_use = detail.token_use;
-        UserDetailStore.user.auth_time = detail.auth_time;
-        UserDetailStore.user.name = detail.name;
-        UserDetailStore.user.exp = detail.exp;
-        UserDetailStore.user.family_name = detail.family_name;
-        UserDetailStore.user.email = detail.email;
+        UserDetailStore.user = {
+            given_name: detail.given_name,
+            picture: detail.picture,
+            token_use: detail.token_use,
+            auth_time: detail.auth_time,
+            name: detail.name,
+            exp: detail.exp,
+            family_name: detail.family_name,
+            email: detail.email
+        }
     }
 });
 
