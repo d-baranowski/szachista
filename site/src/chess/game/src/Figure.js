@@ -53,7 +53,7 @@ class Figure extends Component {
             position: 'relative',
             transition: `all ${duration}ms ease-in-out`,
             top: this.state.showPreviousPosition ? animateFrom.y : 0,
-            left: this.state.showPreviousPosition ?  animateFrom.x : 0,
+            left: this.state.showPreviousPosition ? animateFrom.x : 0,
             padding: 2
         };
 

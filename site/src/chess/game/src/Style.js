@@ -1,6 +1,7 @@
 import React from 'react';
 
-const inject = { __html: `
+const inject = {
+    __html: `
 <style>
 .highlight {
     box-sizing: border-box;
@@ -73,7 +74,8 @@ const inject = { __html: `
 
 }
 </style>
-`};
+`
+};
 
 const Style = () => (
     <div dangerouslySetInnerHTML={inject}/>

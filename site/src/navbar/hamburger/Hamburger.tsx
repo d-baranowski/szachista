@@ -7,7 +7,7 @@ interface HamburgerProps {
 
 const hamburger: React.FunctionComponent<HamburgerProps> = ({open}) => (
 
-    <svg className={"inline-svg " + (open ? "open" : "") } version="1.1" xmlns="http://www.w3.org/2000/svg"
+    <svg className={"inline-svg " + (open ? "open" : "")} version="1.1" xmlns="http://www.w3.org/2000/svg"
          viewBox="0 4 22.5 22.5" xmlSpace="preserve">
         <title>Mobile Menu</title>
         <g className="svg-menu-toggle">

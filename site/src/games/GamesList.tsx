@@ -4,7 +4,7 @@ import "./GameTiles.css"
 
 const GamesList = () => (
     <div className="game-tiles">
-        <GameTile to="/chess" src="/chess.jpg" />
+        <GameTile to="/chess" src="/chess.jpg"/>
     </div>
 );
 

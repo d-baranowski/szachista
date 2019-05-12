@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import pieces from "./figury";
 
 
@@ -26,20 +25,28 @@ class PromotionModal extends Component {
     }
 
     render() {
-        const { color, onSelection } = this.props;
+        const {color, onSelection} = this.props;
         return (
             <div className={"floating-modal " + (!this.state.transitionTrigger ? " " : "moveOff")}>
-                <div onClick={() => { onSelection("q") }} className={"figure figure-" + color}>
-                    <Queen />
+                <div onClick={() => {
+                    onSelection("q")
+                }} className={"figure figure-" + color}>
+                    <Queen/>
                 </div>
-                <div onClick={() => { onSelection("n") }} className={"figure figure-" + color}>
-                    <Knight />
+                <div onClick={() => {
+                    onSelection("n")
+                }} className={"figure figure-" + color}>
+                    <Knight/>
                 </div>
-                <div onClick={() => { onSelection("r") }} className={"figure figure-" + color}>
-                    <Rook />
+                <div onClick={() => {
+                    onSelection("r")
+                }} className={"figure figure-" + color}>
+                    <Rook/>
                 </div>
-                <div onClick={() => { onSelection("b") }} className={"figure figure-" + color}>
-                    <Bishop />
+                <div onClick={() => {
+                    onSelection("b")
+                }} className={"figure figure-" + color}>
+                    <Bishop/>
                 </div>
             </div>
         );

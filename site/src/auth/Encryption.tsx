@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import ErrorHandler from "../error/ErrorHandler";
 
 interface IEncyrption {
     encrypt: (value: string) => string,
@@ -21,16 +22,21 @@ class Encryption implements IEncyrption {
     }
 
     decrypt(value: string) {
-        let textParts = value.split(':');
+        try {
+            let textParts = value.split(':');
 
-        let iv = new Buffer(textParts.shift() as string, 'hex');
-        let encryptedText = new Buffer(textParts.join(':'), 'hex');
-        let decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer(ENCRYPTION_KEY), iv);
-        let decrypted = decipher.update(encryptedText);
+            let iv = new Buffer(textParts.shift() as string, 'hex');
+            let encryptedText = new Buffer(textParts.join(':'), 'hex');
+            let decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer(ENCRYPTION_KEY), iv);
+            let decrypted = decipher.update(encryptedText);
 
-        decrypted = Buffer.concat([decrypted, decipher.final()]);
+            decrypted = Buffer.concat([decrypted, decipher.final()]);
 
-        return decrypted.toString();
+            return decrypted.toString();
+        } catch (error) {
+            ErrorHandler.handle(error);
+            return btoa("{}");
+        }
     }
 }
 

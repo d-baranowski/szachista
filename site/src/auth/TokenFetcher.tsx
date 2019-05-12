@@ -1,12 +1,5 @@
 import superagent from 'superagent';
-
-interface IAwsTokenResponse {
-    "access_token": string,
-    "refresh_token": string,
-    "id_token": string,
-    "token_type": string,
-    "expires_in": number
-}
+import {IAwsTokenResponse} from "../model/IAwsTokenResponse";
 
 interface ITokenFetcher {
     getToken: (code: string) => Promise<IAwsTokenResponse>,
@@ -18,10 +11,10 @@ class TokenFetcher implements ITokenFetcher {
             superagent.post("https://logins.gierki.net/oauth2/token")
                 .type('form')
                 .set("Authorization", `Basic ${btoa(`${process.env.REACT_APP_CLIENT_ID}:${process.env.REACT_APP_CLIENT_SECRET}`)}`)
-                .send({ grant_type: 'authorization_code' })
-                .send({ redirect_uri: process.env.REACT_APP_REDIRECT_URI })
+                .send({grant_type: 'authorization_code'})
+                .send({redirect_uri: process.env.REACT_APP_REDIRECT_URI})
                 .send({code: code})
-                .then(accept, reject)
+                .then((response) => accept(response.body), reject)
         });
 
         return promise as Promise<IAwsTokenResponse>;

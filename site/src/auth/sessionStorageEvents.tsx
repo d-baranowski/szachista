@@ -1,3 +1,5 @@
+import saveSecret from "./saveSecret";
+
 let syncTokensBetweenBats: () => void = () => {
     if (!sessionStorage.length) {
         // Ask other tabs for session storage
@@ -16,13 +18,9 @@ let syncTokensBetweenBats: () => void = () => {
             const value = event.newValue as string;
             const key = process.env.REACT_APP_TOKEN_SESSION_STORE_KEY as string;
             const data = JSON.parse(value);
-            sessionStorage.setItem(key, data[key]);
+            saveSecret(data[key]);
         }
     });
-
-    window.onbeforeunload = function () {
-        sessionStorage.clear();
-    };
-}
+};
 
 export default syncTokensBetweenBats;

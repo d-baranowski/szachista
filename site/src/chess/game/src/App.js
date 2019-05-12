@@ -25,7 +25,7 @@ class App extends Component {
         this.setState({
             moves: chess.moves(),
             board: chess.board(),
-            lastMove: chess.history({ verbose: true }).last()
+            lastMove: chess.history({verbose: true}).last()
         });
 
         window.setTimeout(this.makeRandomMove, 1000);
@@ -35,7 +35,7 @@ class App extends Component {
         this.setState({
             moves: chess.moves(),
             board: chess.board(),
-            lastMove: chess.history({ verbose: true }).last()
+            lastMove: chess.history({verbose: true}).last()
         });
     };
 
@@ -49,7 +49,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Style />
+                <Style/>
                 <div style={{maxWidth: 500}}>
                     <Board
                         getValidMoves={(square) => {

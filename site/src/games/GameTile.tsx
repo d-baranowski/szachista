@@ -11,7 +11,7 @@ const GameTile: React.FunctionComponent<Props> = ({src, to}) => (
     <Link to={to}>
         <div className="game-tile">
             <div className="game-tile-image-frame">
-                <img alt="" src={src} />
+                <img alt="" src={src}/>
             </div>
             <div className="game-tile-content">
                 <div>Chess</div>
