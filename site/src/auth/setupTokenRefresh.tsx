@@ -7,8 +7,7 @@ export default (() => {
     let interval: NodeJS.Timeout | null = null;
     return () => {
         if (interval) {
-            clearInterval(interval);
-            interval = null;
+            return
         }
 
         interval = setInterval(() => {
