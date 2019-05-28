@@ -1,4 +1,4 @@
-import uuid from './uuid';
+import uuid from '../util/uuid';
 
 const createStore = (storeProps: any) => {
     const subscribers: {

@@ -12,7 +12,9 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "^3.0.1",
     "scriptjs": "^2.5.9",
-    "typescript": "3.3.3333"
+    "superagent": "^5.0.5",
+    "typescript": "3.3.3333",
+    "ws": "^7.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,6 +37,8 @@
     "@types/node": "^11.9.5",
     "@types/react": "^16.8.5",
     "@types/react-dom": "16.8.2",
-    "@types/react-router-dom": "^4.3.1"
+    "@types/react-router-dom": "^4.3.1",
+    "@types/superagent": "^4.1.1",
+    "@types/ws": "^6.0.1"
   }
 }
