@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
-import ChatWindow from "../chat/components/ChatWindow";
+import ChatWidowContainer from "../chat/containers/ChatWindowContainer";
 
 class Lobby extends Component {
     render() {
         return (
             <div>
-                <ChatWindow
-                    showEmoji={true}
-                    isOpen={true}
-                    agentProfile={{
-                        teamName: "Chess Lobby",
-                        imageUrl: "http://placekitten.com/200/300"
-                    }}
-                />
+                <ChatWidowContainer/>
             </div>
         );
     }

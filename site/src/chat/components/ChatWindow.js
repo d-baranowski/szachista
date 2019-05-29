@@ -53,6 +53,6 @@ ChatWindow.propTypes = {
   onFilesSelected: PropTypes.func,
   onUserInputSubmit: PropTypes.func.isRequired,
   showEmoji: PropTypes.bool
-}
+};
 
 export default ChatWindow;

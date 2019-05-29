@@ -1,30 +1,45 @@
-import WebSocket from "ws";
-
 export interface IConnection {
     send: (msg: any) => void,
     close: () => void
 }
 
-type IManagedSocketConnection = (address: string, onMessage: (message: any) => void) => IConnection
+type IManagedSocketConnectionProps = {
+    address: string,
+    onMessage: (message: any) => void,
+    onStatusChange: (message: any) => void
+}
+type IManagedSocketConnection = (props: IManagedSocketConnectionProps) => IConnection
 
-const ManagedSocketConnection: IManagedSocketConnection = (address, onMessage) => {
-    const ws = new WebSocket(address);
+const ManagedSocketConnection: IManagedSocketConnection = (props) => {
+    const socket = new WebSocket(props.address);
+    let isOpen = false;
 
-    ws.on('open', function open() {
+    socket.onopen = function (event) {
+        isOpen = true;
+        props.onStatusChange({status: 'open', event});
+    };
 
-    });
+    socket.onclose = function (event) {
+        isOpen = false;
+        props.onStatusChange({status: 'close', event});
+    };
 
-    ws.on('message', function incoming(data) {
-        onMessage(data);
-        console.log(data);
-    });
+    socket.onerror = function (event) {
+        props.onStatusChange({status: 'error', event});
+    };
 
+    socket.onmessage = function (event) {
+        props.onMessage(event);
+    };
 
     return {
         send: (msg: any) => {
-            ws.send(msg);
+            if (isOpen) {
+                socket.send(JSON.stringify(msg))
+            }
         },
         close: () => {
+            socket.close();
         }
     }
 };
