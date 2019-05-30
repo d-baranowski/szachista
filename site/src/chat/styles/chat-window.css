@@ -22,11 +22,11 @@
 }
 
 .sc-message-list {
-  height: 80%;
+  height: 100%;
   overflow-y: auto;
   background-color: #eeeeee;
   background-size: 100%;
-  padding: 40px 0px;
+  padding: 15px 0px;
 }
 
 .sc-message--me {

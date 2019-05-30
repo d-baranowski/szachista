@@ -11,35 +11,48 @@ type IManagedSocketConnectionProps = {
 type IManagedSocketConnection = (props: IManagedSocketConnectionProps) => IConnection
 
 const ManagedSocketConnection: IManagedSocketConnection = (props) => {
-    const socket = new WebSocket(props.address);
-    let isOpen = false;
+    let ws: WebSocket | null = null;
 
-    socket.onopen = function (event) {
-        isOpen = true;
-        props.onStatusChange({status: 'open', event});
-    };
+    function start(){
+        ws = new WebSocket(props.address);
+        ws.onopen = function (event) {
+            props.onStatusChange({status: 'open', event});
+        };
 
-    socket.onclose = function (event) {
-        isOpen = false;
-        props.onStatusChange({status: 'close', event});
-    };
+        ws.onclose = function (event) {
+            props.onStatusChange({status: 'close', event});
+            check();
+        };
 
-    socket.onerror = function (event) {
-        props.onStatusChange({status: 'error', event});
-    };
+        ws.onerror = function (event) {
+            props.onStatusChange({status: 'error', event});
+        };
 
-    socket.onmessage = function (event) {
-        props.onMessage(event);
-    };
+        ws.onmessage = function (event) {
+            props.onMessage(event);
+        };
+    }
+
+    function check(){
+        if(!ws || ws.readyState == WebSocket.CLOSED) start();
+    }
+
+    start();
+
+    const intervalId = setInterval(check, 5000);
 
     return {
         send: (msg: any) => {
-            if (isOpen) {
-                socket.send(JSON.stringify(msg))
+            if (ws && ws.readyState == ws.OPEN) {
+                ws.send(JSON.stringify(msg))
+            } else {
+                check();
             }
         },
         close: () => {
-            socket.close();
+            clearInterval(intervalId);
+            ws && ws.close();
+            ws = null;
         }
     }
 };

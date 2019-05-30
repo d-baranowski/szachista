@@ -1,37 +1,79 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ChatWindow from "../../chat/components/ChatWindow";
 import createStore from "../../state/createStore";
-import ConnectionManager from "../connection/ConnectionManager";
+import ConnectionManager, {ISubscriptionControls} from "../connection/ConnectionManager";
 import connect from "../../state/connect";
+import UserDetailStore, {IUserDetail} from "../../auth/UserDetailStore";
 
 const chatLobbyStore = createStore({
     messages: []
 });
 
-const subscritpion = ConnectionManager.subscribe({
-    onStatusChange: (status) => {
-        console.log(status);
-        chatLobbyStore.messages = [...chatLobbyStore.messages, {type: 'text', data: {text: "Connection " + JSON.stringify(status)}}]
-    },
-    address: process.env.REACT_APP_CHAT_WEB_SOCKET_ADDRESS as string,
-    onMessage: (message) => {
-        console.log(message);
-        chatLobbyStore.messages = [...chatLobbyStore.messages, {type: 'text', data: {text: JSON.stringify(message.data)}}]
+let subscription: ISubscriptionControls;
+
+type message = {
+    author: IUserDetail
+    data: {
+        text: string
     }
-});
+    type: string
+}
 
 interface Props {
     address: string,
     chatTitle: string,
-    messages: []
+    messages: message[],
+    user: IUserDetail
 }
 
+
+/*
+0: {type: "text", data: {…}}
+1: {author: "me", type: "text", data: {…}}
+2: {author: "me", type: "text", data: {…}}
+3: {author: "me", type: "emoji", data: {…}}
+ */
+
 const ChatWidowContainer: React.FunctionComponent<Props> = (props) => {
-    console.log(props.messages);
+    console.log(props);
+
+    useEffect(() => {
+        subscription = ConnectionManager.subscribe({
+            onStatusChange: (event) => {
+                console.log(event);
+                chatLobbyStore.messages = [...chatLobbyStore.messages, {type: 'text', data: {text: "Connection " + JSON.stringify(event.status)}}]
+            },
+            address: process.env.REACT_APP_CHAT_WEB_SOCKET_ADDRESS as string,
+            onMessage: (message) => {
+                console.log(message);
+                chatLobbyStore.messages = [...chatLobbyStore.messages, JSON.parse(message.data)]
+            }
+        });
+
+        return () => {
+            subscription.unsubscribe();
+        }
+    }, []);
+
+    const onInput = (e: message) => {
+        if (!props.user.name) {
+            chatLobbyStore.messages = [...chatLobbyStore.messages, {type: "text", data: {text: "Please log in"}}];
+            return
+        }
+        const payload: message = {
+            ...e,
+            author: props.user
+        };
+        subscription.send({
+            "data": JSON.stringify(payload),
+            "message": "sendmessage"
+        })
+    };
 
     return <ChatWindow
+        me={props.user}
         messageList={props.messages}
-        onUserInputSubmit={() => {subscritpion.send({"data" : "I can put whatever I want in here" , "message" : "sendmessage"})}}
+        onUserInputSubmit={onInput}
         onClose={()=>{}}
         showEmoji={true}
         isOpen={true}
@@ -43,4 +85,4 @@ const ChatWidowContainer: React.FunctionComponent<Props> = (props) => {
 };
 
 
-export default connect(chatLobbyStore, ChatWidowContainer);
+export default connect(UserDetailStore, connect(chatLobbyStore, ChatWidowContainer));

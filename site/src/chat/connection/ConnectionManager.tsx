@@ -17,16 +17,29 @@ interface IConnections {
     }
 }
 
+export type ISubscriptionControls = {
+    send: (msg: any) => void,
+    unsubscribe: () => void
+}
+
 interface IConnectionManager {
     connections: IConnections
-    subscribe: (subscription: ISubscription) => {
-        send: (msg: any) => void,
-        unsubscribe: () => void
-    }
+    subscribe: (subscription: ISubscription) => ISubscriptionControls
 }
 
 class ConnectionManager implements IConnectionManager {
     connections: IConnections = {};
+
+    constructor() {
+        setInterval(() => {
+            Object.entries(this.connections).forEach(([key, val]) => {
+                if (Object.entries(val.subscriptions).length == 0) {
+                    val.connection.close();
+                    console.log("closing unused connection")
+                }
+            })
+        }, 5000);
+    }
 
     onMessage = (address: string) => (message: any) => {
         Object.entries(this.connections[address].subscriptions).forEach(([key, value]) => {
