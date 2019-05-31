@@ -26,17 +26,7 @@ interface Props {
     user: IUserDetail
 }
 
-
-/*
-0: {type: "text", data: {…}}
-1: {author: "me", type: "text", data: {…}}
-2: {author: "me", type: "text", data: {…}}
-3: {author: "me", type: "emoji", data: {…}}
- */
-
 const ChatWidowContainer: React.FunctionComponent<Props> = (props) => {
-    console.log(props);
-
     useEffect(() => {
         subscription = ConnectionManager.subscribe({
             onStatusChange: (event) => {

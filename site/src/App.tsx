@@ -9,6 +9,7 @@ import User, {EMPTY_USER_INFO} from "./auth/User";
 import {IIdTokenDeceoded} from "./model/IIdTokenDeceoded";
 import setupTokenRefresh from "./auth/setupTokenRefresh";
 import Lobby from "./lobby/Lobby";
+import ChatWindowContainer from "./chat/containers/ChatWindowContainer";
 
 
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
                         <Route path="/" exact component={GamesList}/>
                         <Route path="/chess" exact component={Lobby}/>
                         <Route path="/oauth2/idpresponse" component={Login}/>
+                        <ChatWindowContainer />
                     </div>
                 </div>
             </Router>
