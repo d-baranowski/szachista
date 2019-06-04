@@ -42,12 +42,20 @@ class ConnectionManager implements IConnectionManager {
     }
 
     onMessage = (address: string) => (message: any) => {
+        if (!this.connections[address]) {
+            return;
+        }
+
         Object.entries(this.connections[address].subscriptions).forEach(([key, value]) => {
             value.onMessage(message)
         })
     };
 
     onStatusChange = (address: string) => (status: any) => {
+        if (!this.connections[address]) {
+            return;
+        }
+
         Object.entries(this.connections[address].subscriptions).forEach(([key, value]) => {
             value.onStatusChange(status)
         })

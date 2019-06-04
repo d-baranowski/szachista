@@ -1,3 +1,8 @@
+// @ts-ignore
+import base65536 from "base65536";
+import User from "../../auth/User";
+
+
 export interface IConnection {
     send: (msg: any) => void,
     close: () => void
@@ -10,18 +15,44 @@ type IManagedSocketConnectionProps = {
 }
 type IManagedSocketConnection = (props: IManagedSocketConnectionProps) => IConnection
 
+function _base64ToArrayBuffer(base64: string) {
+    var binary_string =  window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array( len );
+    for (var i = 0; i < len; i++)        {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes.buffer;
+}
+
 const ManagedSocketConnection: IManagedSocketConnection = (props) => {
     let ws: WebSocket | null = null;
+    let reconnectRetries = 0;
 
-    function start(){
-        ws = new WebSocket(props.address);
+    function start() {
+        if (reconnectRetries > 3) {
+            clearInterval(intervalId);
+            ws = null;
+            return;
+        }
+
+        const token = User.getJWT();
+        if (!token) {
+            props.onStatusChange({status: 'unauthorized'});
+            return
+        }
+
+        console.log(base65536.encode(_base64ToArrayBuffer(token)).length);
+        console.log(token.length);
+
+        ws = new WebSocket(encodeURI(props.address + `?Authorizer=${token}`));
         ws.onopen = function (event) {
             props.onStatusChange({status: 'open', event});
+            reconnectRetries = 0;
         };
 
         ws.onclose = function (event) {
             props.onStatusChange({status: 'close', event});
-            check();
         };
 
         ws.onerror = function (event) {
@@ -33,8 +64,11 @@ const ManagedSocketConnection: IManagedSocketConnection = (props) => {
         };
     }
 
-    function check(){
-        if(!ws || ws.readyState == WebSocket.CLOSED) start();
+    function check() {
+        if (!ws || ws.readyState == WebSocket.CLOSED) {
+            start();
+            reconnectRetries++;
+        }
     }
 
     start();

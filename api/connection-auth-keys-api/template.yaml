@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
+Resources:
+  AuthKeyApi:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: handler/
+      Handler: app.handler
+      Runtime: nodejs10.x
+      Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
+      MemorySize: 512
+      Timeout: 10
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'dynamodb:DeleteItem'
+                - 'dynamodb:GetItem'
+                - 'dynamodb:PutItem'
+                - 'dynamodb:UpdateItem'
+              Resource:
+                'Fn::Join':
+                  - ''
+                  - - 'arn:aws:dynamodb:'
+                    - Ref: 'AWS::Region'
+                    - ':'
+                    - Ref: 'AWS::AccountId'
+                    - ':table/connection_auth_keys'
+      Events:
+        create:
+          Type: Api
+          Properties:
+            Path: /auth-key
+            Method: POST
+        rest:
+          Type: Api
+          Properties:
+            Path: /auth-key/{id}
+            Method: ANY
+  myHelloTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: connection_auth_keys
+      AttributeDefinitions:
+        - AttributeName: "key"
+          AttributeType: "S"
+#        - AttributeName: "allowed-user"
+#          AttributeType: "S"
+#        - AttributeName: "allowed-chat"
+#          AttributeType: "S"
+#        - AttributeName: "data"
+#          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "key"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1

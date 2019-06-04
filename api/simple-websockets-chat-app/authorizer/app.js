@@ -1,15 +1,161 @@
 console.log('Loading function');
 
-var jwt = require('jsonwebtoken'); 
+var jwt = require('jsonwebtoken');
 var request = require('request'); 
 var jwkToPem = require('jwk-to-pem');
 
-var userPoolId = '{REPLACE_WITH_YOUR_USER_POOL_ID}';
-var region = '{REPLACE_WITH_REGION}'; //e.g. us-east-1
+var userPoolId = 'eu-west-1_zwqFAay0e';
+var region = 'eu-west-1'; //e.g. us-east-1
 var iss = 'https://cognito-idp.' + region + '.amazonaws.com/' + userPoolId;
 var pems;
 
+/* Event
+{
+    "type": "REQUEST",
+    "methodArn": "arn:aws:execute-api:eu-west-1:277265293752:7vc2qsma27/prod/$connect",
+    "headers": {
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8,pl;q=0.7",
+        "Cache-Control": "no-cache",
+        "Connection": "upgrade",
+        "content-length": "0",
+        "Host": "7vc2qsma27.execute-api.eu-west-1.amazonaws.com",
+        "Origin": "http://localhost:3000",
+        "Pragma": "no-cache",
+        "Sec-WebSocket-Extensions": "permessage-deflate; client_max_window_bits",
+        "Sec-WebSocket-Key": "H8o+ZMhMU0zsK6p/erqEZw==",
+        "Sec-WebSocket-Version": "13",
+        "Upgrade": "websocket",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+        "X-Amzn-Trace-Id": "Root=1-5cf1a61f-320f8288cdae56438255ae54",
+        "X-Forwarded-For": "88.98.243.200",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "Accept-Language": [
+            "en-GB,en-US;q=0.9,en;q=0.8,pl;q=0.7"
+        ],
+        "Cache-Control": [
+            "no-cache"
+        ],
+        "Connection": [
+            "upgrade"
+        ],
+        "content-length": [
+            "0"
+        ],
+        "Host": [
+            "7vc2qsma27.execute-api.eu-west-1.amazonaws.com"
+        ],
+        "Origin": [
+            "http://localhost:3000"
+        ],
+        "Pragma": [
+            "no-cache"
+        ],
+        "Sec-WebSocket-Extensions": [
+            "permessage-deflate; client_max_window_bits"
+        ],
+        "Sec-WebSocket-Key": [
+            "H8o+ZMhMU0zsK6p/erqEZw=="
+        ],
+        "Sec-WebSocket-Version": [
+            "13"
+        ],
+        "Upgrade": [
+            "websocket"
+        ],
+        "User-Agent": [
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=1-5cf1a61f-320f8288cdae56438255ae54"
+        ],
+        "X-Forwarded-For": [
+            "88.98.243.200"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ]
+    },
+    "queryStringParameters": {
+        "QueryAuth1": "queryValue1",
+        "Authorizer": "12345"
+    },
+    "multiValueQueryStringParameters": {
+        "QueryAuth1": [
+            "queryValue1"
+        ],
+        "Authorizer": [
+            "12345"
+        ]
+    },
+    "stageVariables": {
+        "test": "this",
+        "whyIsThisSoHard": "whyIsThisSoHard"
+    },
+    "requestContext": {
+        "routeKey": "$connect",
+        "messageId": null,
+        "eventType": "CONNECT",
+        "extendedRequestId": "akbk5GhrjoEFSOw=",
+        "requestTime": "31/May/2019:22:09:35 +0000",
+        "messageDirection": "IN",
+        "stage": "prod",
+        "connectedAt": 1559340575324,
+        "requestTimeEpoch": 1559340575321,
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "cognitoIdentityId": null,
+            "principalOrgId": null,
+            "cognitoAuthenticationType": null,
+            "userArn": null,
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+            "accountId": null,
+            "caller": null,
+            "sourceIp": "88.98.243.200",
+            "accessKey": null,
+            "cognitoAuthenticationProvider": null,
+            "user": null
+        },
+        "requestId": "akbk5GhrjoEFSOw=",
+        "domainName": "7vc2qsma27.execute-api.eu-west-1.amazonaws.com",
+        "connectionId": "akbk5fZMjoECFYw=",
+        "apiId": "7vc2qsma27"
+    }
+}
+*/
+
+/* context
+{
+    "callbackWaitsForEmptyEventLoop": true,
+    "functionVersion": "$LATEST",
+    "functionName": "szachista-chat-AuthorizerFunction-J51TWGCGEBRZ",
+    "memoryLimitInMB": "256",
+    "logGroupName": "/aws/lambda/szachista-chat-AuthorizerFunction-J51TWGCGEBRZ",
+    "logStreamName": "2019/05/31/[$LATEST]b6392025bf4142d4bf92e96940a20f3a",
+    "invokedFunctionArn": "arn:aws:lambda:eu-west-1:277265293752:function:szachista-chat-AuthorizerFunction-J51TWGCGEBRZ",
+    "awsRequestId": "4c0be1fc-7f90-4d31-a07b-e08102b127a4"
+}
+*/
+
 exports.handler = function(event, context) {
+    console.log('Received event:', JSON.stringify(event, null, 2));
+    console.log('Received context:', JSON.stringify(context, null, 2));
+
+
+    //For more information on specifics of generating policy, refer to blueprint for API Gateway's Custom authorizer in Lambda console
+    var policy = new AuthPolicy(1, 1);
+    policy.allowAllMethods();
+    context.succeed(policy.build());
+    /*
     //Download PEM for your UserPool if not already downloaded
     if (!pems) {
     //Download the JWKs and save it as PEM
@@ -27,8 +173,7 @@ exports.handler = function(event, context) {
                 var exponent = keys[i].e;
                 var key_type = keys[i].kty;
                 var jwk = { kty: key_type, n: modulus, e: exponent};
-                var pem = jwkToPem(jwk);
-                pems[key_id] = pem;
+                pems[key_id] = jwkToPem(jwk);
             }
             //Now continue with validating the token
             ValidateToken(pems, event, context);
@@ -40,12 +185,11 @@ exports.handler = function(event, context) {
     } else {
         //PEMs are already downloaded, continue with validating the token
         ValidateToken(pems, event, context);
-    };
+    };*/
 };
 
 function ValidateToken(pems, event, context) {
-     
-    var token = event.authorizationToken;
+    var token = event.queryStringParameters.Authorizer;
     //Fail if the token is not jwt
     var decodedJwt = jwt.decode(token, {complete: true});
     if (!decodedJwt) {
@@ -55,14 +199,14 @@ function ValidateToken(pems, event, context) {
     }
 
     //Fail if token is not from your UserPool
-    if (decodedJwt.payload.iss != iss) {
+    if (decodedJwt.payload.iss !== iss) {
         console.log("invalid issuer");
         context.fail("Unauthorized");
         return;
     }
 
     //Reject the jwt if it's not an 'Access Token'
-    if (decodedJwt.payload.token_use != 'access') {
+    if (decodedJwt.payload.token_use !== 'access') {
         console.log("Not an access token");
         context.fail("Unauthorized");
         return;

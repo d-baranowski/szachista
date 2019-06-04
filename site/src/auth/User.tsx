@@ -14,16 +14,25 @@ export const EMPTY_USER: IAwsTokenResponse = {
 export const EMPTY_USER_INFO = {};
 
 class User {
-    getAWSToken(): IAwsTokenResponse {
+    getJWT(): string {
         const key = process.env.REACT_APP_TOKEN_SESSION_STORE_KEY as string;
         const encryptedBase64EncodedJsonString = window.sessionStorage.getItem(key);
 
         if (!encryptedBase64EncodedJsonString) {
-            return EMPTY_USER;
+            return "";
         }
 
-        const base64EncodedJsonString = Encryption.decrypt(encryptedBase64EncodedJsonString);
-        const jsonString = atob(base64EncodedJsonString);
+        return Encryption.decrypt(encryptedBase64EncodedJsonString);
+    }
+
+    getAWSToken(): IAwsTokenResponse {
+        const base64String = this.getJWT();
+
+        if (!base64String) {
+            return EMPTY_USER
+        }
+
+        const jsonString = atob(base64String);
 
         return JSON.parse(jsonString);
     }
