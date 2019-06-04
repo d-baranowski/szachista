@@ -1,0 +1,119 @@
+{
+  "resource": "/auth-key/{id}",
+  "path": "/connection-auth-keys/auth-key/10",
+  "httpMethod": "GET",
+  "headers": {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8,pl;q=0.7",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "GB",
+    "Host": "api.gierki.net",
+    "upgrade-insecure-requests": "1",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+    "Via": "2.0 9d8fe0c1ae8ea101e889036922584c93.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "N38J_7e3MPOkxrPY3pj7vfMLJ6i5-N-5fUl69tDxig3uKKzza9Xd2A==",
+    "X-Amzn-Trace-Id": "Root=1-5cf6ceff-fba649b054742d3ac3f8d63c",
+    "X-Forwarded-For": "88.98.243.200, 70.132.45.96",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept": [
+      "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3"
+    ],
+    "Accept-Encoding": [
+      "gzip, deflate, br"
+    ],
+    "Accept-Language": [
+      "en-GB,en-US;q=0.9,en;q=0.8,pl;q=0.7"
+    ],
+    "CloudFront-Forwarded-Proto": [
+      "https"
+    ],
+    "CloudFront-Is-Desktop-Viewer": [
+      "true"
+    ],
+    "CloudFront-Is-Mobile-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-SmartTV-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-Tablet-Viewer": [
+      "false"
+    ],
+    "CloudFront-Viewer-Country": [
+      "GB"
+    ],
+    "Host": [
+      "api.gierki.net"
+    ],
+    "upgrade-insecure-requests": [
+      "1"
+    ],
+    "User-Agent": [
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
+    ],
+    "Via": [
+      "2.0 9d8fe0c1ae8ea101e889036922584c93.cloudfront.net (CloudFront)"
+    ],
+    "X-Amz-Cf-Id": [
+      "N38J_7e3MPOkxrPY3pj7vfMLJ6i5-N-5fUl69tDxig3uKKzza9Xd2A=="
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-5cf6ceff-fba649b054742d3ac3f8d63c"
+    ],
+    "X-Forwarded-For": [
+      "88.98.243.200, 70.132.45.96"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": {
+    "id": "10"
+  },
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "xl12vi",
+    "resourcePath": "/auth-key/{id}",
+    "httpMethod": "GET",
+    "extendedRequestId": "axVH9HVrjoEFnLw=",
+    "requestTime": "04/Jun/2019:20:05:19 +0000",
+    "path": "/connection-auth-keys/auth-key/10",
+    "accountId": "277265293752",
+    "protocol": "HTTP/1.1",
+    "stage": "Prod",
+    "domainPrefix": "api",
+    "requestTimeEpoch": 1559678719713,
+    "requestId": "1406cec2-8704-11e9-b797-f526b71463cc",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "88.98.243.200",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+      "user": null
+    },
+    "domainName": "api.gierki.net",
+    "apiId": "u28fta85u6"
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

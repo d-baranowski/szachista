@@ -1,6 +1,7 @@
 'use strict';
 
-const databaseManager = require('./databaseManager');
+const databaseManager = require('./database-manager');
+const authenticateToken = require('./authenticate-token');
 const uuidv1 = require('uuid/v1');
 
 exports.handler = (event, context, callback) => {

@@ -151,11 +151,6 @@ exports.handler = function(event, context) {
     console.log('Received context:', JSON.stringify(context, null, 2));
 
 
-    //For more information on specifics of generating policy, refer to blueprint for API Gateway's Custom authorizer in Lambda console
-    var policy = new AuthPolicy(1, 1);
-    policy.allowAllMethods();
-    context.succeed(policy.build());
-    /*
     //Download PEM for your UserPool if not already downloaded
     if (!pems) {
     //Download the JWKs and save it as PEM
@@ -185,7 +180,7 @@ exports.handler = function(event, context) {
     } else {
         //PEMs are already downloaded, continue with validating the token
         ValidateToken(pems, event, context);
-    };*/
+    };
 };
 
 function ValidateToken(pems, event, context) {

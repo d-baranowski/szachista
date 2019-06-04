@@ -3,7 +3,7 @@
 const AWS = require('aws-sdk');
 let dynamo = new AWS.DynamoDB.DocumentClient();
 
-const TABLE_NAME = 'myHelloTable';
+const TABLE_NAME = 'connection_auth_keys';
 
 module.exports.initializateDynamoClient = newDynamo => {
 	dynamo = newDynamo;
@@ -26,7 +26,7 @@ module.exports.saveItem = item => {
 module.exports.getItem = itemId => {
 	const params = {
 		Key: {
-			itemId: itemId
+			key: itemId
 		},
 		TableName: TABLE_NAME
 	};
@@ -42,7 +42,7 @@ module.exports.getItem = itemId => {
 module.exports.deleteItem = itemId => {
 	const params = {
 		Key: {
-			itemId: itemId
+			key: itemId
 		},
 		TableName: TABLE_NAME
 	};
@@ -54,9 +54,9 @@ module.exports.updateItem = (itemId, paramsName, paramsValue) => {
 	const params = {
 		TableName: TABLE_NAME,
 		Key: {
-			itemId
+			key: itemId
 		},
-		ConditionExpression: 'attribute_exists(itemId)',
+		ConditionExpression: 'attribute_exists(key)',
 		UpdateExpression: 'set ' + paramsName + ' = :v',
 		ExpressionAttributeValues: {
 			':v': paramsValue
