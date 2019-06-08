@@ -3,11 +3,38 @@
 const databaseManager = require('./database-manager');
 const authenticateToken = require('./authenticate-token');
 const uuidv1 = require('uuid/v1');
+const AWS = require('aws-sdk');
 
-exports.handler = (event, context, callback) => {
+
+exports.handler = async (event, context, callback) => {
 	console.log(event);
 
-	switch (event.httpMethod) {
+	if (event.httpMethod !== "POST") {
+		sendResponse(404, `Unsupported method "${event.httpMethod}"`, callback);
+		return;
+	}
+
+	var params = {
+		AccessToken: event.body
+	  };
+	AWS.CognitoIdentityServiceProvider.getUser(params, (err, data) => {
+		if (err) {
+			console.log(err, err.stack); // an error occurred
+		}
+		else {
+			console.log(data);  
+			sendResponse(200, data); 
+		}
+	})
+
+	/*const token = await authenticateToken.default(event.body).catch((error) => {
+		console.log(error);
+		sendResponse(403, error, callback);
+	}); */
+
+	
+
+	/*switch (event.httpMethod) {
 		case 'DELETE':
 			deleteItem(event, callback);
 			break;
@@ -21,8 +48,8 @@ exports.handler = (event, context, callback) => {
 			updateItem(event, callback);
 			break;
 		default:
-			sendResponse(404, `Unsupported method "${event.httpMethod}"`, callback);
-	}
+
+	}*/
 };
 
 function saveItem(event, callback) {

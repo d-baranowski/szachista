@@ -5,19 +5,19 @@ unset AWS_SECRET_ACCESS_KEY
 unset AWS_SESSION_TOKEN
 export AWS_DEFAULT_PROFILE=devtales
 
-sam package \
-    --template-file api/simple-websockets-chat-app/template.yaml \
-    --output-template-file api/simple-websockets-chat-app/packaged.yaml \
-    --s3-bucket szachista-chat
-
-sam deploy \
-    --template-file api/simple-websockets-chat-app/packaged.yaml \
-    --stack-name szachista-chat \
-    --capabilities CAPABILITY_IAM \
-    --parameter-overrides MyParameterSample=MySampleValue
-
-aws cloudformation describe-stacks \
-    --stack-name szachista-chat --query 'Stacks[].Outputs'
+#sam package \
+#    --template-file api/simple-websockets-chat-app/template.yaml \
+#    --output-template-file api/simple-websockets-chat-app/packaged.yaml \
+#    --s3-bucket szachista-chat
+#
+#sam deploy \
+#    --template-file api/simple-websockets-chat-app/packaged.yaml \
+#    --stack-name szachista-chat \
+#    --capabilities CAPABILITY_IAM \
+#    --parameter-overrides MyParameterSample=MySampleValue
+#
+#aws cloudformation describe-stacks \
+#    --stack-name szachista-chat --query 'Stacks[].Outputs'
 
 
 sam package \

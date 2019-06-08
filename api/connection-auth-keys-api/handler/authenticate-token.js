@@ -18,10 +18,12 @@ exports.default = function (token) {
         }, function (error, response, body) {
             if (error) {
                 reject(error);
+                return;
             }
 
             if (response.statusCode !== 200) {
                 reject("Unexpected response " + JSON.stringify(response))
+                return;
             }
 
             let pems = {};
@@ -43,17 +45,20 @@ exports.default = function (token) {
 
             if (!decodedJwt) {
                 reject("Not a valid JWT token");
+                return;
             }
 
             //Fail if token is not from your UserPool
             if (decodedJwt.payload.iss !== iss) {
                 reject("invalid issuer");
+                return;
             }
 
             //Reject the jwt if it's not an 'Access Token'
-            if (decodedJwt.payload.token_use !== 'access') {
+         /*   if (decodedJwt.payload.token_use !== 'access') {
                 reject("Not an access token");
-            }
+                return;
+            }*/
 
             //Get the kid from the token and retrieve corresponding PEM
             const kid = decodedJwt.header.kid;
@@ -61,6 +66,7 @@ exports.default = function (token) {
 
             if (!pem) {
                 reject('Invalid access token');
+                return;
             }
 
             //Verify the signature of the JWT token to ensure it's really coming from your User Pool
@@ -68,9 +74,10 @@ exports.default = function (token) {
             jwt.verify(token, pem, {issuer: iss}, function (err, payload) {
                 if (err) {
                     reject(err);
-                } else {
-                    reject(payload);
+                    return;
                 }
+
+                resolve(payload);
             });
         });
     });
