@@ -6,9 +6,6 @@
   "author": "SAM CLI",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.434.0",
-    "jsonwebtoken": "^8.5.1",
-    "jwk-to-pem": "^2.0.1",
-    "request": "^2.88.0"
+    "aws-sdk": "^2.434.0"
   }
 }

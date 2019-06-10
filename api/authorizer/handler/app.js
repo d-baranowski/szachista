@@ -5,7 +5,6 @@ const authenticateToken = require('./authenticate-token');
 
 exports.handler = (event, context, callback) => {
     console.log("Event: " + event);
-    console.log("Context: " + context);
 
 	const token = event.authorizationToken;
 
@@ -38,4 +37,4 @@ const generatePolicy = function(principalId, effect, resource, context) {
     // Optional output with custom properties of the String, Number or Boolean type.
     authResponse.context = { stringified: JSON.stringify(context) };
     return authResponse;
-}
+};

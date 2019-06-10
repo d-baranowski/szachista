@@ -3,7 +3,7 @@ Description: A simple backend with a RESTful API endpoint using Amazon API Gatew
 Resources:
   AuthKeyApi:
     Properties:
-      CodeUri: s3://szachista-connection-auth-keys-api/a7a92fa67d8ec1f56f18f955d8464fac
+      CodeUri: s3://szachista-connection-auth-keys-api/e3a20cf0ccf078feca10e3d7c28a7c2d
       Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
       Events:
         create:

@@ -1,9 +1,11 @@
 "use strict";
 
+console.log("Loading function");
+
 const databaseManager = require("./database-manager");
 const uuidv1 = require("uuid/v1");
 
-exports.handler = async (event, context, callback) => {
+exports.handler = (event, context, callback) => {
   console.log("Event", event);
 
   if (event.httpMethod !== "POST") {
@@ -11,10 +13,10 @@ exports.handler = async (event, context, callback) => {
     return;
   }
 
-  const authentity = getAuthentity(event);
+  const authData = getAuthentity(event);
 
-  if (authentity.error) {
-    console.log(authentity);
+  if (authData.error) {
+    console.log(authData);
     sendResponse(401, "Invalid authentity", callback);
     return;
   }
@@ -32,15 +34,17 @@ exports.handler = async (event, context, callback) => {
   }
 
   const accessData = {
-    key: authentity.Username,
+    key: authData.authentity.Username,
     accessKey: uuidv1(),
     chatId: JSON.parse(event.body).chatId,
-    authentity: JSON.stringify(authentity)
+    authentity: JSON.stringify(authData.authentity)
   };
 
   databaseManager.saveItem(accessData).then(response => {
-    sendResponse(200, authentity.Username, callback);
-    return;
+    sendResponse(200, accessData.accessKey, callback);
+  }).catch(err => {
+    console.log(err);
+    sendResponse(500, "Unexpected Error", callback)
   });
 };
 
@@ -49,7 +53,7 @@ const getAuthentity = event => {
   let error;
 
   try {
-    authentity =  { 
+    authentity = {
 		...JSON.parse(event.requestContext.authorizer.stringified),
 		requestId: event.requestContext.requestId,
 		sourceIp: event.requestContext.identity.sourceIp,
