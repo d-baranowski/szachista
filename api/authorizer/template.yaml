@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Authorizer for my apis
+Resources:
+  AuthKeyAuthorizer:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: handler/
+      Handler: app.handler
+      Runtime: nodejs10.x
+      Description: Authorizer for my apis
+      MemorySize: 512
+      Timeout: 10

@@ -11,7 +11,9 @@ const ProfileLink = (userInfo: IUserDetail) => {
                     alt={userInfo.given_name}
                     src={userInfo.picture} />
     } else {
-        return (<a href={process.env.REACT_APP_LOGIN_URL as string}><Person/></a>)
+        let loginUrl = process.env.REACT_APP_LOGIN_URL;
+        loginUrl += "&scope=openid+profile+email+phone+aws.cognito.signin.user.admin"
+        return (<a href={loginUrl as string}><Person/></a>)
     }
 };
 

@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Authorizer for my apis
+Resources:
+  AuthKeyAuthorizer:
+    Properties:
+      CodeUri: s3://szachista-authorizer/4c622025d61281fa8897117290d12b53
+      Description: Authorizer for my apis
+      Handler: app.handler
+      MemorySize: 512
+      Runtime: nodejs10.x
+      Timeout: 10
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
