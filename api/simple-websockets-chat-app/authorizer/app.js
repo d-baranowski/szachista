@@ -11,14 +11,28 @@ exports.handler = async function(event, context, callback) {
     const sourceIp = event.requestContext.identity.sourceIp;
     const userAgent = event.requestContext.identity.userAgent;
 
+    if (!chatId || !token) {
+        console.log("Missing params", event.queryStringParameters);
+        callback("Unauthorised");
+        return;
+    }
+
     let accessItem;
 
     try {
-        accessItem = await dbManager.getItem(userId)
+        const result = await dbManager.getItem(userId);
+        accessItem = result.Item
     } catch (e) {
+        console.log(result);
         console.log(e);
         callback("Unauthorised");
         return;
+    }
+
+    if (!accessItem) {
+        console.log("No entry for user id");
+        callback("Unauthorised");
+        return
     }
 
     if (token !== accessItem.accessKey) {
@@ -49,11 +63,11 @@ exports.handler = async function(event, context, callback) {
         return;
     }
 
-    if (userAgent !== authentity.userAgent) {
-        console.log("Wrong user agent", accessItem.chatId);
-        callback("Unauthorised");
-        return;
-    }
+    // if (userAgent !== authentity.userAgent) {
+    //     console.log("Wrong user agent", accessItem.userAgent);
+    //     callback("Unauthorised");
+    //     return;
+    // }
 
     try {
         dbManager.deleteItem(userId);

@@ -4,10 +4,9 @@ interface IErrorHandler {
 
 class ErrorHandler implements IErrorHandler {
     handle(error: any) {
-        return new Promise((accept) => {
-            console.log(error);
-            accept();
-        });
+        console.log(error);
+
+        return Promise.resolve();
     }
 }
 

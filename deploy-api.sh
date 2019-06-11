@@ -18,6 +18,7 @@ export AWS_DEFAULT_PROFILE=devtales
 #
 #aws cloudformation describe-stacks \
 #    --stack-name szachista-authorizer --query 'Stacks[].Outputs'
+#
 
 #sam package \
 #    --template-file api/simple-websockets-chat-app/template.yaml \
@@ -32,7 +33,6 @@ export AWS_DEFAULT_PROFILE=devtales
 #
 #aws cloudformation describe-stacks \
 #    --stack-name szachista-chat --query 'Stacks[].Outputs'
-
 
 sam package \
     --template-file api/connection-auth-keys-api/template.yaml \

@@ -72,7 +72,12 @@ const getAuthentity = event => {
 function sendResponse(statusCode, message, callback) {
   const response = {
     statusCode: statusCode,
-    body: JSON.stringify(message)
+    body: JSON.stringify(message),
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
+      "Access-Control-Allow-Methods": "POST, GET, OPTIONS"
+    }
   };
   callback(null, response);
 }

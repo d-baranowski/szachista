@@ -1,6 +1,18 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
+Globals:
+  Api:
+    Cors:
+      AllowMethods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+      AllowOrigin: "'*'"
+    Auth:
+      DefaultAuthorizer: MyLambdaTokenAuth # OPTIONAL, if you use IAM permissions, specify AWS_IAM.
+      Authorizers:
+        MyLambdaTokenAuth:
+          FunctionPayloadType: TOKEN # OPTIONAL; Defaults to 'TOKEN' when `FunctionArn` is specified
+          FunctionArn: arn:aws:lambda:eu-west-1:277265293752:function:szachista-authorizer-AuthKeyAuthorizer-NK9XJEHQIVCW
 Resources:
   AuthKeyApi:
     Type: 'AWS::Serverless::Function'
@@ -34,11 +46,6 @@ Resources:
           Properties:
             Path: /auth-key
             Method: POST
-        rest:
-          Type: Api
-          Properties:
-            Path: /auth-key/{id}
-            Method: ANY
   myHelloTable:
     Type: 'AWS::DynamoDB::Table'
     Properties:

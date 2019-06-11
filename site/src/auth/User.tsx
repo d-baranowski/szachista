@@ -11,7 +11,24 @@ export const EMPTY_USER: IAwsTokenResponse = {
     "expires_in": 0
 };
 
-export const EMPTY_USER_INFO = {};
+export const EMPTY_USER_INFO: IIdTokenDeceoded = {
+    "at_hash": "",
+    "sub": "",
+    "cognito:groups": [],
+    "iss": "",
+    "cognito:username": "",
+    "given_name": "",
+    "picture": "",
+    "aud": "",
+    "token_use": "",
+    "auth_time": 0,
+    "name": "",
+    "exp": 0,
+    "iat": 0,
+    "family_name": "",
+    "email": "",
+    "identities": []
+};
 
 class User {
     getJWT(): string {
@@ -37,7 +54,7 @@ class User {
         return JSON.parse(jsonString);
     }
 
-    getUserInfo(): IIdTokenDeceoded | {} {
+    getUserInfo(): IIdTokenDeceoded {
         const idToken = this.getAWSToken().id_token;
 
         if (!idToken) {

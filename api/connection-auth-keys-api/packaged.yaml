@@ -1,20 +1,27 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
+Globals:
+  Api:
+    Auth:
+      Authorizers:
+        MyLambdaTokenAuth:
+          FunctionArn: arn:aws:lambda:eu-west-1:277265293752:function:szachista-authorizer-AuthKeyAuthorizer-NK9XJEHQIVCW
+          FunctionPayloadType: TOKEN
+      DefaultAuthorizer: MyLambdaTokenAuth
+    Cors:
+      AllowHeaders: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'''
+      AllowMethods: '''DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'''
+      AllowOrigin: '''*'''
 Resources:
   AuthKeyApi:
     Properties:
-      CodeUri: s3://szachista-connection-auth-keys-api/e3a20cf0ccf078feca10e3d7c28a7c2d
+      CodeUri: s3://szachista-connection-auth-keys-api/1f3c0bc2a08cb2e16e965cfd798216c1
       Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
       Events:
         create:
           Properties:
             Method: POST
             Path: /auth-key
-          Type: Api
-        rest:
-          Properties:
-            Method: ANY
-            Path: /auth-key/{id}
           Type: Api
       Handler: app.handler
       MemorySize: 512
