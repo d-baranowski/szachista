@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {CSSProperties, useEffect, useState} from 'react';
 import ChatWindow from "../../chat/components/ChatWindow";
 import createStore from "../../state/createStore";
 import ConnectionManager, {ISubscriptionControls} from "../connection/ConnectionManager";
@@ -26,6 +26,13 @@ interface Props {
     user: IUserDetail
 }
 
+const iconStyle: CSSProperties = {
+    width: "fit-content",
+    position: "absolute",
+    right: 15,
+    bottom: 15,
+};
+
 const ChatWidowContainer: React.FunctionComponent<Props> = (props) => {
     useEffect(() => {
         subscription = ConnectionManager.subscribe({
@@ -45,6 +52,8 @@ const ChatWidowContainer: React.FunctionComponent<Props> = (props) => {
         }
     }, []);
 
+    const [isOpen, setIsOpen] = useState(true);
+
     const onInput = (e: message) => {
         if (!props.user.name) {
             chatLobbyStore.messages = [...chatLobbyStore.messages, {type: "text", data: {text: "Please log in"}}];
@@ -60,18 +69,29 @@ const ChatWidowContainer: React.FunctionComponent<Props> = (props) => {
         })
     };
 
-    return <ChatWindow
-        me={props.user}
-        messageList={props.messages}
-        onUserInputSubmit={onInput}
-        onClose={()=>{}}
-        showEmoji={true}
-        isOpen={true}
-        agentProfile={{
-            teamName: "Chess Lobby",
-            imageUrl: "http://placekitten.com/200/300"
-        }}
-    />
+    return (
+        <>
+            <ChatWindow
+                me={props.user}
+                messageList={props.messages}
+                onUserInputSubmit={onInput}
+                onClose={() => {
+                    setIsOpen(false)
+                }}
+                showEmoji={true}
+                isOpen={isOpen}
+                agentProfile={{
+                    teamName: "Chess Lobby",
+                    imageUrl: "http://placekitten.com/200/300"
+                }}
+            />
+            {!isOpen && (
+                <div style={iconStyle} onClick={() => setIsOpen(true)}>
+                    <img className="sc-header--img" src={"http://placekitten.com/200/300"} alt="" />
+                </div>
+            )}
+        </>
+    )
 };
 
 

@@ -63,11 +63,11 @@ exports.handler = async function(event, context, callback) {
         return;
     }
 
-    // if (userAgent !== authentity.userAgent) {
-    //     console.log("Wrong user agent", accessItem.userAgent);
-    //     callback("Unauthorised");
-    //     return;
-    // }
+    if (userAgent !== authentity.userAgent) {
+        console.log("Wrong user agent", accessItem.userAgent);
+        callback("Unauthorised");
+        return;
+    }
 
     try {
         dbManager.deleteItem(userId);
