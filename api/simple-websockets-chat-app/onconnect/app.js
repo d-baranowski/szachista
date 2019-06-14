@@ -1,12 +1,18 @@
-// Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
+console.log("Loading function");
 
-var AWS = require("aws-sdk");
+const AWS = require("aws-sdk");
+const getAuthentity = require("../../common/getAuthentity");
+
 AWS.config.update({ region: process.env.AWS_REGION });
-var DDB = new AWS.DynamoDB({ apiVersion: "2012-10-08" });
+const DDB = new AWS.DynamoDB({ apiVersion: "2012-10-08" });
 
 exports.handler = function (event, context, callback) {
-  var putParams = {
+  console.log("Received event: ", event);
+
+  const authData = getAuthentity(event);
+  console.log("Ladies and gentlemen", authData);
+
+  const putParams = {
     TableName: process.env.TABLE_NAME,
     Item: {
       connectionId: { S: event.requestContext.connectionId }

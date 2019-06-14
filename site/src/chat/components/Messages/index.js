@@ -26,12 +26,14 @@ class Message extends Component {
     const {author = {}} = message;
     let contentClassList = [
       "sc-message--content",
-      (author.email === me.email ? "sent" : "received")
+      (author.email === me.email ? "sent" : "received"),
+      (message.delivered ? "delivered" : "pending")
     ];
     return (
         <div className="sc-message">
           <div className={contentClassList.join(" ")}>
             <div className="sc-message--avatar" style={{
+              //https://api.adorable.io/avatars/200/dan CUTE
               backgroundImage: `url(${author.picture ? author.picture : chatIconUrl})`
             }}></div>
             {this._renderMessageOfType(message.type)}

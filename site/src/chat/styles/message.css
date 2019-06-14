@@ -54,6 +54,14 @@
   margin-right: 40px;
 }
 
+.sc-message--content.delivered .sc-message--text {
+  opacity: 1;
+}
+
+.sc-message--content.pending .sc-message--text {
+  opacity: 0.7;
+}
+
 .sc-message--emoji {
   font-size: 40px;
 }

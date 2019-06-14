@@ -2,6 +2,7 @@
 
 console.log("Loading function");
 
+const getAuthentity = require("../../common/getAuthentity");
 const databaseManager = require("./database-manager");
 const uuidv1 = require("uuid/v1");
 
@@ -41,32 +42,12 @@ exports.handler = (event, context, callback) => {
   };
 
   databaseManager.saveItem(accessData).then(response => {
+    console.log(response);
     sendResponse(200, accessData.accessKey, callback);
   }).catch(err => {
     console.log(err);
     sendResponse(500, "Unexpected Error", callback)
   });
-};
-
-const getAuthentity = event => {
-  let authentity;
-  let error;
-
-  try {
-    authentity = {
-		...JSON.parse(event.requestContext.authorizer.stringified),
-		requestId: event.requestContext.requestId,
-		sourceIp: event.requestContext.identity.sourceIp,
-		userAgent: event.requestContext.identity.userAgent
-	};
-  } catch (e) {
-    error = e;
-  }
-
-  return {
-    error,
-    authentity
-  };
 };
 
 function sendResponse(statusCode, message, callback) {
