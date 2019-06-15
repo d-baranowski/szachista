@@ -2,7 +2,7 @@
 
 console.log("Loading function");
 
-const getAuthentity = require("../../common/getAuthentity");
+const getAuthentity = require("./getAuthentity");
 const databaseManager = require("./database-manager");
 const uuidv1 = require("uuid/v1");
 

@@ -28,7 +28,8 @@ Resources:
     Properties:
       ApiId: !Ref SimpleChatWebSocket
       RouteKey: $connect
-      AuthorizationType: NONE
+      AuthorizationType: CUSTOM
+      AuthorizerId: !Ref Authorizer
       OperationName: ConnectRoute
       Target: !Join
         - '/'
@@ -211,14 +212,15 @@ Resources:
                 - 'execute-api:ManageConnections'
               Resource:
                 - !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${SimpleChatWebSocket}/*'
-  Type: AWS::ApiGatewayV2::Authorizer
-  Properties:
-    ApiId: !Ref SimpleChatWebSocket
-    AuthorizerType: REQUEST
-    AuthorizerUri: !Ref AuthorizerFunction
-    IdentitySource:
-      - $method.request.querystring.Authorizer
-    Name: chat_authorizer
+  Authorizer:
+    Type: AWS::ApiGatewayV2::Authorizer
+    Properties:
+      ApiId: !Ref SimpleChatWebSocket
+      AuthorizerType: REQUEST
+      AuthorizerUri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${AuthorizerFunction}/invocations'
+      IdentitySource:
+      - "route.request.querystring.Authorizer"
+      Name: sam_chat_authorizer
   SendMessagePermission:
     Type: AWS::Lambda::Permission
     DependsOn:

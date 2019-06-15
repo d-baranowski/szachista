@@ -1,5 +1,4 @@
-// Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
+console.log("Loading function")
 
 const AWS = require('aws-sdk');
 
@@ -8,6 +7,8 @@ const ddb = new AWS.DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 const { TABLE_NAME } = process.env;
 
 exports.handler = async (event, context) => {
+  console.log("Received Event", event)
+
   let connectionData;
   
   try {
@@ -20,6 +21,15 @@ exports.handler = async (event, context) => {
     apiVersion: '2018-11-29',
     endpoint: event.requestContext.domainName + '/' + event.requestContext.stage
   });
+
+  const authData = getAuthentity(event);
+
+  if (authData.error) {
+    console.log(authData);
+    sendResponse(401, "Invalid authentity", callback);
+    return;
+  }
+
   
   const postData = JSON.parse(event.body).data;
   

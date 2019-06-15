@@ -58,7 +58,7 @@ exports.handler = async function(event, context, callback) {
     }
 
     if (sourceIp !== authentity.sourceIp) {
-        console.log("Wrong source ip", accessItem.chatId);
+        console.log("Wrong source ip", authentity.sourceIp);
         callback("Unauthorised");
         return;
     }
