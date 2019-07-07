@@ -56,7 +56,8 @@ const ManagedSocketConnection: IManagedSocketConnection = (props) => {
         return new Promise((resolve, reject) => {
             getParams().then(params => {
                 if (!params) {
-                    reject("No params")
+                    reject("No params");
+                    return;
                 }
 
                 ws = new WebSocket(encodeURI(props.address + params));
@@ -78,12 +79,16 @@ const ManagedSocketConnection: IManagedSocketConnection = (props) => {
                 ws.onmessage = function (event) {
                     props.onMessage(event);
                 };
+            }).catch(err => {
+                ErrorHandler.handle(err);
             });
         });
     };
 
     // noinspection JSIgnoredPromiseFromCall
-    start();
+    start().catch(err => {
+        ErrorHandler.handle(err);
+    });
 
     return {
         send: (msg: any) => {

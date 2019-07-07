@@ -17,12 +17,12 @@ exports.default = function (token) {
         congito.getUser(params, (err, data) => {
             if (err) {
                 console.log(err, err.stack); // an error occurred
-                reject(err)
+                reject(err);
             }
             else {
                 console.log(data);
-                resolve(data)
+                resolve(data);
             }
         })
-    })
-}
+    });
+};

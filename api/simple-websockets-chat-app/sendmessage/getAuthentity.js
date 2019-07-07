@@ -4,7 +4,7 @@ const getAuthentity = event => {
 
     try {
         authentity = {
-            ...JSON.parse(event.requestContext.authorizer.stringified),
+            ...JSON.parse(JSON.parse(event.requestContext.authorizer.stringified).authentity),
             requestId: event.requestContext.requestId,
             sourceIp: event.requestContext.identity.sourceIp,
             userAgent: event.requestContext.identity.userAgent

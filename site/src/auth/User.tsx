@@ -63,9 +63,6 @@ class User {
 
         return jwt.decode(idToken) as IIdTokenDeceoded;
     }
-
-    // USE THIS TODO https://aws.amazon.com/blogs/mobile/integrating-amazon-cognito-user-pools-with-api-gateway/
-    // TODO THIS IS USEFUL too https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html#amazon-cognito-user-pools-using-tokens-step-2
 }
 
 export default new User();

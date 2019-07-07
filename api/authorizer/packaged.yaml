@@ -3,7 +3,7 @@ Description: Authorizer for my apis
 Resources:
   AuthKeyAuthorizer:
     Properties:
-      CodeUri: s3://szachista-authorizer/3e3804ef6dc13b232bdb6c7311000944
+      CodeUri: s3://szachista-authorizer/056361cad893114ef0f790fee551113c
       Description: Authorizer for my apis
       Handler: app.handler
       MemorySize: 512

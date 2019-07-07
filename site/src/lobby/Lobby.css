@@ -1,0 +1,9 @@
+.lobby {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.lobby .game-room {
+    margin: 15px;
+}

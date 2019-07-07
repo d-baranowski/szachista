@@ -2,13 +2,13 @@ import superagent from 'superagent';
 import {IAwsTokenResponse} from "../model/IAwsTokenResponse";
 import User from "./User";
 
-interface ITokenFetcher {
+type ITokenFetcher = {
     getToken: (code: string) => Promise<IAwsTokenResponse>,
-    refreshToken: () => any,
+    refreshToken: () => Promise<IAwsTokenResponse>,
 }
 
-class TokenFetcher implements ITokenFetcher {
-    getToken(code: string) {
+const TokenFetcher: ITokenFetcher = {
+    getToken: (code: string) => {
         const promise = new Promise((accept, reject) => {
             superagent.post("https://logins.gierki.net/oauth2/token")
                 .type('form')
@@ -20,9 +20,9 @@ class TokenFetcher implements ITokenFetcher {
         });
 
         return promise as Promise<IAwsTokenResponse>;
-    }
+    },
 
-    refreshToken() {
+    refreshToken: () => {
         const promise = new Promise((accept, reject) => {
             const refreshToken = User.getAWSToken().refresh_token;
             superagent.post("https://logins.gierki.net/oauth2/token")
@@ -41,13 +41,6 @@ class TokenFetcher implements ITokenFetcher {
 
         return promise as Promise<IAwsTokenResponse>;
     }
-}
+};
 
-// @ts-ignore
-window.TokenFetcher = new TokenFetcher();
-export default new TokenFetcher();
-
-//TODO https://www.integralist.co.uk/posts/cognito/#aws-hosted-ui
-//TODO https://hackernoon.com/aws-cognito-user-pools-or-identity-pools-what-do-i-use-to-secure-my-api-1d69cfbe99e1
-
-//TODO https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html
+export default TokenFetcher;

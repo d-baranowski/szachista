@@ -2,15 +2,20 @@
 
 const authenticateToken = require('./authenticate-token');
 
+const removePath = (val) => {
+    const arr = val.split("/");
+
+    return arr[0] + "/*"
+};
 
 exports.handler = (event, context, callback) => {
-    console.log("Event: " + event);
+    console.log("Event: ", event);
 
 	const token = event.authorizationToken;
 
 	authenticateToken.default(token)
 	.then(response => {
-		callback(null, generatePolicy('user', 'Allow', event.methodArn, response));
+		callback(null, generatePolicy('user', 'Allow', removePath(event.methodArn), response));
 	})
 	.catch((error) => {
 		console.log(error);

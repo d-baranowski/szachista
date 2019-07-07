@@ -1,13 +1,14 @@
-console.log("Loading function")
+console.log("Loading function");
 
 const AWS = require('aws-sdk');
+const getAuthentity = require("./getAuthentity");
 
 const ddb = new AWS.DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 
 const { TABLE_NAME } = process.env;
 
 exports.handler = async (event, context) => {
-  console.log("Received Event", event)
+  console.log("Received Event", event);
 
   let connectionData;
   
@@ -26,16 +27,33 @@ exports.handler = async (event, context) => {
 
   if (authData.error) {
     console.log(authData);
-    sendResponse(401, "Invalid authentity", callback);
-    return;
+    throw authData.error;
   }
 
-  
-  const postData = JSON.parse(event.body).data;
+  console.log(authData);
+
+  const userAttributes = authData.authentity.UserAttributes.reduce((accumulator, currentValue) => {
+    accumulator[currentValue.Name] = currentValue.Value;
+    return accumulator;
+  }, {});
+
+
+
+  const postData = JSON.parse(JSON.parse(event.body).data);
+
+
+  postData.author.picture = userAttributes.picture;
+  postData.author.name = userAttributes.name;
+  postData.author.given_name = userAttributes.given_name;
+  postData.author.family_name = userAttributes.family_name;
+  postData.author.email = userAttributes.email;
   
   const postCalls = connectionData.Items.map(async ({ connectionId }) => {
     try {
-      await apigwManagementApi.postToConnection({ ConnectionId: connectionId, Data: postData }).promise();
+      await apigwManagementApi.postToConnection({
+        ConnectionId: connectionId,
+        Data: JSON.stringify(postData)
+      }).promise();
     } catch (e) {
       if (e.statusCode === 410) {
         console.log(`Found stale connection, deleting ${connectionId}`);

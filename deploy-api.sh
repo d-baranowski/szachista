@@ -18,21 +18,21 @@ export AWS_DEFAULT_PROFILE=devtales
 #
 #aws cloudformation describe-stacks \
 #    --stack-name szachista-authorizer --query 'Stacks[].Outputs'
+
+
+#sam package \
+#    --template-file api/simple-websockets-chat-app/template.yaml \
+#    --output-template-file api/simple-websockets-chat-app/packaged.yaml \
+#    --s3-bucket szachista-chat
 #
-
-sam package \
-    --template-file api/simple-websockets-chat-app/template.yaml \
-    --output-template-file api/simple-websockets-chat-app/packaged.yaml \
-    --s3-bucket szachista-chat
-
-sam deploy \
-    --template-file api/simple-websockets-chat-app/packaged.yaml \
-    --stack-name szachista-chat \
-    --capabilities CAPABILITY_IAM \
-    --parameter-overrides MyParameterSample=MySampleValue
-
-aws cloudformation describe-stacks \
-    --stack-name szachista-chat --query 'Stacks[].Outputs'
+#sam deploy \
+#    --template-file api/simple-websockets-chat-app/packaged.yaml \
+#    --stack-name szachista-chat \
+#    --capabilities CAPABILITY_IAM \
+#    --parameter-overrides MyParameterSample=MySampleValue
+#
+#aws cloudformation describe-stacks \
+#    --stack-name szachista-chat --query 'Stacks[].Outputs'
 
 #sam package \
 #    --template-file api/connection-auth-keys-api/template.yaml \
@@ -47,3 +47,17 @@ aws cloudformation describe-stacks \
 #
 #aws cloudformation describe-stacks \
 #    --stack-name szachista-connection-auth-keys-api --query 'Stacks[].Outputs'
+
+sam package \
+    --template-file api/lobby/template.yaml \
+    --output-template-file api/lobby/packaged.yaml \
+    --s3-bucket szachista-chess-lobby
+
+sam deploy \
+    --template-file api/lobby/packaged.yaml \
+    --stack-name szachista-chess-lobby \
+    --capabilities CAPABILITY_IAM \
+    --parameter-overrides MyParameterSample=MySampleValue
+
+aws cloudformation describe-stacks \
+    --stack-name szachista-chess-lobby --query 'Stacks[].Outputs'

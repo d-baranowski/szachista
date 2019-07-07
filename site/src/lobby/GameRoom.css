@@ -1,0 +1,84 @@
+.player-avatar {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #131826;
+}
+
+.game-room .label {
+    color: #efefef;
+    font-size: 14px;
+    font-weight: 900;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    text-align: center;
+    width: 100%;
+}
+
+.vs {
+    height: 30px;
+    width: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.player-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.game-room {
+    border: 1px solid #333A44;
+    background-color: #494e55;
+    padding: 15px;
+    width: 320px;
+    max-width: 320px;
+    min-width: 320px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 400ms ease-in-out;
+}
+
+.game-room-image-frame {
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+.game-room-content {
+    color: white;
+    font-weight: 700;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    transition: color 200ms ease-in-out;
+}
+
+.game-room:hover .game-room-content {
+    color: #090D12;
+}
+
+a {
+    text-decoration: none;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-evenly;
+    color: #EFEFEF;
+    font-size: 14px;
+    line-height: 24px;
+    vertical-align: middle;
+    margin-top: 10px;
+}
+
+.icon-row {
+    padding: 5px;
+    display: flex;
+    text-align: center;
+}
+
+.icon-row p {
+    margin-left: 5px;
+}
