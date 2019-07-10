@@ -23,7 +23,7 @@ export interface IActiveGamesStore {
 const ActiveGamesStore: IActiveGamesStore = createStore({
     items: [],
     setActiveGames: (items: IActiveGame[]) => {
-        ActiveGamesStore.items = items
+        ActiveGamesStore.items = [...items]
     }
 });
 

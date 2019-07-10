@@ -11,7 +11,7 @@ Globals:
 Resources:
   ChessLobbyApi:
     Properties:
-      CodeUri: s3://szachista-chess-lobby/0a17f1bd9e6e8123bf6efb4a56555aa6
+      CodeUri: s3://szachista-chess-lobby/cd373b4197331c0653fb45c3e3677f94
       Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
       Events:
         cors:

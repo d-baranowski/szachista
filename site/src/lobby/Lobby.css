@@ -1,9 +1,41 @@
-.lobby {
+.lobby-games {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    position: absolute;
 }
 
 .lobby .game-room {
     margin: 15px;
+}
+
+.btn {
+    height: 45px;
+    width: 240px;
+    color: #efefef;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.success-btn {
+    background: #2db083;
+}
+
+.fail-btn {
+    background: #ff4646;
+}
+
+.game-create {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    margin-left: -120px;
+}
+
+.close-button {
+    float: right;
+    cursor: pointer;
 }

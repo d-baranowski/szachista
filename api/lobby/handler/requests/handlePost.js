@@ -26,38 +26,47 @@ module.exports = handlePost = (event, context, callback, accessData) => {
 
     if (!timeAllowed) {
         sendResponse(400, "Time allowed is missing", callback)
+        return;
     }
 
     if (!Number.isInteger(timeAllowed)) {
         sendResponse(400, "Time allowed is wrong format", callback)
+        return;
     }
 
     if (timeAllowed < 60 * 1000 || timeAllowed > 60 * 60 * 1000) {
         sendResponse(400, "Time allowed needs to be between 1 minute and 60 minutes", callback)
+        return;
     }
 
     if (!Number.isInteger(tokensToEnter)) {
         sendResponse(400, "Tokens to enter is wrong format", callback)
+        return;
     }
 
-    if (tokensToEnter < 0 || tokensToEnter > 99999) {
-        sendResponse(400, "Tokens to enter needs to be between 1 and 99999", callback)
+    if (tokensToEnter < 0 || tokensToEnter > 9999) {
+        sendResponse(400, "Tokens to enter needs to be between 1 and 9999", callback)
+        return;
     }
 
     if (typeof gameName !== "string") {
         sendResponse(400, "Game name is wrong format", callback)
+        return;
     }
 
     if (gameName.trim().length < 5 || gameName.trim().length > 25) {
         sendResponse(400, "Game name needs to be between 5 and 25 characters", callback)
+        return;
     }
 
     if (typeof password !== "string") {
         sendResponse(400, "Password is wrong format", callback)
+        return;
     }
 
     if (password.trim().length < 0 || password.trim().length > 50) {
         sendResponse(400, "Password needs to be between 0 and 50 characters", callback)
+        return;
     }
 
     const userAtributes = accessData.UserAttributes.reduce((object, value) => {

@@ -7,7 +7,7 @@ function sendResponse(statusCode, message, callback) {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true,
             "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
-            "Access-Control-Allow-HEADERS": "Authorization"
+            "Access-Control-Allow-HEADERS": "Authorization, Content-Type"
         }
     };
     callback(null, response);
