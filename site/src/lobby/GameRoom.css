@@ -1,14 +1,3 @@
-.game-room .label {
-    color: #efefef;
-    font-size: 14px;
-    font-weight: 900;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-    text-align: center;
-    width: 100%;
-}
-
 .game-room {
     border: 1px solid #333A44;
     background-color: #494e55;
@@ -41,24 +30,4 @@
 
 a {
     text-decoration: none;
-}
-
-.game-info {
-    display: flex;
-    justify-content: space-evenly;
-    color: #EFEFEF;
-    font-size: 14px;
-    line-height: 24px;
-    vertical-align: middle;
-    margin-top: 10px;
-}
-
-.icon-row {
-    padding: 5px;
-    display: flex;
-    text-align: center;
-}
-
-.icon-row p {
-    margin-left: 5px;
 }

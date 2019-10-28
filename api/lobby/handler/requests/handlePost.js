@@ -87,13 +87,16 @@ module.exports = handlePost = (event, context, callback, accessData) => {
         tokensToEnter,
         playerOneUsername:  accessData.Username,
         playerOnePicture: userAtributes.picture,
-        playerTwoUsername:  accessData.Username,
-        playerTwoPicture: userAtributes.picture
+        playerTwoUsername: null,
+        playerTwoPicture: null
     };
 
     databaseManager.createItem(item)
         .then(() => {
-            sendResponse(200, item.key, callback)
+            sendResponse(200, {
+                ...item,
+                password: item.password ? "REQUIRED" : "NOTREQUIRED"
+            }, callback)
         })
         .catch(err => {
             console.log(err);

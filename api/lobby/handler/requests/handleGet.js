@@ -11,7 +11,7 @@ const getActiveGames = (event, context, callback/*, accessData */) => {
             const mapped = items.Items.map((item) => {
                 return {
                     ...item,
-                    password: item.password === "NOTREQUIRED" ? "NOTREQUIRED" : "REQUIRED"
+                    password: item.password ? "REQUIRED" : "NOTREQUIRED"
                 }
             });
 

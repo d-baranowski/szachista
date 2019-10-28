@@ -2,8 +2,8 @@ import React from 'react';
 import "./PlayerInfo.css"
 
 type Props = {
-    playerOnePicture: string,
-    playerTwoPicture: string
+    playerOnePicture?: string,
+    playerTwoPicture?: string
 }
 
 const PlayerInfo: React.FunctionComponent<Props> = (props) => (

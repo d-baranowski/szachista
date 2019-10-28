@@ -1,0 +1,19 @@
+.game-info {
+    display: flex;
+    justify-content: space-evenly;
+    color: #EFEFEF;
+    font-size: 14px;
+    line-height: 24px;
+    vertical-align: middle;
+    margin-top: 10px;
+}
+
+.icon-row {
+    padding: 5px;
+    display: flex;
+    text-align: center;
+}
+
+.icon-row p {
+    margin-left: 5px;
+}

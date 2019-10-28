@@ -1,5 +1,6 @@
 import superagent from 'superagent';
 import User from "../auth/User";
+import {IActiveGame} from "./ActiveGamesStore";
 
 type ILobbyParams = {
     gameName: string,
@@ -9,7 +10,7 @@ type ILobbyParams = {
     password: string
 }
 
-const lobbyGameCreate = (params: ILobbyParams): Promise<any> => {
+const lobbyGameCreate = (params: ILobbyParams): Promise<IActiveGame> => {
     return new Promise((accept, reject) => {
 
         const accessToken =  User.getAWSToken().access_token;
