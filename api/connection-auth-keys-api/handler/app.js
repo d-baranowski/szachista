@@ -37,7 +37,7 @@ exports.handler = (event, context, callback) => {
   const accessData = {
     key: authData.authentity.Username,
     accessKey: uuidv1(),
-    chatId: JSON.parse(event.body).chatId,
+    authContext: JSON.parse(event.body).authContext,
     authentity: JSON.stringify(authData.authentity)
   };
 

@@ -1,11 +1,11 @@
 import superagent from 'superagent';
-import User from "../../auth/User";
+import User from "../User";
 
-type IChatAuthKeyFetchParams = {
-    chatId: string
+type IWebSocketsAuthKeyFetchParams = {
+    authContext: string
 }
 
-const chatAuthKeyFetch = (params: IChatAuthKeyFetchParams): Promise<string> => {
+const webSocketsAuthKeyFetch = (params: IWebSocketsAuthKeyFetchParams): Promise<string> => {
     return new Promise((accept, reject) => {
 
         const accessToken =  User.getAWSToken().access_token;
@@ -17,7 +17,7 @@ const chatAuthKeyFetch = (params: IChatAuthKeyFetchParams): Promise<string> => {
         superagent.post("https://api.gierki.net/connection-auth-keys/auth-key")
             .send(
                 {
-                    "chatId": params.chatId
+                    "authContext": params.authContext
                 }
             )
             .set('Authorization', accessToken)
@@ -25,4 +25,4 @@ const chatAuthKeyFetch = (params: IChatAuthKeyFetchParams): Promise<string> => {
     });
 };
 
-export default chatAuthKeyFetch;
+export default webSocketsAuthKeyFetch;

@@ -41,8 +41,8 @@ exports.handler = async function(event, context, callback) {
         return;
     }
 
-    if (chatId !== accessItem.chatId) {
-        console.log("Wrong chatId", accessItem.chatId);
+    if (chatId !== accessItem.authContext) {
+        console.log("Wrong chatId", chatId);
         callback("Unauthorised");
         return;
     }

@@ -1,51 +1,37 @@
 AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
 Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
+Globals:
+  Api:
+    Cors:
+      AllowMethods: '''DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'''
+      AllowHeaders: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'''
+      AllowOrigin: '''*'''
+    Auth:
+      DefaultAuthorizer: MyLambdaTokenAuth
+      Authorizers:
+        MyLambdaTokenAuth:
+          FunctionPayloadType: TOKEN
+          FunctionArn: arn:aws:lambda:eu-west-1:277265293752:function:szachista-authorizer-AuthKeyAuthorizer-NK9XJEHQIVCW
 Resources:
-  ChessLobbyApi:
+  AuthKeyApi:
+    Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://szachista-chess-lobby/0a789ff25950e650346d69bfceda9d62
-      Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
-      Events:
-        cors:
-          Properties:
-            Method: OPTIONS
-            Path: /chess_lobby/{id}
-          Type: Api
-        corsAll:
-          Properties:
-            Method: OPTIONS
-            Path: /chess_lobby
-          Type: Api
-        create:
-          Properties:
-            Method: POST
-            Path: /chess_lobby
-          Type: Api
-        read:
-          Properties:
-            Method: GET
-            Path: /chess_lobby/{id}
-          Type: Api
-        readAll:
-          Properties:
-            Method: GET
-            Path: /chess_lobby
-          Type: Api
-        update:
-          Properties:
-            Method: PUT
-            Path: /chess_lobby/{id}
-          Type: Api
+      CodeUri: s3://szachista-connection-auth-keys-api/c93047dd415d750184e4f0935e4b5c57
       Handler: app.handler
+      Runtime: nodejs10.x
+      Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
       MemorySize: 512
+      Timeout: 10
       Policies:
-      - Statement:
-        - Action:
+      - Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
           - dynamodb:DeleteItem
           - dynamodb:GetItem
           - dynamodb:PutItem
           - dynamodb:UpdateItem
-          Effect: Allow
           Resource:
             Fn::Join:
             - ''
@@ -53,13 +39,17 @@ Resources:
               - Ref: AWS::Region
               - ':'
               - Ref: AWS::AccountId
-              - :table/chess_lobby
-        Version: '2012-10-17'
-      Runtime: nodejs10.x
-      Timeout: 10
-    Type: AWS::Serverless::Function
-  chessLobbyTable:
+              - :table/connection_auth_keys
+      Events:
+        create:
+          Type: Api
+          Properties:
+            Path: /auth-key
+            Method: POST
+  myHelloTable:
+    Type: AWS::DynamoDB::Table
     Properties:
+      TableName: connection_auth_keys
       AttributeDefinitions:
       - AttributeName: key
         AttributeType: S
@@ -69,6 +59,3 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
-      TableName: chess_lobby
-    Type: AWS::DynamoDB::Table
-Transform: AWS::Serverless-2016-10-31

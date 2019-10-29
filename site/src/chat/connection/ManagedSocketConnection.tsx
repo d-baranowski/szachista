@@ -1,6 +1,6 @@
 // @ts-ignore
 
-import chatAuthKeyFetch from "../chat-auth-key-fetcher/chatAuthKeyFetch";
+import webSocketsAuthKeyFetch from "../../auth/web-sockets-auth-key-fetcher/webSocketsAuthKeyFetch";
 import User, {EMPTY_USER_INFO} from "../../auth/User";
 import ErrorHandler from "../../error/ErrorHandler";
 
@@ -22,7 +22,7 @@ const getParams = async () => {
     let Authorizer: string;
 
     try {
-        Authorizer = await chatAuthKeyFetch({chatId});
+        Authorizer = await webSocketsAuthKeyFetch({authContext: chatId});
     } catch (e) {
         ErrorHandler.handle(e);
         return null;
