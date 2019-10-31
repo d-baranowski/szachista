@@ -1,14 +1,13 @@
 console.log("Loading function");
 
-const getAuthentity = require("./getAuthentity");
-const dbManager = require("./database-manager");
+const lib = require("szachista-lib");
 
 exports.handler = async function (event, context, callback) {
   console.log("Received event: ", event);
 
   const sourceIp = event.requestContext.identity.sourceIp;
   const userAgent = event.requestContext.identity.userAgent;
-  const authData = getAuthentity(event);
+  const authData = lib.auth.getAuthentity(event);
 
   if (authData.error) {
     callback(null, {
@@ -59,7 +58,7 @@ exports.handler = async function (event, context, callback) {
 
   try {
     console.log("Fetching game by id " + authentity.gameId);
-    const result = await dbManager.getChessGame(authentity.gameId);
+    const result = await lib.data.chess_lobby.getChessGame(authentity.gameId);
     game = result.Items[0];
   } catch(e) {
     console.log("Failed to fetch game", e);
@@ -67,7 +66,7 @@ exports.handler = async function (event, context, callback) {
     return;
   }
 
-  await dbManager.saveItem(game, item).then(() => {
+  await lib.data.chess_lobby.saveChessConnection(game, item).then(() => {
     console.log("Joined game");
     callback(null, {
       statusCode: 200,
