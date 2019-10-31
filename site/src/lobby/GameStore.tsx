@@ -92,11 +92,11 @@ const reduce: (state: State, action: IAction) => State = (state: State, action: 
     return defaultState;
 };
 
-const gameWaitingRoomStore: IGameWaitingRoomStore = createStore({
+const gameStore: IGameWaitingRoomStore = createStore({
     state: {},
     dispatch: (event: IAction) => {
-        gameWaitingRoomStore.state = reduce(gameWaitingRoomStore.state, event)
+        gameStore.state = reduce(gameStore.state, event)
     }
 });
 
-export default gameWaitingRoomStore;
+export default gameStore;

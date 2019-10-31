@@ -6,7 +6,7 @@ import FailBtn from "../elements/btn/FailBtn";
 import GameRoomName from "./GameRoomName";
 import GameInfo from "./GameInfo";
 import connect from "../state/connect";
-import gameWaitingRoomStore, {IGameWaitingRoomStore, showModal} from "./GameWaitingRoomStore";
+import gameStore, {IGameWaitingRoomStore, showModal} from "./GameStore";
 
 const styleSuccessBtn = {
     marginTop: 10,
@@ -49,4 +49,4 @@ const GameWaitingRoom : React.FunctionComponent<IGameWaitingRoomStore> = (props)
     </Modal>
 );
 
-export default connect(gameWaitingRoomStore, GameWaitingRoom);
+export default connect(gameStore, GameWaitingRoom);

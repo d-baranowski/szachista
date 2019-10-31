@@ -10,7 +10,9 @@ import Modal from "../modal/Modal";
 import SuccessBtn from "../elements/btn/SuccessBtn";
 import FailBtn from "../elements/btn/FailBtn";
 import "./CreateGameModal.css"
-import gameWaitingRoomStore, {gameCreated, showModal} from "./GameWaitingRoomStore";
+import gameStore, {gameCreated, showModal} from "./GameStore";
+import GameManager from "../sockets/GameManager";
+import {IActiveGame} from "./ActiveGamesStore";
 
 const styleSuccessBtn = {
     marginTop: 10,
@@ -133,8 +135,9 @@ const CreateGameModal: React.FunctionComponent<ICreateGamesStore> = (props) => {
 
                     lobbyGameCreate(values).then((response) => {
                         props.reset();
-                        gameWaitingRoomStore.dispatch(showModal(true));
-                        gameWaitingRoomStore.dispatch(gameCreated(response))
+                        gameStore.dispatch(showModal(true));
+                        gameStore.dispatch(gameCreated(response));
+                        new GameManager().getInstance().joinGame(response as IActiveGame);
                     }).catch((err) => {
                         ErrorHandler.handle(err);
                         CreateGamesStore.validationMsg = err;

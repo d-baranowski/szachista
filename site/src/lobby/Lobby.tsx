@@ -47,7 +47,7 @@ class Lobby extends Component<Props> {
     componentDidMount(): void {
         fetchActiveGames().then(ActiveGamesStore.setActiveGames).catch(ErrorHandler.handle);
         this.intervalId = setInterval(() => {
-            // COSTLY fetchActiveGames().then(ActiveGamesStore.setActiveGames).catch(console.log);
+            // TODO COSTLY Perhaps have a little refresh button? fetchActiveGames().then(ActiveGamesStore.setActiveGames).catch(console.log);
         }, 5 * 1000)
     }
 

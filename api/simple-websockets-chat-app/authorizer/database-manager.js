@@ -17,7 +17,7 @@ module.exports.getItem = key => {
 	const params = {
 		TableName: TABLE_NAME,
 		Key: {
-			"key": key
+			key: key
 		}
 	};
 

@@ -3,8 +3,9 @@ import ChatWindow from "../../chat/components/ChatWindow";
 import createStore from "../../state/createStore";
 import connect from "../../state/connect";
 import UserDetailStore, {IUserDetail} from "../../auth/UserDetailStore";
-import ManagedSocketConnection, {IConnection} from "../connection/ManagedSocketConnection";
+import ManagedSocketConnection, {IConnection} from "../../sockets/ManagedSocketConnection";
 import uuidv4 from "../../util/uuid";
+import {getParams} from "../connection/GetChatParams";
 
 const chatLobbyStore = createStore({
     messages: {},
@@ -43,6 +44,7 @@ const iconStyle: CSSProperties = {
 const ChatWidowContainer: React.FunctionComponent<Props> = (props) => {
     useEffect(() => {
         subscription = ManagedSocketConnection({
+            getParams,
             onStatusChange: (event) => {
                 console.log(event);
                 chatLobbyStore.status = event.status

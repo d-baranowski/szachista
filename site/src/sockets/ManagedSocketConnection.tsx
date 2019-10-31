@@ -1,8 +1,6 @@
 // @ts-ignore
 
-import webSocketsAuthKeyFetch from "../../auth/web-sockets-auth-key-fetcher/webSocketsAuthKeyFetch";
-import User, {EMPTY_USER_INFO} from "../../auth/User";
-import ErrorHandler from "../../error/ErrorHandler";
+import ErrorHandler from "../error/ErrorHandler";
 
 export interface IConnection {
     send: (msg: any) => void,
@@ -11,50 +9,18 @@ export interface IConnection {
 
 type IManagedSocketConnectionProps = {
     address: string,
+    getParams: () => Promise<string|null>
     onMessage: (message: any) => void,
     onStatusChange: (message: any) => void
 }
 type IManagedSocketConnection = (props: IManagedSocketConnectionProps) => IConnection
-
-const getParams = async () => {
-    const chatId = "chess-lobby";
-
-    let Authorizer: string;
-
-    try {
-        Authorizer = await webSocketsAuthKeyFetch({authContext: chatId});
-    } catch (e) {
-        ErrorHandler.handle(e);
-        return null;
-    }
-
-    if (!Authorizer) {
-        return null;
-    }
-
-    let UserId;
-
-    try {
-        const userInfo = User.getUserInfo();
-        UserId = userInfo !== EMPTY_USER_INFO ? userInfo["cognito:username"] : null;
-    } catch (e) {
-        ErrorHandler.handle(e);
-        return null;
-    }
-
-    if (!UserId) {
-        return null;
-    }
-
-    return `?Authorizer=${Authorizer}&UserId=${UserId}&chatId=${chatId}`
-};
 
 const ManagedSocketConnection: IManagedSocketConnection = (props) => {
     let ws: WebSocket | null = null;
 
     const start = () => {
         return new Promise((resolve, reject) => {
-            getParams().then(params => {
+            props.getParams().then(params => {
                 if (!params) {
                     reject("No params");
                     return;
