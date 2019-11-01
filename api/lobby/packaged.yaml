@@ -1,63 +1,33 @@
 AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
 Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
 Globals:
   Api:
     Auth:
+      DefaultAuthorizer: MyLambdaTokenAuth
       Authorizers:
         MyLambdaTokenAuth:
-          FunctionArn: arn:aws:lambda:eu-west-1:277265293752:function:szachista-authorizer-AuthKeyAuthorizer-NK9XJEHQIVCW
           FunctionPayloadType: TOKEN
-      DefaultAuthorizer: MyLambdaTokenAuth
+          FunctionArn: arn:aws:lambda:eu-west-1:277265293752:function:szachista-authorizer-AuthKeyAuthorizer-NK9XJEHQIVCW
 Resources:
   ChessLobbyApi:
+    Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://szachista-chess-lobby/9de7c2628fd2b21ce7cab128a479f279
-      Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
-      Events:
-        cors:
-          Properties:
-            Auth:
-              Authorizer: NONE
-            Method: OPTIONS
-            Path: /{id}
-          Type: Api
-        corsAll:
-          Properties:
-            Auth:
-              Authorizer: NONE
-            Method: OPTIONS
-            Path: /
-          Type: Api
-        create:
-          Properties:
-            Method: POST
-            Path: /
-          Type: Api
-        read:
-          Properties:
-            Method: GET
-            Path: /{id}
-          Type: Api
-        readAll:
-          Properties:
-            Method: GET
-            Path: /
-          Type: Api
-        update:
-          Properties:
-            Method: PUT
-            Path: /{id}
-          Type: Api
+      CodeUri: s3://szachista-chess-lobby/ed5c4342b92027711b9baeaca5845089
       Handler: app.handler
+      Runtime: nodejs10.x
+      Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
       MemorySize: 512
+      Timeout: 10
       Policies:
-      - Statement:
-        - Action:
+      - Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
           - dynamodb:DeleteItem
           - dynamodb:GetItem
           - dynamodb:PutItem
           - dynamodb:UpdateItem
-          Effect: Allow
           Resource:
             Fn::Join:
             - ''
@@ -66,15 +36,15 @@ Resources:
               - ':'
               - Ref: AWS::AccountId
               - :table/chess_lobby
-        Version: '2012-10-17'
-      - Statement:
-        - Action:
+      - Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
           - dynamodb:DeleteItem
           - dynamodb:GetItem
           - dynamodb:PutItem
           - dynamodb:UpdateItem
           - dynamodb:Query
-          Effect: Allow
           Resource:
             Fn::Join:
             - ''
@@ -83,12 +53,45 @@ Resources:
               - ':'
               - Ref: AWS::AccountId
               - :table/chess_lobby/index/lastActivityKey
-        Version: '2012-10-17'
-      Runtime: nodejs10.x
-      Timeout: 10
-    Type: AWS::Serverless::Function
+      Events:
+        create:
+          Type: Api
+          Properties:
+            Path: /
+            Method: POST
+        read:
+          Type: Api
+          Properties:
+            Path: /{id}
+            Method: GET
+        readAll:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+        update:
+          Type: Api
+          Properties:
+            Path: /{id}
+            Method: PUT
+        cors:
+          Type: Api
+          Properties:
+            Path: /{id}
+            Method: OPTIONS
+            Auth:
+              Authorizer: NONE
+        corsAll:
+          Type: Api
+          Properties:
+            Path: /
+            Method: OPTIONS
+            Auth:
+              Authorizer: NONE
   chessLobbyTable:
+    Type: AWS::DynamoDB::Table
     Properties:
+      TableName: chess_lobby
       AttributeDefinitions:
       - AttributeName: key
         AttributeType: S
@@ -98,18 +101,6 @@ Resources:
         AttributeType: S
       - AttributeName: lastActivity
         AttributeType: N
-      GlobalSecondaryIndexes:
-      - IndexName: lastActivityKey
-        KeySchema:
-        - AttributeName: lastActivityDay
-          KeyType: HASH
-        - AttributeName: lastActivity
-          KeyType: RANGE
-        Projection:
-          ProjectionType: ALL
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
       KeySchema:
       - AttributeName: key
         KeyType: HASH
@@ -118,6 +109,15 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
-      TableName: chess_lobby
-    Type: AWS::DynamoDB::Table
-Transform: AWS::Serverless-2016-10-31
+      GlobalSecondaryIndexes:
+      - IndexName: lastActivityKey
+        Projection:
+          ProjectionType: ALL
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        KeySchema:
+        - AttributeName: lastActivityDay
+          KeyType: HASH
+        - AttributeName: lastActivity
+          KeyType: RANGE

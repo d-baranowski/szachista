@@ -1,14 +1,13 @@
 console.log("Loading function");
 
-const getAuthentity = require("./getAuthentity");
-const dbManager = require("./database-manager");
+const lib = require("szachista-lib");
 
 exports.handler = function (event, context, callback) {
   console.log("Received event: ", event);
 
   const sourceIp = event.requestContext.identity.sourceIp;
   const userAgent = event.requestContext.identity.userAgent;
-  const authData = getAuthentity(event);
+  const authData = lib.auth.getAuthentity(event);
 
   if (authData.error) {
     callback(null, {
@@ -55,7 +54,7 @@ exports.handler = function (event, context, callback) {
     authentity
   };
 
-  dbManager.saveItem(item).then(() => {
+  lib.data.simplechat_connections.saveItem(item).then(() => {
     callback(null, {
       statusCode: 200,
       body: "Connected."

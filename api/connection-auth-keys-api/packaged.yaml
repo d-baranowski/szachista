@@ -17,7 +17,7 @@ Resources:
   AuthKeyApi:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://szachista-connection-auth-keys-api/c93047dd415d750184e4f0935e4b5c57
+      CodeUri: s3://szachista-connection-auth-keys-api/e69a4e05502cc8cdb3c6884de84ce9e8
       Handler: app.handler
       Runtime: nodejs10.x
       Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.

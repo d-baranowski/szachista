@@ -1,6 +1,6 @@
 console.log('Loading function');
 
-const dbManager = require("./database-manager");
+const lib = require("szachista-lib");
 
 exports.handler = async function(event, context, callback) {
     console.log('Received event:', JSON.stringify(event, null, 2));
@@ -20,7 +20,7 @@ exports.handler = async function(event, context, callback) {
     let accessItem;
 
     try {
-        const result = await dbManager.getItem(userId);
+        const result = await lib.data.connection_auth_keys.getConnectionAuthByUserId(userId);
         accessItem = result.Item
     } catch (e) {
         console.log(result);
@@ -30,7 +30,7 @@ exports.handler = async function(event, context, callback) {
     }
 
     try {
-        dbManager.deleteItem(userId);
+        lib.data.connection_auth_keys.deleteItem(userId);
     } catch (e) {
         console.log(e);
     }
@@ -76,27 +76,5 @@ exports.handler = async function(event, context, callback) {
     }
 
 
-    callback(null, generatePolicy('user', 'Allow', event.methodArn, accessItem));
-};
-
-
-const generatePolicy = function(principalId, effect, resource, context) {
-    let authResponse = {};
-
-    authResponse.principalId = principalId;
-    if (effect && resource) {
-        let policyDocument = {};
-        policyDocument.Version = '2012-10-17';
-        policyDocument.Statement = [];
-        let statementOne = {};
-        statementOne.Action = 'execute-api:Invoke';
-        statementOne.Effect = effect;
-        statementOne.Resource = resource;
-        policyDocument.Statement[0] = statementOne;
-        authResponse.policyDocument = policyDocument;
-    }
-
-    // Optional output with custom properties of the String, Number or Boolean type.
-    authResponse.context = { stringified: JSON.stringify(context) };
-    return authResponse;
+    callback(null, lib.auth.generatePolicy('user', 'Allow', event.methodArn, accessItem));
 };

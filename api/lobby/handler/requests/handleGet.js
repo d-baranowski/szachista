@@ -1,11 +1,9 @@
-const databaseManager = require("../database-manager");
-const sendResponse = require("../sendResponse");
-
+const lib = require("szachista-lib");
 
 const getActiveGames = (event, context, callback/*, accessData */) => {
     const acceptedThreshold = Date.now() - 1000 * 60 * 5;
 
-    databaseManager.getActiveGames(acceptedThreshold)
+    lib.data.chess_lobby.getActiveGames(acceptedThreshold)
         .then((items) => {
 
             const mapped = items.Items.map((item) => {
@@ -15,11 +13,11 @@ const getActiveGames = (event, context, callback/*, accessData */) => {
                 }
             });
 
-            sendResponse(200, mapped, callback)
+            lib.net.sendResponse(200, mapped, callback)
         })
         .catch(err => {
             console.log(err);
-            sendResponse(500, "Unexpected error", callback)
+            lib.net.sendResponse(500, "Unexpected error", callback)
         });
 };
 
@@ -27,6 +25,6 @@ module.exports = handlePost = (event, context, callback, accessData) => {
     if (event.resource === "/") {
         getActiveGames(event, context, callback, accessData);
     } else {
-        sendResponse(404, `Unsupported path "${event.path}"`, callback);
+        lib.net.sendResponse(404, `Unsupported path "${event.path}"`, callback);
     }
 };

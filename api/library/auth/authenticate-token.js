@@ -8,7 +8,7 @@ AWS.config.userPoolId = userPoolId;
 
 const congito = new AWS.CognitoIdentityServiceProvider();
 
-exports.default = function (token) {
+module.exports = function (token) {
     return new Promise((resolve, reject) => {
         let params = {
             AccessToken: token

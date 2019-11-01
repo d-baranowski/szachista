@@ -2,8 +2,7 @@
 
 console.log("Loading function");
 
-const getAuthentity = require("./getAuthentity");
-const databaseManager = require("./database-manager");
+const lib = require("szachista-lib");
 const uuidv1 = require("uuid/v1");
 
 exports.handler = (event, context, callback) => {
@@ -14,7 +13,7 @@ exports.handler = (event, context, callback) => {
     return;
   }
 
-  const authData = getAuthentity(event);
+  const authData = lib.auth.getAuthentity(event);
 
   if (authData.error) {
     console.log(authData);
@@ -41,7 +40,7 @@ exports.handler = (event, context, callback) => {
     authentity: JSON.stringify(authData.authentity)
   };
 
-  databaseManager.saveItem(accessData).then(response => {
+  lib.data.connection_auth_keys.saveItem(accessData).then(response => {
     console.log(response);
     sendResponse(200, accessData.accessKey, callback);
   }).catch(err => {
