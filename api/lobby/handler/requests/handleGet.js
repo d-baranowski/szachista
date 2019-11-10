@@ -1,12 +1,10 @@
-const lib = require("szachista-lib");
-
-const getActiveGames = (event, context, callback/*, accessData */) => {
+const getActiveGames = (lib) => (event, context, callback/*, accessData */) => {
     const acceptedThreshold = Date.now() - 1000 * 60 * 5;
 
     lib.data.chess_lobby.getActiveGames(acceptedThreshold)
-        .then((items) => {
+        .then((response) => {
 
-            const mapped = items.Items.map((item) => {
+            const mapped = response.Items.map((item) => {
                 return {
                     ...item,
                     password: item.password ? "REQUIRED" : "NOTREQUIRED"
@@ -16,14 +14,14 @@ const getActiveGames = (event, context, callback/*, accessData */) => {
             lib.net.sendResponse(200, mapped, callback)
         })
         .catch(err => {
-            console.log(err);
+            lib.log(err);
             lib.net.sendResponse(500, "Unexpected error", callback)
         });
 };
 
-module.exports = handlePost = (event, context, callback, accessData) => {
+module.exports = handlePost = (lib) => (event, context, callback, accessData) => {
     if (event.resource === "/") {
-        getActiveGames(event, context, callback, accessData);
+        getActiveGames(lib)(event, context, callback, accessData);
     } else {
         lib.net.sendResponse(404, `Unsupported path "${event.path}"`, callback);
     }

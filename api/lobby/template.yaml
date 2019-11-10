@@ -10,6 +10,16 @@ Globals:
           FunctionPayloadType: TOKEN
           FunctionArn: arn:aws:lambda:eu-west-1:277265293752:function:szachista-authorizer-AuthKeyAuthorizer-NK9XJEHQIVCW
 Resources:
+  DependencyLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: sam-app-dependencies
+      Description: Dependencies for sam app
+      ContentUri: dependencies/
+      CompatibleRuntimes:
+        - nodejs10.x
+      LicenseInfo: 'MIT'
+      RetentionPolicy: Retain
   ChessLobbyApi:
     Type: 'AWS::Serverless::Function'
     Properties:
@@ -19,15 +29,14 @@ Resources:
       Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
       MemorySize: 512
       Timeout: 10
+      Layers:
+        - !Ref DependencyLayer
       Policies:
         - Version: '2012-10-17'
           Statement:
             - Effect: Allow
               Action:
-                - 'dynamodb:DeleteItem'
-                - 'dynamodb:GetItem'
-                - 'dynamodb:PutItem'
-                - 'dynamodb:UpdateItem'
+                - 'dynamodb:*'
               Resource:
                 'Fn::Join':
                   - ''
@@ -40,11 +49,7 @@ Resources:
           Statement:
             - Effect: Allow
               Action:
-                - 'dynamodb:DeleteItem'
-                - 'dynamodb:GetItem'
-                - 'dynamodb:PutItem'
-                - 'dynamodb:UpdateItem'
-                - 'dynamodb:Query'
+                - 'dynamodb:*'
               Resource:
                 'Fn::Join':
                   - ''

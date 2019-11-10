@@ -1,0 +1,148 @@
+{
+  "gameName": {
+    "S": "Test Game"
+  },
+  "playerTwoUsername": {
+    "NULL": true
+  },
+  "lastActivityDay": {
+    "S": "2019-11-05"
+  },
+  "playerConnections": {
+    "L": [
+      {
+        "M": {
+          "connectionId": {
+            "S": "CtHDzdSqDoECJrw="
+          },
+          "authentity": {
+            "M": {
+              "Username": {
+                "S": "Google_109354484677663308178"
+              },
+              "gameId": {
+                "S": "85f78ac0-0014-11ea-9ba5-f3a5f691e1e3"
+              },
+              "accessKey": {
+                "S": "8616d290-0014-11ea-a815-cd42bcb88649"
+              },
+              "UserAttributes": {
+                "L": [
+                  {
+                    "M": {
+                      "Name": {
+                        "S": "sub"
+                      },
+                      "Value": {
+                        "S": "87858087-1c24-4199-bc29-25b12b43e180"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Name": {
+                        "S": "identities"
+                      },
+                      "Value": {
+                        "S": "[{\"userId\":\"109354484677663308178\",\"providerName\":\"Google\",\"providerType\":\"Google\",\"issuer\":null,\"primary\":true,\"dateCreated\":1555128389392}]"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Name": {
+                        "S": "name"
+                      },
+                      "Value": {
+                        "S": "Daniel Baranowski"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Name": {
+                        "S": "given_name"
+                      },
+                      "Value": {
+                        "S": "Daniel"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Name": {
+                        "S": "family_name"
+                      },
+                      "Value": {
+                        "S": "Baranowski"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Name": {
+                        "S": "email"
+                      },
+                      "Value": {
+                        "S": "daniel.m.baranowski@gmail.com"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "Name": {
+                        "S": "picture"
+                      },
+                      "Value": {
+                        "S": "https://lh3.googleusercontent.com/a-/AAuE7mBWe1Nv4LxFR49rFB2ivmT8kHcau8HTZuwktORb=s96-c"
+                      }
+                    }
+                  }
+                ]
+              },
+              "requestId": {
+                "S": "CtHDzGPMDoEF1_g="
+              },
+              "key": {
+                "S": "Google_109354484677663308178"
+              },
+              "userAgent": {
+                "S": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+              },
+              "sourceIp": {
+                "S": "88.98.242.72"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "playerOneUsername": {
+    "S": "Google_109354484677663308178"
+  },
+  "playerOnePicture": {
+    "S": "https://lh3.googleusercontent.com/a-/AAuE7mBWe1Nv4LxFR49rFB2ivmT8kHcau8HTZuwktORb=s96-c"
+  },
+  "timeAllowed": {
+    "N": "1200000"
+  },
+  "playerTwoPicture": {
+    "NULL": true
+  },
+  "lastActivity": {
+    "N": "1572989876609"
+  },
+  "key": {
+    "S": "85f78ac0-0014-11ea-9ba5-f3a5f691e1e3"
+  },
+  "createdTime": {
+    "N": "1572989873515"
+  },
+  "password": {
+    "S": "NOTREQUIRED"
+  },
+  "tokensToEnter": {
+    "N": "0"
+  }
+}

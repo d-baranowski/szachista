@@ -1,0 +1,14 @@
+{
+  "authContext": {
+    "S": "chess-lobby"
+  },
+  "accessKey": {
+    "S": "876572a0-0014-11ea-a815-cd42bcb88649"
+  },
+  "authentity": {
+    "S": "{\"Username\":\"Google_109354484677663308178\",\"UserAttributes\":[{\"Name\":\"sub\",\"Value\":\"87858087-1c24-4199-bc29-25b12b43e180\"},{\"Name\":\"identities\",\"Value\":\"[{\\\"userId\\\":\\\"109354484677663308178\\\",\\\"providerName\\\":\\\"Google\\\",\\\"providerType\\\":\\\"Google\\\",\\\"issuer\\\":null,\\\"primary\\\":true,\\\"dateCreated\\\":1555128389392}]\"},{\"Name\":\"name\",\"Value\":\"Daniel Baranowski\"},{\"Name\":\"given_name\",\"Value\":\"Daniel\"},{\"Name\":\"family_name\",\"Value\":\"Baranowski\"},{\"Name\":\"email\",\"Value\":\"daniel.m.baranowski@gmail.com\"},{\"Name\":\"picture\",\"Value\":\"https://lh3.googleusercontent.com/a-/AAuE7mBWe1Nv4LxFR49rFB2ivmT8kHcau8HTZuwktORb=s96-c\"}],\"requestId\":\"914b3d77-6567-4fd2-be6f-d99a40270412\",\"sourceIp\":\"88.98.242.72\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36\"}"
+  },
+  "key": {
+    "S": "Google_109354484677663308178"
+  }
+}

@@ -1,14 +1,11 @@
-const lib = require("szachista-lib");
-const uuidv1 = require("uuid/v1");
-
-module.exports = handlePost = (event, context, callback, accessData) => {
+module.exports = (lib) => (event, context, callback, accessData) => {
     const NOW = Date.now();
     let payload;
 
     try {
         payload = JSON.parse(event.body);
     } catch (err) {
-        console.log(err);
+        lib.log(err);
         lib.net.sendResponse(400, "Bad body", callback)
     }
 
@@ -76,7 +73,7 @@ module.exports = handlePost = (event, context, callback, accessData) => {
     }, {});
 
     const item = {
-        key: uuidv1(),
+        key: lib.uuid(),
         gameName: gameName.trim(),
         password: password.trim() || "NOTREQUIRED",
         createdTime: NOW,
@@ -98,7 +95,7 @@ module.exports = handlePost = (event, context, callback, accessData) => {
             }, callback)
         })
         .catch(err => {
-            console.log(err);
+            lib.log(err);
             lib.net.sendResponse(500, "Unexpected error", callback)
         });
 };
