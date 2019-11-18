@@ -1,6 +1,6 @@
 console.log("Loading function");
 
-const lib = require("szachista-lib");
+const lib = require("/opt/library");
 
 exports.handler = async function (event, context, callback) {
   console.log("Received event: ", event);

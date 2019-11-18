@@ -6,7 +6,6 @@
   "author": "SAM CLI",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.434.0",
-    "szachista-lib": "file:../../library"
+    "aws-sdk": "^2.434.0"
   }
 }

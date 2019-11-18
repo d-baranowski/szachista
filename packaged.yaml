@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Library layer for my lambdas to use
+Resources:
+  DependencyLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: sam-app-dependencies
+      Description: Dependencies for sam app
+      ContentUri: s3://szachista-api-lib/9bf505bfe17e14961e76f39e5b9c3553
+      CompatibleRuntimes:
+      - nodejs10.x
+      LicenseInfo: MIT
+      RetentionPolicy: Retain
+Outputs:
+  LibraryLayer:
+    Description: Information about the value
+    Value:
+      Ref: DependencyLayer
+    Export:
+      Name: LibraryLayer

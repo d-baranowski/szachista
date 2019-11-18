@@ -1,8 +1,16 @@
 console.log('Loading function');
 
-const lib = require("szachista-lib");
+const lib = require("/opt/library");
 
-exports.handler = async function(event, context, callback) {
+// New algorithm is
+// Generate a new token and add it to the list
+// Delete all old tokens
+// Save new version
+
+// The authorizer gets the tokens
+// Delete the entry if only one token in the list
+
+exports.handler = async function (event, context, callback) {
     console.log('Received event:', JSON.stringify(event, null, 2));
 
     const gameId = event.queryStringParameters.gameId;
@@ -18,7 +26,7 @@ exports.handler = async function(event, context, callback) {
     }
     let accessItem;
     try {
-        const result = await lib.data.connection_auth_keys.getConnectionAuthByUserId(userId);
+        const result = await lib.data.connection_auth_keys.getConnectionAuth(userId, gameId);
         accessItem = result.Item
     } catch (e) {
         console.log(result);
@@ -27,23 +35,24 @@ exports.handler = async function(event, context, callback) {
         return;
     }
 
-    try {
-        await lib.data.connection_auth_keys.deleteConnectionAuthKey(userId);
-    } catch (e) {
-        console.log(e);
-    }
-
     if (!accessItem) {
         console.log("No entry for user id");
         callback("Unauthorised");
         return
     }
 
-    if (token !== accessItem.accessKey) {
-        console.log("Wrong access key", accessItem);
-        callback("Unauthorised");
-        return;
+    for (let i = 0; i < accessItem.accessKeys.length; i++) {
+        if (token === accessItem.accessKeys[i].key) {
+            break;
+        }
+
+        if (i === accessItem.accessKeys.length - 1) {
+            console.log("Wrong access key", accessItem);
+            callback("Unauthorised");
+            return;
+        }
     }
+
 
     if (gameId !== accessItem.authContext) {
         console.log("Wrong gameId", gameId);
@@ -56,7 +65,7 @@ exports.handler = async function(event, context, callback) {
     try {
         const result = await lib.data.chess_lobby.getChessGame(gameId);
         chessGame = result.Items[0];
-    } catch(e) {
+    } catch (e) {
         console.log("Failed to fetch the game by id " + gameId);
         console.log(e);
         callback("Unauthorised");
@@ -73,7 +82,7 @@ exports.handler = async function(event, context, callback) {
 
     try {
         authentity = JSON.parse(accessItem.authentity)
-    } catch(e) {
+    } catch (e) {
         console.log(e);
         callback("Unauthorised");
         return;
@@ -90,6 +99,8 @@ exports.handler = async function(event, context, callback) {
         callback("Unauthorised");
         return;
     }
+
+    //TODO DELETE OLD KEYS AND USED KEY
 
     callback(null, lib.auth.generatePolicy('user', 'Allow', event.methodArn, accessItem));
 };

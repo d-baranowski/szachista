@@ -14,6 +14,16 @@ Globals:
           FunctionPayloadType: TOKEN # OPTIONAL; Defaults to 'TOKEN' when `FunctionArn` is specified
           FunctionArn: arn:aws:lambda:eu-west-1:277265293752:function:szachista-authorizer-AuthKeyAuthorizer-NK9XJEHQIVCW
 Resources:
+  DependencyLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: chess-game-sockets-dependencies
+      Description: Dependencies for sam app
+      ContentUri: ../library/dependencies/
+      CompatibleRuntimes:
+        - nodejs10.x
+      LicenseInfo: 'MIT'
+      RetentionPolicy: Retain
   AuthKeyApi:
     Type: 'AWS::Serverless::Function'
     Properties:
@@ -23,6 +33,8 @@ Resources:
       Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
       MemorySize: 512
       Timeout: 10
+      Layers:
+      - !Ref DependencyLayer
       Policies:
         - Version: '2012-10-17'
           Statement:
@@ -46,6 +58,14 @@ Resources:
           Properties:
             Path: /auth-key
             Method: POST
+        cors:
+          Type: Api
+          Properties:
+            Path: /auth-key
+            Method: OPTIONS
+            Auth:
+              Authorizer: NONE
+
   myHelloTable:
     Type: 'AWS::DynamoDB::Table'
     Properties:
@@ -53,8 +73,8 @@ Resources:
       AttributeDefinitions:
         - AttributeName: "key"
           AttributeType: "S"
-#        - AttributeName: "allowed-user"
-#          AttributeType: "S"
+        - AttributeName: "authContext"
+          AttributeType: "S"
 #        - AttributeName: "allowed-chat"
 #          AttributeType: "S"
 #        - AttributeName: "data"
@@ -62,6 +82,8 @@ Resources:
       KeySchema:
         - AttributeName: "key"
           KeyType: "HASH"
+        - AttributeName: "authContext"
+          KeyType: "RANGE"
       ProvisionedThroughput:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1

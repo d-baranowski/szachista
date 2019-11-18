@@ -10,19 +10,10 @@ Globals:
           FunctionPayloadType: TOKEN
           FunctionArn: arn:aws:lambda:eu-west-1:277265293752:function:szachista-authorizer-AuthKeyAuthorizer-NK9XJEHQIVCW
 Resources:
-  DependencyLayer:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      LayerName: sam-app-dependencies
-      Description: Dependencies for sam app
-      ContentUri: dependencies/
-      CompatibleRuntimes:
-        - nodejs10.x
-      LicenseInfo: 'MIT'
-      RetentionPolicy: Retain
   ChessLobbyApi:
     Type: 'AWS::Serverless::Function'
     Properties:
+      FunctionName: chess-lobby
       CodeUri: handler/
       Handler: app.handler
       Runtime: nodejs10.x
@@ -30,7 +21,7 @@ Resources:
       MemorySize: 512
       Timeout: 10
       Layers:
-        - !Ref DependencyLayer
+        - Fn::ImportValue: LibraryLayer
       Policies:
         - Version: '2012-10-17'
           Statement:

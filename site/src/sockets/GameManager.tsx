@@ -12,7 +12,11 @@ class GameManager {
             address: "wss://4ig0y3nt75.execute-api.eu-west-1.amazonaws.com/Prod",
             onMessage: (message: any) => console.log,
             onStatusChange: (message: any) => console.log
-        })
+        });
+
+
+
+        return this.socketConnection;
     }
 }
 

@@ -137,7 +137,9 @@ const CreateGameModal: React.FunctionComponent<ICreateGamesStore> = (props) => {
                         props.reset();
                         gameStore.dispatch(showModal(true));
                         gameStore.dispatch(gameCreated(response));
-                        new GameManager().getInstance().joinGame(response as IActiveGame);
+                        const gameSocket = new GameManager().getInstance().joinGame(response as IActiveGame);
+                        gameSocket.send({hello: "World", what: "is up", ziom: "Trollo"})
+
                     }).catch((err) => {
                         ErrorHandler.handle(err);
                         CreateGamesStore.validationMsg = err;

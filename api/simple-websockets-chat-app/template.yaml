@@ -17,6 +17,16 @@ Parameters:
     ConstraintDescription: 'Required. Can be characters and underscore only. No numbers or special characters allowed.'
 
 Resources:
+  DependencyLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: chat-sockets-dependencies
+      Description: Dependencies for sam app
+      ContentUri: ../library/dependencies/
+      CompatibleRuntimes:
+        - nodejs10.x
+      LicenseInfo: 'MIT'
+      RetentionPolicy: Retain
   SimpleChatWebSocket:
     Type: AWS::ApiGatewayV2::Api
     Properties:
@@ -120,6 +130,8 @@ Resources:
       CodeUri: onconnect/
       Handler: app.handler
       MemorySize: 256
+      Layers:
+        - !Ref DependencyLayer
       Runtime: nodejs10.x
       Environment:
         Variables:
@@ -142,6 +154,8 @@ Resources:
       CodeUri: ondisconnect/
       Handler: app.handler
       MemorySize: 256
+      Layers:
+        - !Ref DependencyLayer
       Runtime: nodejs10.x
       Environment:
         Variables:
@@ -163,6 +177,8 @@ Resources:
     Properties:
       CodeUri: sendmessage/
       Handler: app.handler
+      Layers:
+        - !Ref DependencyLayer
       MemorySize: 256
       Runtime: nodejs10.x
       Environment:
@@ -183,6 +199,8 @@ Resources:
       CodeUri: authorizer/
       Handler: app.handler
       MemorySize: 256
+      Layers:
+        - !Ref DependencyLayer
       Runtime: nodejs10.x
       Environment:
         Variables:

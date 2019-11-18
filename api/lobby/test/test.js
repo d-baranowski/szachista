@@ -1,24 +1,6 @@
 const assert = require('assert');
 const lambda = require('../handler/lambda');
-
-const makespy = (myImplementation = () => {
-}) => {
-    let callCount = 0;
-    let callArgs = [];
-
-    const spy = function () {
-        callCount++;
-        callArgs.push({...arguments});
-        return myImplementation.apply(null, arguments);
-    };
-
-    spy.wasCalled = () => callCount > 0;
-    spy.callCount = () => callCount;
-    spy.callArgs = () => callArgs;
-
-    return spy;
-};
-
+const makespy = require('../../library/dependencies/test/makeSpy');
 
 function willRespondWith200ToOptions() {
     const mock_lib = {
@@ -41,7 +23,7 @@ function willRespondWith200ToOptions() {
 }
 
 function willReturnLobbyGamesAfterAGetRequest() {
-    const getAuthentity = require("../dependencies/library/auth/getAuthentity");
+    const getAuthentity = require("../../library/dependencies/library/auth/getAuthentity");
     const sample_chess_lobby_items = require("./sample_chess_lobby_items");
     const mock_lib = {
         net: {
@@ -70,7 +52,7 @@ function willReturnLobbyGamesAfterAGetRequest() {
 }
 
 function willFailToReturnLobbyGamesAfterAGetRequest() {
-    const getAuthentity = require("../dependencies/library/auth/getAuthentity");
+    const getAuthentity = require("../../library/dependencies/library/auth/getAuthentity");
     const mock_lib = {
         net: {
             sendResponse: makespy(() => {
@@ -97,7 +79,7 @@ function willFailToReturnLobbyGamesAfterAGetRequest() {
 }
 
 function willCreateItem() {
-    const getAuthentity = require("../dependencies/library/auth/getAuthentity");
+    const getAuthentity = require("../../library/dependencies/library/auth/getAuthentity");
     const mock_lib = {
         net: {
             sendResponse: makespy(() => {
@@ -128,7 +110,7 @@ function willCreateItem() {
 }
 
 function willFailToCreateAnItem() {
-    const getAuthentity = require("../dependencies/library/auth/getAuthentity");
+    const getAuthentity = require("../../library/dependencies/library/auth/getAuthentity");
     const mock_lib = {
         net: {
             sendResponse: makespy(() => {

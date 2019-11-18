@@ -1,7 +1,5 @@
 console.log('Loading function');
 
-const lib = require("szachista-lib");
-
 exports.handler = async function(event, context, callback) {
     console.log('Received event:', JSON.stringify(event, null, 2));
 
@@ -20,7 +18,7 @@ exports.handler = async function(event, context, callback) {
     let accessItem;
 
     try {
-        const result = await lib.data.connection_auth_keys.getConnectionAuthByUserId(userId);
+        const result = await lib.data.connection_auth_keys.getConnectionAuth(userId);
         accessItem = result.Item
     } catch (e) {
         console.log(result);
@@ -39,12 +37,6 @@ exports.handler = async function(event, context, callback) {
         console.log("No entry for user id");
         callback("Unauthorised");
         return
-    }
-
-    if (token !== accessItem.accessKey) {
-        console.log("Wrong access key", accessItem);
-        callback("Unauthorised");
-        return;
     }
 
     if (chatId !== accessItem.authContext) {
@@ -75,6 +67,17 @@ exports.handler = async function(event, context, callback) {
         return;
     }
 
+    for (let i = 0; i < accessItem.accessKeys.length; i++) {
+        if (token === accessItem.accessKeys[i].key) {
+            break;
+        }
+
+        if (i === accessItem.accessKeys.length - 1) {
+            console.log("Wrong access key", accessItem);
+            callback("Unauthorised");
+            return;
+        }
+    }
 
     callback(null, lib.auth.generatePolicy('user', 'Allow', event.methodArn, accessItem));
 };

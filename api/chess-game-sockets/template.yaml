@@ -2,6 +2,16 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
 Resources:
+  DependencyLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: chess-game-sockets-dependencies
+      Description: Dependencies for sam app
+      ContentUri: ../library/dependencies/
+      CompatibleRuntimes:
+        - nodejs10.x
+      LicenseInfo: 'MIT'
+      RetentionPolicy: Retain
   ChessLobbyWebSocket:
     Type: AWS::ApiGatewayV2::Api
     Properties:
@@ -90,6 +100,8 @@ Resources:
       CodeUri: onconnect/
       Handler: app.handler
       MemorySize: 256
+      Layers:
+        - !Ref DependencyLayer
       Runtime: nodejs10.x
       Policies:
         - Version: '2012-10-17'
@@ -133,6 +145,8 @@ Resources:
       CodeUri: ondisconnect/
       Handler: app.handler
       MemorySize: 256
+      Layers:
+      - !Ref DependencyLayer
       Runtime: nodejs10.x
       Policies:
         - Version: '2012-10-17'
@@ -177,6 +191,8 @@ Resources:
       CodeUri: sendmessage/
       Handler: app.handler
       MemorySize: 256
+      Layers:
+        - !Ref DependencyLayer
       Runtime: nodejs10.x
       Policies:
         - Version: '2012-10-17'
@@ -216,6 +232,8 @@ Resources:
       CodeUri: authorizer/
       Handler: app.handler
       MemorySize: 256
+      Layers:
+        - !Ref DependencyLayer
       Runtime: nodejs10.x
       Policies:
         - Version: '2012-10-17'
