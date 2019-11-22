@@ -1,0 +1,124 @@
+{
+  "type": "REQUEST",
+  "methodArn": "arn:aws:execute-api:eu-west-1:277265293752:5y9yq3qh5j/Prod/$connect",
+  "headers": {
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8,pl;q=0.7",
+    "Cache-Control": "no-cache",
+    "Connection": "upgrade",
+    "content-length": "0",
+    "Host": "5y9yq3qh5j.execute-api.eu-west-1.amazonaws.com",
+    "Origin": "https://gierki.net",
+    "Pragma": "no-cache",
+    "Sec-WebSocket-Extensions": "permessage-deflate; client_max_window_bits",
+    "Sec-WebSocket-Key": "hF27QbYELlX//XP7lnLQ+w==",
+    "Sec-WebSocket-Version": "13",
+    "Upgrade": "websocket",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
+    "X-Amzn-Trace-Id": "Root=1-5dc88ce3-ffc18782160ba878294bcd06",
+    "X-Forwarded-For": "52.51.7.138",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept-Encoding": [
+      "gzip, deflate, br"
+    ],
+    "Accept-Language": [
+      "en-GB,en-US;q=0.9,en;q=0.8,pl;q=0.7"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Connection": [
+      "upgrade"
+    ],
+    "content-length": [
+      "0"
+    ],
+    "Host": [
+      "5y9yq3qh5j.execute-api.eu-west-1.amazonaws.com"
+    ],
+    "Origin": [
+      "https://gierki.net"
+    ],
+    "Pragma": [
+      "no-cache"
+    ],
+    "Sec-WebSocket-Extensions": [
+      "permessage-deflate; client_max_window_bits"
+    ],
+    "Sec-WebSocket-Key": [
+      "hF27QbYELlX//XP7lnLQ+w=="
+    ],
+    "Sec-WebSocket-Version": [
+      "13"
+    ],
+    "Upgrade": [
+      "websocket"
+    ],
+    "User-Agent": [
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36"
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-5dc88ce3-ffc18782160ba878294bcd06"
+    ],
+    "X-Forwarded-For": [
+      "52.51.7.138"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": {
+    "chatId": "chess-lobby",
+    "UserId": "Google_108858650188719526842",
+    "Authorizer": "2162e440-0408-11ea-ac2a-03352547950b"
+  },
+  "multiValueQueryStringParameters": {
+    "chatId": [
+      "chess-lobby"
+    ],
+    "UserId": [
+      "Google_108858650188719526842"
+    ],
+    "Authorizer": [
+      "2162e440-0408-11ea-ac2a-03352547950b"
+    ]
+  },
+  "stageVariables": {
+    "fuckThisShit": "ImOut"
+  },
+  "requestContext": {
+    "routeKey": "$connect",
+    "messageId": null,
+    "eventType": "CONNECT",
+    "extendedRequestId": "C9rznEJJDoEF5CQ=",
+    "requestTime": "10/Nov/2019:22:19:15 +0000",
+    "messageDirection": "IN",
+    "stage": "Prod",
+    "connectedAt": 1573424355815,
+    "requestTimeEpoch": 1573424355815,
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "cognitoIdentityId": null,
+      "principalOrgId": null,
+      "cognitoAuthenticationType": null,
+      "userArn": null,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
+      "accountId": null,
+      "caller": null,
+      "sourceIp": "156.67.242.53",
+      "accessKey": null,
+      "cognitoAuthenticationProvider": null,
+      "user": null
+    },
+    "requestId": "C9rznEJJDoEF5CQ=",
+    "domainName": "5y9yq3qh5j.execute-api.eu-west-1.amazonaws.com",
+    "connectionId": "C9rznfp8DoECIdg=",
+    "apiId": "5y9yq3qh5j"
+  }
+}

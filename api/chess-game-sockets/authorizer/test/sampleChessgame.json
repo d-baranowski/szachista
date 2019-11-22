@@ -1,0 +1,58 @@
+{
+  "key": "3f9d8020-055f-11ea-becd-b110d3f5669b",
+  "gameName": "rwerwerwe",
+  "playerTwoUsername": null,
+  "lastActivityDay": "2019-11-10",
+  "playerConnections": [
+    {
+      "connectionId": "C88tLfI3joEAd3Q=",
+      "authentity": {
+        "Username": "Google_108858650188719526842",
+        "gameId": "364564a0-03db-11ea-8999-01bbcbb177a6",
+        "accessKey": "365bf9e0-03db-11ea-bd6d-e9c7b426301b",
+        "UserAttributes": [
+          {
+            "Name": "sub",
+            "Value": "424e2ab2-9200-4b77-af3b-0d243b7c967f"
+          },
+          {
+            "Name": "identities",
+            "Value": "[{\"userId\":\"108858650188719526842\",\"providerName\":\"Google\",\"providerType\":\"Google\",\"issuer\":null,\"primary\":true,\"dateCreated\":1560082909225}]"
+          },
+          {
+            "Name": "name",
+            "Value": "Daniel Baranowski"
+          },
+          {
+            "Name": "given_name",
+            "Value": "Daniel"
+          },
+          {
+            "Name": "family_name",
+            "Value": "Baranowski"
+          },
+          {
+            "Name": "email",
+            "Value": "danielek4567@gmail.com"
+          },
+          {
+            "Name": "picture",
+            "Value": "https://lh3.googleusercontent.com/a-/AAuE7mCasNPfJfVcPNMs-Oljik4kJxxIaPP9Fs0oTDfJ6Q=s96-c"
+          }
+        ],
+        "requestId": "C88tLH9eDoEF44Q=",
+        "key": "Google_108858650188719526842",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
+        "sourceIp": "52.51.7.138"
+      }
+    }
+  ],
+  "playerOneUsername": "Google_109354484677663308178",
+  "playerOnePicture": "https://lh3.googleusercontent.com/a-/AAuE7mCasNPfJfVcPNMs-Oljik4kJxxIaPP9Fs0oTDfJ6Q=s96-c",
+  "timeAllowed": 2400000,
+  "playerTwoPicture": null,
+  "lastActivity": 1573405066135,
+  "createdTime": 1573405063145,
+  "password": "NOTREQUIRED",
+  "tokensToEnter": 0
+}

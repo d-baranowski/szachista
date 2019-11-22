@@ -18,5 +18,6 @@ module.exports = {
     sendResponse: sendResponse
   },
   log: console.log,
-  uuid: uuidv1
+  uuid: uuidv1,
+  now: () => Date.now()
 };
