@@ -7,12 +7,13 @@ const lambda = (lib) => async (event, context, callback) => {
     const sourceIp = event.requestContext.identity.sourceIp;
     const userAgent = event.requestContext.identity.userAgent;
 
+    console.log("Retrieved auth information");
+
     let accessItem;
     try {
         const result = await lib.data.connection_auth_keys.getConnectionAuth(userId, chatId);
         accessItem = result.Item
     } catch (e) {
-        console.log(result);
         console.log(e);
         callback("Unauthorised");
         return;
@@ -74,6 +75,7 @@ const lambda = (lib) => async (event, context, callback) => {
         return;
     }
 
+    console.log("Authorized");
     callback(null, lib.auth.generatePolicy('user', 'Allow', event.methodArn, accessItem));
 };
 

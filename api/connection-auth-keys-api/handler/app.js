@@ -8,14 +8,19 @@ const generateNewToken = require('./generateNewToken');
 const validateEvent = require('./validateEvent');
 const postHandler = require('./postHandler');
 
+
 const appRouter = router({
-  optionsHandler: (/*event, context, callback*/) => {
+  optionsHandler: (event, context, callback) => {
     return lib.net.sendResponse(200, "", callback);
   },
-  notFoundHandler: (event/*context, callback*/) => {
+  notFoundHandler: (event, context, callback) => {
     return lib.net.sendResponse(404, `Unsupported method "${event.httpMethod}"`, callback);
   },
-  postHandler: postHandler(lib, { generateNewToken, validateEvent })
+
+  postHandler: postHandler(lib, {
+    generateNewToken: generateNewToken(lib),
+    validateEvent: validateEvent(lib)
+  })
 });
 
 

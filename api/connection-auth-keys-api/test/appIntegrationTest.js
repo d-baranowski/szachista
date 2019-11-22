@@ -9,14 +9,15 @@ const validateEvent = require('../handler/validateEvent');
 const postHandler = require('../handler/postHandler');
 const sampleEvent = require('./events/postMultiTokensSupport');
 const makeSpy = require('../../library/dependencies/test/makeSpy');
+const sampleOptionsEvent = require("./events/sampleOptionsEvent");
 const assert = require('assert');
 
 
 const appRouter = router({
-    optionsHandler: (/*event, context, callback*/) => {
+    optionsHandler: (event, context, callback) => {
         return lib.net.sendResponse(200, "", callback);
     },
-    notFoundHandler: (event/*context, callback*/) => {
+    notFoundHandler: (event, context, callback) => {
         return lib.net.sendResponse(404, `Unsupported method "${event.httpMethod}"`, callback);
     },
 
@@ -59,3 +60,12 @@ const lambda = async (event, context, callback) => {
         assert.equal(containsMatch, true)
     });
  })();
+
+
+(async () => {
+    const callbackSpy = makeSpy();
+
+    await lambda(sampleOptionsEvent, {}, callbackSpy);
+    assert.equal(callbackSpy.callArgs()[0][1].statusCode, 200)
+
+})();

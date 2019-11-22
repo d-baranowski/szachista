@@ -38,19 +38,19 @@ sam deploy \
 aws cloudformation describe-stacks \
     --stack-name szachista-chat --query 'Stacks[].Outputs'
 
-sam package \
-    --template-file api/connection-auth-keys-api/template.yaml \
-    --output-template-file api/connection-auth-keys-api/packaged.yaml \
-    --s3-bucket szachista-connection-auth-keys-api
-
-sam deploy \
-    --template-file api/connection-auth-keys-api/packaged.yaml \
-    --stack-name szachista-connection-auth-keys-api \
-    --capabilities CAPABILITY_IAM \
-    --parameter-overrides MyParameterSample=MySampleValue
-
-aws cloudformation describe-stacks \
-    --stack-name szachista-connection-auth-keys-api --query 'Stacks[].Outputs'
+#sam package \
+#    --template-file api/connection-auth-keys-api/template.yaml \
+#    --output-template-file api/connection-auth-keys-api/packaged.yaml \
+#    --s3-bucket szachista-connection-auth-keys-api
+#
+#sam deploy \
+#    --template-file api/connection-auth-keys-api/packaged.yaml \
+#    --stack-name szachista-connection-auth-keys-api \
+#    --capabilities CAPABILITY_IAM \
+#    --parameter-overrides MyParameterSample=MySampleValue
+#
+#aws cloudformation describe-stacks \
+#    --stack-name szachista-connection-auth-keys-api --query 'Stacks[].Outputs'
 ##
 #sam package \
 #    --template-file api/lobby/template.yaml \
@@ -66,17 +66,17 @@ aws cloudformation describe-stacks \
 #aws cloudformation describe-stacks \
 #    --stack-name szachista-chess-lobby --query 'Stacks[].Outputs'
 
-sam package \
-    --template-file api/chess-game-sockets/template.yaml \
-    --output-template-file api/chess-game-sockets/packaged.yaml \
-    --s3-bucket szachista-chess-game-sockets
-
-sam deploy \
-    --template-file api/chess-game-sockets/packaged.yaml \
-    --stack-name szachista-chess-game-sockets \
-    --capabilities CAPABILITY_IAM \
-    --parameter-overrides MyParameterSample=MySampleValue
-
-aws cloudformation describe-stacks \
-    --stack-name szachista-chess-game-sockets --query 'Stacks[].Outputs'
-
+#sam package \
+#    --template-file api/chess-game-sockets/template.yaml \
+#    --output-template-file api/chess-game-sockets/packaged.yaml \
+#    --s3-bucket szachista-chess-game-sockets
+#
+#sam deploy \
+#    --template-file api/chess-game-sockets/packaged.yaml \
+#    --stack-name szachista-chess-game-sockets \
+#    --capabilities CAPABILITY_IAM \
+#    --parameter-overrides MyParameterSample=MySampleValue
+#
+#aws cloudformation describe-stacks \
+#    --stack-name szachista-chess-game-sockets --query 'Stacks[].Outputs'
+#

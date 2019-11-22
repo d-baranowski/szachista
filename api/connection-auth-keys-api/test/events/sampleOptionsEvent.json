@@ -1,0 +1,137 @@
+{
+  "resource": "/auth-key",
+  "path": "/connection-auth-keys/auth-key",
+  "httpMethod": "OPTIONS",
+  "headers": {
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8,pl;q=0.7",
+    "access-control-request-headers": "authorization,content-type",
+    "access-control-request-method": "POST",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "GB",
+    "Host": "api.gierki.net",
+    "origin": "https://gierki.net",
+    "Referer": "https://gierki.net/chess",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
+    "Via": "2.0 78c24f12c32901deb1cf3a6ac581e591.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "Qzfu2r-74sVPmdgFCL1KmlMx-ygjMasXI_tIQ8WQ8FLB5iaPLt12ZA==",
+    "X-Amzn-Trace-Id": "Root=1-5dd81f01-0b8223700c51ec8088649ae8",
+    "X-Forwarded-For": "88.98.242.72, 70.132.46.137",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept": [
+      "*/*"
+    ],
+    "Accept-Encoding": [
+      "gzip, deflate, br"
+    ],
+    "Accept-Language": [
+      "en-GB,en-US;q=0.9,en;q=0.8,pl;q=0.7"
+    ],
+    "access-control-request-headers": [
+      "authorization,content-type"
+    ],
+    "access-control-request-method": [
+      "POST"
+    ],
+    "CloudFront-Forwarded-Proto": [
+      "https"
+    ],
+    "CloudFront-Is-Desktop-Viewer": [
+      "true"
+    ],
+    "CloudFront-Is-Mobile-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-SmartTV-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-Tablet-Viewer": [
+      "false"
+    ],
+    "CloudFront-Viewer-Country": [
+      "GB"
+    ],
+    "Host": [
+      "api.gierki.net"
+    ],
+    "origin": [
+      "https://gierki.net"
+    ],
+    "Referer": [
+      "https://gierki.net/chess"
+    ],
+    "sec-fetch-mode": [
+      "cors"
+    ],
+    "sec-fetch-site": [
+      "same-site"
+    ],
+    "User-Agent": [
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36"
+    ],
+    "Via": [
+      "2.0 78c24f12c32901deb1cf3a6ac581e591.cloudfront.net (CloudFront)"
+    ],
+    "X-Amz-Cf-Id": [
+      "Qzfu2r-74sVPmdgFCL1KmlMx-ygjMasXI_tIQ8WQ8FLB5iaPLt12ZA=="
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-5dd81f01-0b8223700c51ec8088649ae8"
+    ],
+    "X-Forwarded-For": [
+      "88.98.242.72, 70.132.46.137"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "l8ra8n",
+    "resourcePath": "/auth-key",
+    "httpMethod": "OPTIONS",
+    "extendedRequestId": "DknIPETSjoEF6wA=",
+    "requestTime": "22/Nov/2019:17:46:41 +0000",
+    "path": "/connection-auth-keys/auth-key",
+    "accountId": "277265293752",
+    "protocol": "HTTP/1.1",
+    "stage": "Prod",
+    "domainPrefix": "api",
+    "requestTimeEpoch": 1574444801458,
+    "requestId": "2454db25-924f-427e-8eae-ebeab78d93aa",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "88.98.242.72",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
+      "user": null
+    },
+    "domainName": "api.gierki.net",
+    "apiId": "u28fta85u6"
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

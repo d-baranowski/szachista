@@ -19,7 +19,7 @@ Resources:
     Properties:
       LayerName: chess-game-sockets-dependencies
       Description: Dependencies for sam app
-      ContentUri: s3://szachista-connection-auth-keys-api/cfbbf3015ce02ae1b7f8bc748d899aba
+      ContentUri: s3://szachista-connection-auth-keys-api/5bcc56eb94d90c11d7f895bbd7de4b52
       CompatibleRuntimes:
       - nodejs10.x
       LicenseInfo: MIT
@@ -27,7 +27,7 @@ Resources:
   AuthKeyApi:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://szachista-connection-auth-keys-api/8682e29cd3ef881f0f326a1a2c74b907
+      CodeUri: s3://szachista-connection-auth-keys-api/906b27fc72f02a8e9157747ef5e6f0f7
       Handler: app.handler
       Runtime: nodejs10.x
       Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
