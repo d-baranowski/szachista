@@ -2,7 +2,7 @@ import superagent from 'superagent';
 import User from "../auth/User";
 import {IActiveGame} from "./ActiveGamesStore";
 
-type ILobbyParams = {
+export type ILobbyParams = {
     gameName: string,
     tokensToEnter: number|null,
     spectatorsAllowed: boolean,

@@ -1,0 +1,31 @@
+{
+  "name": "gierki-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^9.1.4",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "base65536": "^2.0.2",
+    "emoji-js": "^3.4.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "scriptjs": "^2.5.9",
+    "superagent": "^5.0.5"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.9",
+    "@types/jest": "24.0.9",
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/node": "^12.12.14",
+    "@types/react": "^16.9.13",
+    "@types/styled-jsx": "^2.2.8",
+    "@types/superagent": "^4.1.1",
+    "typescript": "^3.7.2"
+  }
+}

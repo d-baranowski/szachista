@@ -1,5 +1,7 @@
 import createStore from "../state/createStore";
 import {IActiveGame} from "./ActiveGamesStore";
+import uuid from "../util/uuid";
+import {ILobbyParams} from "./lobbyGameCreate";
 
 type State = {
     key: string,
@@ -13,7 +15,8 @@ type State = {
     playerTwoReady: boolean,
     timeAllowed: number,
     tokensToEnter: number,
-    showModal: boolean
+    showModal: boolean,
+    socketConState: string
 }
 
 const defaultState: State = {
@@ -28,23 +31,43 @@ const defaultState: State = {
     playerTwoReady: false,
     timeAllowed: 0,
     tokensToEnter: 0,
-    showModal: false
+    showModal: false,
+    socketConState: "CONNECTION_NOT_ATTEMPTED"
 };
 
-export type IGameWaitingRoomStore = {
+export type IGameStore = {
     state: State,
-    dispatch: (event: IAction) => void
+    dispatch: (event: IAction) => void,
+    registerMiddleware: (callback: (action: IAction, newState: State) => any) => () => void
 }
 
 interface IAction {
     type: string
 }
 
-interface IGameCreateAction extends IAction {
+export interface ISocketStatusChangeAction extends IAction {
+    payload: string
+}
+
+export const gameSocketStatusChange: (payload: string) => ISocketStatusChangeAction = (payload) => ({
+    type: "GAME_SOCKET_STATUS_CHANGE",
+    payload
+});
+
+export interface ICreateGameAction extends IAction {
+    payload: ILobbyParams
+}
+
+export const createGame: (payload: ILobbyParams) => ICreateGameAction = (payload) => ({
+    type: "CREATE_GAME",
+    payload
+});
+
+export interface IGameCreatedAction extends IAction {
     payload: IActiveGame
 }
 
-export const gameCreated: (payload: IActiveGame) => IGameCreateAction = (payload: IActiveGame) => ({
+export const gameCreated: (payload: IActiveGame) => IGameCreatedAction = (payload: IActiveGame) => ({
     type: "GAME_CREATED",
     payload
 });
@@ -58,7 +81,7 @@ export const showModal: (payload: boolean) => IShowModalAction = (payload) => ({
     payload
 });
 
-const handleGameCreated: (state: State, action: IGameCreateAction) => State = (state, action) => {
+const handleGameCreated: (state: State, action: IGameCreatedAction) => State = (state, action) => {
     return {
         ...state,
         key: action.payload.key,
@@ -71,7 +94,7 @@ const handleGameCreated: (state: State, action: IGameCreateAction) => State = (s
         playerTwoUsername: action.payload.playerTwoUsername,
         playerTwoReady: false,
         timeAllowed: action.payload.timeAllowed,
-        tokensToEnter:action.payload.tokensToEnter,
+        tokensToEnter: action.payload.tokensToEnter,
     }
 };
 
@@ -82,20 +105,46 @@ const handleShowModal: (state: State, action: IShowModalAction) => State = (stat
     }
 };
 
-const reduce: (state: State, action: IAction) => State = (state: State, action: IAction) => {
-    if (action.type === "GAME_CREATED") {
-        return handleGameCreated(state, action as IGameCreateAction);
-    } else if (action.type === "SHOW_MODAL") {
-        return handleShowModal(state, action as IShowModalAction);
+const handleGameSocketStatusChange: (state: State, action: ISocketStatusChangeAction) => State = (state, action) => {
+    return {
+        ...state,
+        socketConState: action.payload
     }
-
-    return defaultState;
 };
 
-const gameStore: IGameWaitingRoomStore = createStore({
+const middleware: {
+    [key: string]: any;
+} = {};
+
+const callMiddleware = (action: IAction, newState: State) => {
+    Object.values(middleware).forEach(callback => callback(action, newState))
+};
+
+const reduce: (state: State, action: IAction) => State = (state: State, action: IAction) => {
+    let newState: State = defaultState;
+    if (action.type === "GAME_CREATED") {
+        newState = handleGameCreated(state, action as IGameCreatedAction);
+    } else if (action.type === "SHOW_MODAL") {
+        newState = handleShowModal(state, action as IShowModalAction);
+    } else if (action.type === "GAME_SOCKET_STATUS_CHANGE") {
+        newState = handleGameSocketStatusChange(state, action as ISocketStatusChangeAction);
+    }
+
+    callMiddleware(action, newState);
+    return newState;
+};
+
+
+const gameStore: IGameStore = createStore({
     state: {},
     dispatch: (event: IAction) => {
+        console.log(event);
         gameStore.state = reduce(gameStore.state, event)
+    },
+    registerMiddleware: (callback: (action: IAction, newState: State) => () => void) => {
+        const id = uuid();
+        middleware[id] = callback;
+        return () => delete middleware[id];
     }
 });
 

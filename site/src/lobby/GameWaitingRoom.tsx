@@ -6,7 +6,7 @@ import FailBtn from "../elements/btn/FailBtn";
 import GameRoomName from "./GameRoomName";
 import GameInfo from "./GameInfo";
 import connect from "../state/connect";
-import gameStore, {IGameWaitingRoomStore, showModal} from "./GameStore";
+import gameStore, {IGameStore, showModal} from "./GameStore";
 
 const styleSuccessBtn = {
     marginTop: 10,
@@ -18,7 +18,16 @@ const styleFailBtn = {
     width: '100%'
 };
 
-const GameWaitingRoom : React.FunctionComponent<IGameWaitingRoomStore> = (props) => (
+const styleConStatus = {
+    color: '#EFEFEF',
+    fontSize: '14px',
+    marginTop: 10,
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    verticalAlign: 'middle'
+};
+
+export const GameWaitingRoom: React.FunctionComponent<IGameStore> = (props) => (
     <Modal
         isVisible={props.state.showModal}
         onClose={() => {
@@ -29,7 +38,8 @@ const GameWaitingRoom : React.FunctionComponent<IGameWaitingRoomStore> = (props)
             playerOnePicture={props.state.playerOnePicture}
             playerTwoPicture={props.state.playerTwoPicture}
         />
-        <GameRoomName gameName={props.state.gameName} />
+        <GameRoomName gameName={props.state.gameName}/>
+        <div style={styleConStatus}>Connection Status<div style={{ borderRadius: 360, height: 15, width: 15, borderColor: "red", borderWidth: 2, borderStyle: 'solid' }} /></div>
         <GameInfo
             password={!props.state.passwordRequired ? "NOTREQUIRED" : "REQUIRED"}
             timeAllowed={props.state.timeAllowed}
@@ -38,12 +48,14 @@ const GameWaitingRoom : React.FunctionComponent<IGameWaitingRoomStore> = (props)
 
         <SuccessBtn
             style={styleSuccessBtn}
-            onClick={() => {}}
+            onClick={() => {
+            }}
             label="Ready"
         />
         <FailBtn
             style={styleFailBtn}
-            onClick={() => {}}
+            onClick={() => {
+            }}
             label="Leave"
         />
     </Modal>

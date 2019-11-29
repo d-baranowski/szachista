@@ -4,15 +4,12 @@ import PlayerInfo from "./PlayerInfo";
 import Field from "../form/Field";
 import CreateGamesStore, {ICreateGamesStore} from "./CreateGameStore";
 import connect from "../state/connect";
-import lobbyGameCreate from "./lobbyGameCreate";
-import ErrorHandler from "../error/ErrorHandler";
+import {ILobbyParams} from "./lobbyGameCreate";
 import Modal from "../modal/Modal";
 import SuccessBtn from "../elements/btn/SuccessBtn";
 import FailBtn from "../elements/btn/FailBtn";
 import "./CreateGameModal.css"
-import gameStore, {gameCreated, showModal} from "./GameStore";
-import GameManager from "../sockets/GameManager";
-import {IActiveGame} from "./ActiveGamesStore";
+import gameStore, {createGame} from "./GameStore";
 
 const styleSuccessBtn = {
     marginTop: 10,
@@ -125,7 +122,7 @@ const CreateGameModal: React.FunctionComponent<ICreateGamesStore> = (props) => {
                         return;
                     }
 
-                    const values = {
+                    const values: ILobbyParams = {
                         gameName: props.createGameForm.gameName,
                         tokensToEnter: props.createGameForm.tokensToEnter,
                         spectatorsAllowed: props.createGameForm.spectatorsAllowed,
@@ -133,17 +130,7 @@ const CreateGameModal: React.FunctionComponent<ICreateGamesStore> = (props) => {
                         password: props.createGameForm.password,
                     };
 
-                    lobbyGameCreate(values).then((response) => {
-                        props.reset();
-                        gameStore.dispatch(showModal(true));
-                        gameStore.dispatch(gameCreated(response));
-                        const gameSocket = new GameManager().getInstance().joinGame(response as IActiveGame);
-                        gameSocket.send({hello: "World", what: "is up", ziom: "Trollo"})
-
-                    }).catch((err) => {
-                        ErrorHandler.handle(err);
-                        CreateGamesStore.validationMsg = err;
-                    })
+                    gameStore.dispatch(createGame(values))
                 }}
             />
             <FailBtn

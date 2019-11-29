@@ -1,0 +1,37 @@
+{
+  "requestContext": {
+    "routeKey": "sendmessage",
+    "authorizer": {
+      "principalId": "user",
+      "stringified": "{\"authContext\":\"fcdfc390-0d71-11ea-8471-e3e2986c52c1\",\"authentity\":\"{\\\"Username\\\":\\\"Google_111185402259261973492\\\",\\\"UserAttributes\\\":[{\\\"Name\\\":\\\"sub\\\",\\\"Value\\\":\\\"27936a3e-9db2-4741-897e-156a011cfaba\\\"},{\\\"Name\\\":\\\"identities\\\",\\\"Value\\\":\\\"[{\\\\\\\"userId\\\\\\\":\\\\\\\"111185402259261973492\\\\\\\",\\\\\\\"providerName\\\\\\\":\\\\\\\"Google\\\\\\\",\\\\\\\"providerType\\\\\\\":\\\\\\\"Google\\\\\\\",\\\\\\\"issuer\\\\\\\":null,\\\\\\\"primary\\\\\\\":true,\\\\\\\"dateCreated\\\\\\\":1557443529802}]\\\"},{\\\"Name\\\":\\\"name\\\",\\\"Value\\\":\\\"Daniel Baranowski\\\"},{\\\"Name\\\":\\\"given_name\\\",\\\"Value\\\":\\\"Daniel\\\"},{\\\"Name\\\":\\\"family_name\\\",\\\"Value\\\":\\\"Baranowski\\\"},{\\\"Name\\\":\\\"email\\\",\\\"Value\\\":\\\"daniel.baranowski@infinityworks.com\\\"},{\\\"Name\\\":\\\"picture\\\",\\\"Value\\\":\\\"https://lh4.googleusercontent.com/-g2eS0WmwWPI/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rfBCNUepM8ZHiMa2px8hEHvKIqudA/s96-c/photo.jpg\\\"}],\\\"requestId\\\":\\\"389a7dd0-7687-45ad-9833-c8bf4963abe3\\\",\\\"sourceIp\\\":\\\"88.98.242.72\\\",\\\"userAgent\\\":\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36\\\"}\",\"key\":\"Google_111185402259261973492\",\"accessKeys\":[{\"accessKey\":\"fd0b4060-0d71-11ea-bc1f-db98d0c72c8f\",\"timestamp\":1574459381606},{\"accessKey\":\"fe262640-0d71-11ea-bc1f-db98d0c72c8f\",\"timestamp\":1574459383460}]}"
+    },
+    "messageId": "DlKuxckqDoECIrA=",
+    "eventType": "MESSAGE",
+    "extendedRequestId": "DlKuxGX0joEF1Pg=",
+    "requestTime": "22/Nov/2019:21:49:44 +0000",
+    "messageDirection": "IN",
+    "stage": "Prod",
+    "connectedAt": 1574459383629,
+    "requestTimeEpoch": 1574459384035,
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "cognitoIdentityId": null,
+      "principalOrgId": null,
+      "cognitoAuthenticationType": null,
+      "userArn": null,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
+      "accountId": null,
+      "caller": null,
+      "sourceIp": "88.98.242.72",
+      "accessKey": null,
+      "cognitoAuthenticationProvider": null,
+      "user": null
+    },
+    "requestId": "DlKuxGX0joEF1Pg=",
+    "domainName": "4ig0y3nt75.execute-api.eu-west-1.amazonaws.com",
+    "connectionId": "DlKutckpDoECIrA=",
+    "apiId": "4ig0y3nt75"
+  },
+  "body": "{\"data\": { \"gameId\": \"some-uuid\", \"action\": \"READY\" },\"message\":\"sendmessage\"}",
+  "isBase64Encoded": false
+}

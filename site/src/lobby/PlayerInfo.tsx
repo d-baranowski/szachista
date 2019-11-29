@@ -1,5 +1,6 @@
 import React from 'react';
 import "./PlayerInfo.css"
+import VS from "./VS";
 
 type Props = {
     playerOnePicture?: string,
@@ -12,7 +13,9 @@ const PlayerInfo: React.FunctionComponent<Props> = (props) => (
             <img className="player-avatar"
                  src={props.playerOnePicture || "/question.svg"}/>
         </div>
-        <img className="vs" src="/vs.svg"/>
+        <div className="vs">
+            <VS/>
+        </div>
         <div className="player-two">
             <img className="player-avatar"
                  src={props.playerTwoPicture || "/question.svg"}/>
