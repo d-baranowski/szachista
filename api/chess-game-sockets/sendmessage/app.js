@@ -1,11 +1,17 @@
 console.log("Loading function");
 
-const AWS = require('aws-sdk');
 const lib = require("/opt/library");
+const lambda = require("./lambda");
 
 
 exports.handler = async (event, context) => {
-  console.log("Received Event", event);
+    let response;
+    try {
+        response = await lambda(lib)(event, context);
+    } catch (e) {
+        console.log(e);
+        return {statusCode: 500, error: e}
+    }
 
-  return { statusCode: 200, body: 'Data sent.' };
+    return response;
 };

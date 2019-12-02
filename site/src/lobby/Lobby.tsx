@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Media from 'react-media';
 import ChatWidowContainer from "../chat/containers/ChatWindowContainer";
 import GameRoom from "./GameRoom";
-    import styles from "./Lobby.css";
+import styles from "./Lobby.css";
 import fetchActiveGames from "./FetchActiveGames";
 import ActiveGamesStore, {IActiveGame} from "./ActiveGamesStore";
 import ErrorHandler from "../error/ErrorHandler";
@@ -11,6 +11,7 @@ import CreateGameModal from "./CreateGameModal";
 import CreateGamesStore from "./CreateGameStore";
 import SuccessBtn from "../elements/btn/SuccessBtn";
 import GameWaitingRoom from "./GameWaitingRoom";
+import joinGame from "./JoinGame";
 
 type Props = {
     items: IActiveGame[]
@@ -47,8 +48,8 @@ class Lobby extends Component<Props> {
     componentDidMount(): void {
         fetchActiveGames().then(ActiveGamesStore.setActiveGames).catch(ErrorHandler.handle);
         this.intervalId = setInterval(() => {
-            // TODO COSTLY Perhaps have a little refresh button? fetchActiveGames().then(ActiveGamesStore.setActiveGames).catch(console.log);
-        }, 5 * 1000)
+            fetchActiveGames().then(ActiveGamesStore.setActiveGames).catch(console.log);
+        }, 30 * 1000)
     }
 
     componentWillUnmount(): void {
@@ -60,7 +61,12 @@ class Lobby extends Component<Props> {
             <div className={styles['lobby']}>
                 <div className={styles['lobby-games']}>
                     {this.props.items.map(item => (
-                        <GameRoom game={item}/>
+                        <GameRoom
+                            onClick={() => {
+                                joinGame(item.key)
+                            }}
+                            game={item}
+                        />
                     ))}
                 </div>
                 <Media query={{maxWidth: 599}}>
@@ -82,7 +88,7 @@ class Lobby extends Component<Props> {
                 </Media>
 
                 <CreateGameModal/>
-                <GameWaitingRoom />
+                <GameWaitingRoom/>
                 <ChatWidowContainer/>
             </div>
         );

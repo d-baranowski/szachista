@@ -10,18 +10,28 @@ Globals:
           FunctionPayloadType: TOKEN
           FunctionArn: arn:aws:lambda:eu-west-1:277265293752:function:szachista-authorizer-AuthKeyAuthorizer-NK9XJEHQIVCW
 Resources:
+  DependencyLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: chess-lobby-dependencies
+      Description: Dependencies for sam app
+      ContentUri: ../library/dependencies/
+      CompatibleRuntimes:
+        - nodejs12.x
+      LicenseInfo: 'MIT'
+      RetentionPolicy: Retain
   ChessLobbyApi:
     Type: 'AWS::Serverless::Function'
     Properties:
       FunctionName: chess-lobby
       CodeUri: handler/
       Handler: app.handler
-      Runtime: nodejs10.x
+      Runtime: nodejs12.x
       Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
       MemorySize: 512
       Timeout: 10
       Layers:
-        - Fn::ImportValue: LibraryLayer
+        - !Ref DependencyLayer
       Policies:
         - Version: '2012-10-17'
           Statement:
@@ -68,7 +78,7 @@ Resources:
         update:
           Type: Api
           Properties:
-            Path: /{id}
+            Path: /
             Method: PUT
         cors:
           Type: Api

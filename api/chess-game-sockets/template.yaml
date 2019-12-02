@@ -9,7 +9,7 @@ Resources:
       Description: Dependencies for sam app
       ContentUri: ../library/dependencies/
       CompatibleRuntimes:
-        - nodejs10.x
+        - nodejs12.x
       LicenseInfo: 'MIT'
       RetentionPolicy: Retain
   ChessLobbyWebSocket:
@@ -102,7 +102,7 @@ Resources:
       MemorySize: 256
       Layers:
         - !Ref DependencyLayer
-      Runtime: nodejs10.x
+      Runtime: nodejs12.x
       Policies:
         - Version: '2012-10-17'
           Statement:
@@ -147,7 +147,7 @@ Resources:
       MemorySize: 256
       Layers:
       - !Ref DependencyLayer
-      Runtime: nodejs10.x
+      Runtime: nodejs12.x
       Policies:
         - Version: '2012-10-17'
           Statement:
@@ -193,7 +193,7 @@ Resources:
       MemorySize: 256
       Layers:
         - !Ref DependencyLayer
-      Runtime: nodejs10.x
+      Runtime: nodejs12.x
       Policies:
         - Version: '2012-10-17'
           Statement:
@@ -234,7 +234,7 @@ Resources:
       MemorySize: 256
       Layers:
         - !Ref DependencyLayer
-      Runtime: nodejs10.x
+      Runtime: nodejs12.x
       Policies:
         - Version: '2012-10-17'
           Statement:

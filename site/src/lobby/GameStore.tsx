@@ -45,6 +45,14 @@ interface IAction {
     type: string
 }
 
+interface IPlayerReadyStateChanged extends IAction {
+    payload: {
+        player: string,
+        gameId: string,
+        ready: boolean
+    }
+}
+
 export interface ISocketStatusChangeAction extends IAction {
     payload: string
 }
@@ -81,6 +89,20 @@ export const showModal: (payload: boolean) => IShowModalAction = (payload) => ({
     payload
 });
 
+interface ISendPlayerReadyActionPayload {
+    gameId: string,
+    readyState: boolean
+}
+
+export interface ISendPlayerReadyAction extends IAction {
+    payload: ISendPlayerReadyActionPayload
+}
+
+export const sendPlayerReadyAction: (payload: ISendPlayerReadyActionPayload) => ISendPlayerReadyAction = (payload) => ({
+    type: "SEND_PLAYER_READY_ACTION",
+    payload: payload
+});
+
 const handleGameCreated: (state: State, action: IGameCreatedAction) => State = (state, action) => {
     return {
         ...state,
@@ -112,6 +134,13 @@ const handleGameSocketStatusChange: (state: State, action: ISocketStatusChangeAc
     }
 };
 
+function handlePlayerReadyStateChanged(state: State, action: IPlayerReadyStateChanged): State {
+    return {
+        ...state,
+        [action.payload.player + "Ready"]: action.payload.ready
+    };
+}
+
 const middleware: {
     [key: string]: any;
 } = {};
@@ -120,14 +149,17 @@ const callMiddleware = (action: IAction, newState: State) => {
     Object.values(middleware).forEach(callback => callback(action, newState))
 };
 
+
 const reduce: (state: State, action: IAction) => State = (state: State, action: IAction) => {
-    let newState: State = defaultState;
+    let newState: State = state || defaultState;
     if (action.type === "GAME_CREATED") {
         newState = handleGameCreated(state, action as IGameCreatedAction);
     } else if (action.type === "SHOW_MODAL") {
         newState = handleShowModal(state, action as IShowModalAction);
     } else if (action.type === "GAME_SOCKET_STATUS_CHANGE") {
         newState = handleGameSocketStatusChange(state, action as ISocketStatusChangeAction);
+    } else if (action.type === "PLAYER_READY_STATE_CHANGED") {
+        newState = handlePlayerReadyStateChanged(state, action as IPlayerReadyStateChanged);
     }
 
     callMiddleware(action, newState);

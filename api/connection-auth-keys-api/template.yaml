@@ -21,7 +21,7 @@ Resources:
       Description: Dependencies for sam app
       ContentUri: ../library/dependencies/
       CompatibleRuntimes:
-        - nodejs10.x
+        - nodejs12.x
       LicenseInfo: 'MIT'
       RetentionPolicy: Retain
   AuthKeyApi:
@@ -29,7 +29,7 @@ Resources:
     Properties:
       CodeUri: handler/
       Handler: app.handler
-      Runtime: nodejs10.x
+      Runtime: nodejs12.x
       Description: A simple backend with a RESTful API endpoint using Amazon API Gateway.
       MemorySize: 512
       Timeout: 10

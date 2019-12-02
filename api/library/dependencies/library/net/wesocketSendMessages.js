@@ -1,4 +1,6 @@
-const sendMessages = async (postData, connections, dropConnection) => {
+const AWS = require('aws-sdk');
+
+const sendMessages = async ({event, postData, connections, dropConnection}) => {
     let apiGatewayManagementApi;
 
     try {
@@ -7,11 +9,14 @@ const sendMessages = async (postData, connections, dropConnection) => {
             endpoint: event.requestContext.domainName + '/' + event.requestContext.stage
         });
     } catch (e) {
+        console.log("Failed to initialise apiGateway api")
+        console.log(e);
         return Promise.reject(e)
     }
 
     const postCalls = connections.map(async ({connectionId}) => {
         try {
+            console.log("Mappind post call for connection id " + connectionId);
             await apiGatewayManagementApi.postToConnection({
                 ConnectionId: connectionId,
                 Data: JSON.stringify(postData)
@@ -21,6 +26,7 @@ const sendMessages = async (postData, connections, dropConnection) => {
                 console.log(`Found stale connection, deleting ${connectionId}`);
                 await dropConnection(connectionId);
             } else {
+                console.log("Error sending message " + e);
                 return Promise.reject(e);
             }
         }

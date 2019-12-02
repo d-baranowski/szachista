@@ -256,6 +256,66 @@ const DAO = {
 
             return dynamo.update(params).promise();
         },
+        joinGame: ({gameId, gameCreatedTime, playerUsername, playerPicture}) => {
+            let dynamo;
+            const NOW = Date.now();
+
+            try {
+                dynamo = getDynamoDbDocumentClient();
+            } catch (e) {
+                console.log(e);
+                return Promise.reject(e);
+            }
+
+            const params = {
+                TableName: CHESS_LOBBY_TABLE_NAME,
+                Key: {
+                    key: gameId,
+                    createdTime: gameCreatedTime
+                },
+                UpdateExpression: "set playerTwoUsername = :playerUsername, playerTwoPicture = :playerPicture, lastActivity = :lastActivity, lastActivityDay = :lastActivityDay",
+                ExpressionAttributeValues: {
+                    ":playerUsername": playerUsername,
+                    ":playerPicture": playerPicture,
+                    ":lastActivity": NOW,
+                    ":lastActivityDay": new Date().toISOString().substr(0, 10)
+                },
+                ReturnValues: 'ALL_NEW'
+            };
+
+
+            return dynamo.update(params).promise();
+        },
+        dropChessConnection: (game, connectionId) => {
+            let dynamo;
+            const NOW = Date.now();
+
+            try {
+                dynamo = getDynamoDbDocumentClient();
+            } catch (e) {
+                console.log(e);
+                return Promise.reject(e);
+            }
+
+            let newConnections = game.playerConnections ? game.playerConnections : [];
+            newConnections.filter(conn => conn.connectionId !== connectionId);
+
+            const params = {
+                TableName: CHESS_LOBBY_TABLE_NAME,
+                Key: {
+                    key: game.key,
+                    createdTime: game.createdTime
+                },
+                UpdateExpression: "set playerConnections = :newConnections, lastActivity = :lastActivity, lastActivityDay = :lastActivityDay",
+                ExpressionAttributeValues: {
+                    ":newConnections": newConnections,
+                    ":lastActivity": NOW,
+                    ":lastActivityDay": new Date().toISOString().substr(0, 10)
+                }
+            };
+
+            return dynamo.update(params).promise();
+        },
         setPlayerReady: async (gameId, playerUsername, status) => {
             const NOW = Date.now();
             let game;

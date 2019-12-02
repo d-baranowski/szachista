@@ -1,4 +1,4 @@
-module.exports = (lib) => (event, context, callback, accessData) => {
+module.exports = (lib) => async (event, context, callback, accessData) => {
     const NOW = Date.now();
     let payload;
 
@@ -7,10 +7,12 @@ module.exports = (lib) => (event, context, callback, accessData) => {
     } catch (err) {
         lib.log(err);
         lib.net.sendResponse(400, "Bad body", callback)
+        return
     }
 
     if (!payload) {
         lib.net.sendResponse(400, "Body missing", callback)
+        return
     }
 
     const {
@@ -87,7 +89,7 @@ module.exports = (lib) => (event, context, callback, accessData) => {
         playerTwoPicture: null
     };
 
-    lib.data.chess_lobby.createItem(item)
+    return lib.data.chess_lobby.createItem(item)
         .then(() => {
             lib.net.sendResponse(200, {
                 ...item,

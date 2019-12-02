@@ -32,6 +32,6 @@
     "connectionId": "DlKutckpDoECIrA=",
     "apiId": "4ig0y3nt75"
   },
-  "body": "{\"data\": { \"gameId\": \"some-uuid\", \"action\": \"READY\" },\"message\":\"sendmessage\"}",
+  "body": "{\"data\": { \"gameId\": \"3f9d8020-055f-11ea-becd-b110d3f5669b\", \"action\": \"READY\", \"payload\": { \"readyState\": true } },\"message\":\"sendmessage\"}",
   "isBase64Encoded": false
 }

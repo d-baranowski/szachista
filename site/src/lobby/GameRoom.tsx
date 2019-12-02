@@ -7,12 +7,14 @@ import GameInfo from "./GameInfo";
 import GameRoomName from "./GameRoomName";
 
 type Props = {
-    game: IActiveGame
+    game: IActiveGame,
+    onClick: () => void
 }
+
 
 const GameRoom: React.FunctionComponent<Props> = (props: Props) => {
     return (
-        <div className="game-room">
+        <div onClick={props.onClick} className="game-room">
             <PlayerInfo
                 playerOnePicture={props.game.playerOnePicture}
                 playerTwoPicture={props.game.playerTwoPicture}

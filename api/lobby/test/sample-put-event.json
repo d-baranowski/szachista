@@ -1,0 +1,142 @@
+{
+  "resource": "/",
+  "path": "/chess-lobby",
+  "httpMethod": "PUT",
+  "headers": {
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8,pl;q=0.7",
+    "Authorization": "eyJraWQiOiJEemhmWVZ5TjVwWFdTT3VjQUl3ZSs3N3FBV2RBNXZIUHZ1dWw3QUdvY08wPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4Nzg1ODA4Ny0xYzI0LTQxOTktYmMyOS0yNWIxMmI0M2UxODAiLCJjb2duaXRvOmdyb3VwcyI6WyJldS13ZXN0LTFfendxRkFheTBlX0dvb2dsZSJdLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIHBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNTc1MTEwMzI0LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuZXUtd2VzdC0xLmFtYXpvbmF3cy5jb21cL2V1LXdlc3QtMV96d3FGQWF5MGUiLCJleHAiOjE1NzUxMjQzMTUsImlhdCI6MTU3NTEyMDcxNSwidmVyc2lvbiI6MiwianRpIjoiMWM1Y2I1ODItZmE0MC00OWQ5LWFjYzQtOWE0NTFhMTE3MDE2IiwiY2xpZW50X2lkIjoiNnZiaXRvMDhna2h1cDgwZGExbzg5NTBmcWEiLCJ1c2VybmFtZSI6Ikdvb2dsZV8xMDkzNTQ0ODQ2Nzc2NjMzMDgxNzgifQ.BWglnrKYu3cjyyl4FG6kaThVDIO63ks7qHt1d_3LCAK8P7ll7boXSKWF5HOKmHBdgJtcaIbFQnpVv4tXdKxzF0V0wq5WXrLIECFFv3nQXSBsriIB6D74ivj_i0N-nK6Qt9spmhfajNiZotnWed60zENdn2CRIY1HgQwyX02nWEKqnv5WW99AkIpJRSUou6dXEsOPGS0NqwuOnW-4Qd9ipuUvq82mXBk5kKPgOqXzXa7fuH_7J3wgsTU7pgD_9tOJQCqJgY_oN75D0CYbpq7RK7XIS7fBVcCXJoGNdZ72E4O-ty-k4f9rGcwMRVGogqST2klpxFSuYH3HQYuTq3Pg8w",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "GB",
+    "content-type": "application/json",
+    "Host": "api.gierki.net",
+    "origin": "https://gierki.net",
+    "Referer": "https://gierki.net/chess",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+    "Via": "2.0 17f0b98b6d4137bc8dc94c29641bd8d0.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "JWG0yz4l-C1EiL5wA5MAG9dA0qzlEKhKbqyhZTKU5bnGqw2vTz0xfg==",
+    "X-Amzn-Trace-Id": "Root=1-5de26f4c-9d4aaa63e71502cba407b852",
+    "X-Forwarded-For": "188.210.212.136, 52.46.34.92",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept": [
+      "*/*"
+    ],
+    "Accept-Encoding": [
+      "gzip, deflate, br"
+    ],
+    "Accept-Language": [
+      "en-GB,en-US;q=0.9,en;q=0.8,pl;q=0.7"
+    ],
+    "Authorization": [
+      "eyJraWQiOiJEemhmWVZ5TjVwWFdTT3VjQUl3ZSs3N3FBV2RBNXZIUHZ1dWw3QUdvY08wPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4Nzg1ODA4Ny0xYzI0LTQxOTktYmMyOS0yNWIxMmI0M2UxODAiLCJjb2duaXRvOmdyb3VwcyI6WyJldS13ZXN0LTFfendxRkFheTBlX0dvb2dsZSJdLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIHBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNTc1MTEwMzI0LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuZXUtd2VzdC0xLmFtYXpvbmF3cy5jb21cL2V1LXdlc3QtMV96d3FGQWF5MGUiLCJleHAiOjE1NzUxMjQzMTUsImlhdCI6MTU3NTEyMDcxNSwidmVyc2lvbiI6MiwianRpIjoiMWM1Y2I1ODItZmE0MC00OWQ5LWFjYzQtOWE0NTFhMTE3MDE2IiwiY2xpZW50X2lkIjoiNnZiaXRvMDhna2h1cDgwZGExbzg5NTBmcWEiLCJ1c2VybmFtZSI6Ikdvb2dsZV8xMDkzNTQ0ODQ2Nzc2NjMzMDgxNzgifQ.BWglnrKYu3cjyyl4FG6kaThVDIO63ks7qHt1d_3LCAK8P7ll7boXSKWF5HOKmHBdgJtcaIbFQnpVv4tXdKxzF0V0wq5WXrLIECFFv3nQXSBsriIB6D74ivj_i0N-nK6Qt9spmhfajNiZotnWed60zENdn2CRIY1HgQwyX02nWEKqnv5WW99AkIpJRSUou6dXEsOPGS0NqwuOnW-4Qd9ipuUvq82mXBk5kKPgOqXzXa7fuH_7J3wgsTU7pgD_9tOJQCqJgY_oN75D0CYbpq7RK7XIS7fBVcCXJoGNdZ72E4O-ty-k4f9rGcwMRVGogqST2klpxFSuYH3HQYuTq3Pg8w"
+    ],
+    "CloudFront-Forwarded-Proto": [
+      "https"
+    ],
+    "CloudFront-Is-Desktop-Viewer": [
+      "true"
+    ],
+    "CloudFront-Is-Mobile-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-SmartTV-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-Tablet-Viewer": [
+      "false"
+    ],
+    "CloudFront-Viewer-Country": [
+      "GB"
+    ],
+    "content-type": [
+      "application/json"
+    ],
+    "Host": [
+      "api.gierki.net"
+    ],
+    "origin": [
+      "https://gierki.net"
+    ],
+    "Referer": [
+      "https://gierki.net/chess"
+    ],
+    "sec-fetch-mode": [
+      "cors"
+    ],
+    "sec-fetch-site": [
+      "same-site"
+    ],
+    "User-Agent": [
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+    ],
+    "Via": [
+      "2.0 17f0b98b6d4137bc8dc94c29641bd8d0.cloudfront.net (CloudFront)"
+    ],
+    "X-Amz-Cf-Id": [
+      "JWG0yz4l-C1EiL5wA5MAG9dA0qzlEKhKbqyhZTKU5bnGqw2vTz0xfg=="
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-5de26f4c-9d4aaa63e71502cba407b852"
+    ],
+    "X-Forwarded-For": [
+      "188.210.212.136, 52.46.34.92"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "ivmi5r5oti",
+    "authorizer": {
+      "principalId": "user",
+      "stringified": "{\"Username\":\"Google_109354484677663308178\",\"UserAttributes\":[{\"Name\":\"sub\",\"Value\":\"87858087-1c24-4199-bc29-25b12b43e180\"},{\"Name\":\"identities\",\"Value\":\"[{\\\"userId\\\":\\\"109354484677663308178\\\",\\\"providerName\\\":\\\"Google\\\",\\\"providerType\\\":\\\"Google\\\",\\\"issuer\\\":null,\\\"primary\\\":true,\\\"dateCreated\\\":1555128389392}]\"},{\"Name\":\"name\",\"Value\":\"Daniel Baranowski\"},{\"Name\":\"given_name\",\"Value\":\"Daniel\"},{\"Name\":\"family_name\",\"Value\":\"Baranowski\"},{\"Name\":\"email\",\"Value\":\"daniel.m.baranowski@gmail.com\"},{\"Name\":\"picture\",\"Value\":\"https://lh3.googleusercontent.com/a-/AAuE7mBWe1Nv4LxFR49rFB2ivmT8kHcau8HTZuwktORb=s96-c\"}]}",
+      "integrationLatency": 52
+    },
+    "resourcePath": "/",
+    "httpMethod": "PUT",
+    "extendedRequestId": "D-ZUAHYdjoEF9BQ=",
+    "requestTime": "30/Nov/2019:13:31:56 +0000",
+    "path": "/chess-lobby",
+    "accountId": "277265293752",
+    "protocol": "HTTP/1.1",
+    "stage": "Prod",
+    "domainPrefix": "api",
+    "requestTimeEpoch": 1575120716703,
+    "requestId": "ddd3a266-dc33-4f49-8fd0-f941f913fbf7",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "188.210.212.136",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+      "user": null
+    },
+    "domainName": "api.gierki.net",
+    "apiId": "xrzfpc58q9"
+  },
+  "body": "{\"gameId\":\"3f9d8020-055f-11ea-becd-b110d3f5669b\"}",
+  "isBase64Encoded": false
+}
