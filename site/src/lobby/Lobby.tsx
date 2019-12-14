@@ -9,9 +9,11 @@ import ErrorHandler from "../error/ErrorHandler";
 import connect from "../state/connect";
 import CreateGameModal from "./CreateGameModal";
 import CreateGamesStore from "./CreateGameStore";
+import GameManager from "../sockets/GameManager"
 import SuccessBtn from "../elements/btn/SuccessBtn";
 import GameWaitingRoom from "./GameWaitingRoom";
 import joinGame from "./JoinGame";
+import gameStore, {gameCreated, sendPlayerJoinedAction, showModal} from "./GameStore";
 
 type Props = {
     items: IActiveGame[]
@@ -63,7 +65,14 @@ class Lobby extends Component<Props> {
                     {this.props.items.map(item => (
                         <GameRoom
                             onClick={() => {
-                                joinGame(item.key)
+                                joinGame(item.key).then(response => {
+                                    new GameManager().getInstance().joinGame(response);
+                                    return response
+                                }).then(response => {
+                                    gameStore.dispatch(gameCreated(response));
+                                    gameStore.dispatch(sendPlayerJoinedAction({gameId: response.key}));
+                                    gameStore.dispatch(showModal(true));
+                                })
                             }}
                             game={item}
                         />

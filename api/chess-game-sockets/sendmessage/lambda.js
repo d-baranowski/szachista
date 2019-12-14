@@ -1,8 +1,14 @@
 const playerReadyAction = require("./playerReadyAction");
+const playerJoinedGameAction = require("./playerJoinedGameAction");
 
 const actionRouter = (lib) => (messageContext) => {
     if (messageContext.action === "READY") {
+        console.log("Performing ready action");
         return playerReadyAction(lib)(messageContext)
+    }
+    if (messageContext.action === "JOINED_GAME") {
+        console.log("Performing joined game action");
+        return playerJoinedGameAction(lib)(messageContext)
     }
 };
 
@@ -41,7 +47,16 @@ const lambda = (lib) => async (event, context) => {
         console.log(e);
     }
 
-    let messageContext = {authentity, chessGame, message, action: message.data.action, event};
+    console.log(authentity);
+
+    const userAttributes = authentity.UserAttributes.reduce((object, value) => {
+        return {
+            ...object,
+            [value.Name]: value.Value
+        };
+    }, {});
+
+    let messageContext = {userAttributes, authentity, chessGame, message, action: message.data.action, event};
 
     if (chessGame.playerOneUsername === authentity.Username) {
         messageContext.player = "playerOne"

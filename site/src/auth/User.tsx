@@ -2,6 +2,7 @@ import Encryption from "./Encryption";
 import {IAwsTokenResponse} from "../model/IAwsTokenResponse";
 import jwt from "jsonwebtoken";
 import {IIdTokenDeceoded} from "../model/IIdTokenDeceoded";
+import ErrorHandler from "../error/ErrorHandler";
 
 export const EMPTY_USER: IAwsTokenResponse = {
     "access_token": "",
@@ -62,6 +63,17 @@ class User {
         }
 
         return jwt.decode(idToken) as IIdTokenDeceoded;
+    }
+    getUsername(): string | null {
+        let UserId;
+
+        try {
+            const userInfo = this.getUserInfo();
+            return userInfo !== EMPTY_USER_INFO ? userInfo["cognito:username"] : null;
+        } catch (e) {
+            ErrorHandler.handle(e);
+            return null;
+        }
     }
 }
 

@@ -77,7 +77,7 @@ module.exports = (lib) => async (event, context, callback, accessData) => {
     const item = {
         key: lib.uuid(),
         gameName: gameName.trim(),
-        password: password.trim() || "NOTREQUIRED",
+        password: password ? password.trim() : null,
         createdTime: NOW,
         lastActivity: NOW,
         lastActivityDay: new Date().toISOString().substr(0, 10),

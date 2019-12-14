@@ -103,6 +103,20 @@ export const sendPlayerReadyAction: (payload: ISendPlayerReadyActionPayload) => 
     payload: payload
 });
 
+
+interface ISendPlayerJoinedActionPayload {
+    gameId: string
+}
+
+export interface ISendPlayerJoinedAction extends IAction {
+    payload: ISendPlayerJoinedActionPayload
+}
+
+export const sendPlayerJoinedAction: (payload: ISendPlayerJoinedActionPayload) => ISendPlayerJoinedAction = (payload) => ({
+    type: "SEND_PLAYER_JOINED_ACTION",
+    payload: payload
+});
+
 const handleGameCreated: (state: State, action: IGameCreatedAction) => State = (state, action) => {
     return {
         ...state,
@@ -141,6 +155,14 @@ function handlePlayerReadyStateChanged(state: State, action: IPlayerReadyStateCh
     };
 }
 
+function handlePlayerJoined(state: State, action: IPlayerJoined): State {
+    return {
+        ...state,
+        [`${action.payload.playerSeat}Picture`]: action.payload.picture,
+        [`${action.payload.playerSeat}Username`]: action.payload.playerUsername
+    }
+}
+
 const middleware: {
     [key: string]: any;
 } = {};
@@ -149,6 +171,15 @@ const callMiddleware = (action: IAction, newState: State) => {
     Object.values(middleware).forEach(callback => callback(action, newState))
 };
 
+interface IPlayerJoined extends IAction {
+    type: "PLAYER_JOINED",
+    payload: {
+        playerSeat: "playerOne" | "playerTwo"
+        gameId: string
+        playerUsername: string
+        picture: string
+    }
+}
 
 const reduce: (state: State, action: IAction) => State = (state: State, action: IAction) => {
     let newState: State = state || defaultState;
@@ -160,9 +191,11 @@ const reduce: (state: State, action: IAction) => State = (state: State, action: 
         newState = handleGameSocketStatusChange(state, action as ISocketStatusChangeAction);
     } else if (action.type === "PLAYER_READY_STATE_CHANGED") {
         newState = handlePlayerReadyStateChanged(state, action as IPlayerReadyStateChanged);
+    } else if (action.type === "PLAYER_JOINED") {
+        newState = handlePlayerJoined(state, action as IPlayerJoined)
     }
 
-    callMiddleware(action, newState);
+        callMiddleware(action, newState);
     return newState;
 };
 

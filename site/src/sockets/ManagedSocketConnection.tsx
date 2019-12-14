@@ -26,6 +26,15 @@ const ManagedSocketConnection: IManagedSocketConnection = (props) => {
                     return;
                 }
 
+                if (ws) {
+                    ws.onmessage = () => {};
+                    ws.onerror = () => {};
+                    ws.onopen = () => {};
+                    ws.onclose = () => {};
+                    ws.close();
+                    ws = null
+                }
+
                 ws = new WebSocket(encodeURI(props.address + params));
                 ws.onopen = function (event) {
                     props.onStatusChange({status: 'open', event});
@@ -34,12 +43,10 @@ const ManagedSocketConnection: IManagedSocketConnection = (props) => {
 
                 ws.onclose = function (event) {
                     props.onStatusChange({status: 'close', event});
-                    ws = null;
                 };
 
                 ws.onerror = function (event) {
                     props.onStatusChange({status: 'error', event});
-                    ws = null;
                 };
 
                 ws.onmessage = function (event) {

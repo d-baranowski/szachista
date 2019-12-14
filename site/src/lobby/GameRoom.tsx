@@ -21,7 +21,7 @@ const GameRoom: React.FunctionComponent<Props> = (props: Props) => {
             />
             <GameRoomName gameName={props.game.gameName} />
             <GameInfo
-                password={props.game.password}
+                passwordRequired={props.game.password === "REQUIRED"}
                 timeAllowed={props.game.timeAllowed}
                 tokensToEnter={props.game.tokensToEnter}
             />

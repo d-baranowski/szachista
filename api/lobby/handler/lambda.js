@@ -21,6 +21,8 @@ const lambda = (lib) => async (event, context, callback) => {
         authData = lib.auth.getAuthentity(event);
     } catch (e) {
         console.log(e)
+        lib.net.sendResponse(401, "Invalid authentity", callback);
+        return;
     }
 
     if (authData.error) {

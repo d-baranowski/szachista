@@ -3,14 +3,13 @@ const getActiveGames = (lib) => async (event, context, callback/*, accessData */
 
     return lib.data.chess_lobby.getActiveGames(acceptedThreshold)
         .then((response) => {
-            console.log("GOT HERE")
             const mapped = response.Items.map((item) => {
                 return {
                     ...item,
                     password: item.password ? "REQUIRED" : "NOTREQUIRED"
                 }
             });
-            console.log("AND EVEN HERE")
+
             lib.net.sendResponse(200, mapped, callback)
         })
         .catch(err => {

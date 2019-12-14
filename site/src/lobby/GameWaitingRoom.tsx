@@ -7,6 +7,7 @@ import GameRoomName from "./GameRoomName";
 import GameInfo from "./GameInfo";
 import connect from "../state/connect";
 import gameStore, {IGameStore, sendPlayerReadyAction, showModal} from "./GameStore";
+import User from "../auth/User";
 
 const styleSuccessBtn = {
     marginTop: 10,
@@ -27,7 +28,7 @@ const styleConStatus = {
     justifyContent: 'center',
 };
 
-function getReadyLabel(playerOneReady: boolean, playerTwoReady: boolean, whichPlayer: "playerOne"|"playerTwo"): string {
+function getReadyLabel(playerOneReady: boolean, playerTwoReady: boolean, whichPlayer: "playerOne" | "playerTwo"): string {
     if (playerOneReady && playerTwoReady && whichPlayer === "playerOne") {
         return "Start Game"
     }
@@ -48,6 +49,11 @@ export const GameWaitingRoom: React.FunctionComponent<IGameStore> = (props) => {
         backgroundColor: props.state.socketConState === "open" ? "green" : "red"
     };
 
+    const userName = User.getUsername();
+    const playerSeat = userName === props.state.playerOneUsername ? "playerOne" : "playerTwo";
+    // @ts-ignore
+    const activePlayerReady: boolean = props.state[`${playerSeat}Ready`];
+
     return (
         <Modal
             isVisible={props.state.showModal}
@@ -67,7 +73,7 @@ export const GameWaitingRoom: React.FunctionComponent<IGameStore> = (props) => {
                 <div style={dotStyle}/>
             </div>
             <GameInfo
-                password={!props.state.passwordRequired ? "NOTREQUIRED" : "REQUIRED"}
+                passwordRequired={props.state.passwordRequired}
                 timeAllowed={props.state.timeAllowed}
                 tokensToEnter={props.state.tokensToEnter}
             />
@@ -77,10 +83,10 @@ export const GameWaitingRoom: React.FunctionComponent<IGameStore> = (props) => {
                 onClick={() => {
                     props.dispatch(sendPlayerReadyAction({
                         gameId: props.state.key,
-                        readyState: !props.state.playerOneReady
+                        readyState: !activePlayerReady
                     }))
                 }}
-                label={getReadyLabel(props.state.playerOneReady, props.state.playerTwoReady, "playerOne")}
+                label={getReadyLabel(props.state.playerOneReady, props.state.playerTwoReady, playerSeat)}
             />
             <FailBtn
                 style={styleFailBtn}

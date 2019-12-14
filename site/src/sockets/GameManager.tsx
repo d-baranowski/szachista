@@ -5,7 +5,8 @@ import gameStore, {
     gameCreated,
     gameSocketStatusChange,
     ICreateGameAction,
-    IGameCreatedAction, ISendPlayerReadyAction,
+    IGameCreatedAction,
+    ISendPlayerReadyAction,
     showModal
 } from "../lobby/GameStore";
 import lobbyGameCreate from "../lobby/lobbyGameCreate";
@@ -23,6 +24,16 @@ interface IGameReadySocketMessage {
     message: "sendmessage"
 }
 
+
+interface IGamePlayerJoinedSocketMessage {
+    data: {
+        gameId: string,
+        action: string,
+        payload: {}
+    },
+    message: "sendmessage"
+}
+
 function readyStateMessage(gameId: string, readyState: boolean): IGameReadySocketMessage {
     return {
         "data": {
@@ -33,8 +44,18 @@ function readyStateMessage(gameId: string, readyState: boolean): IGameReadySocke
     };
 }
 
+function joinedStateMessage(gameId: string): IGamePlayerJoinedSocketMessage {
+    return {
+        "data": {
+            "gameId": gameId,
+            "action": "JOINED_GAME",
+            "payload": {}
+        }, "message": "sendmessage"
+    };
+}
+
 class GameManager {
-    socketConnection: IConnection | undefined;
+    private socketConnection: IConnection | undefined;
 
     constructor() {
         gameStore.registerMiddleware((action/*, newState */) => {
@@ -49,14 +70,12 @@ class GameManager {
                     ErrorHandler.handle(err);
                     CreateGamesStore.validationMsg = "There was an error creating the game.";
                 })
-            }
-
-            else if (action.type === "GAME_CREATED") {
+            } else if (action.type === "GAME_CREATED") {
                 this.joinGame((action as IGameCreatedAction).payload);
-            }
-
-            else if (action.type === "SEND_PLAYER_READY_ACTION") {
-                if (!this.socketConnection) { return; }
+            } else if (action.type === "SEND_PLAYER_READY_ACTION") {
+                if (!this.socketConnection) {
+                    return;
+                }
 
                 const {
                     gameId,
@@ -64,6 +83,17 @@ class GameManager {
                 } = (action as ISendPlayerReadyAction).payload;
 
                 this.socketConnection.send(readyStateMessage(gameId, readyState))
+            } else if (action.type === "SEND_PLAYER_JOINED_ACTION") {
+                if (!this.socketConnection) {
+                    return;
+                }
+
+                const {
+                    gameId
+                } = (action as ISendPlayerReadyAction).payload;
+
+                this.socketConnection.send(joinedStateMessage(gameId))
+
             }
         })
     }
@@ -77,9 +107,6 @@ class GameManager {
             },
             onStatusChange: (event) => gameStore.dispatch(gameSocketStatusChange(event.status))
         });
-
-
-        return this.socketConnection;
     }
 }
 

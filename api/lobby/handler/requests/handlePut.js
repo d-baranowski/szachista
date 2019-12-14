@@ -67,7 +67,7 @@ const putHandler = (lib) => async (event, context, callback, accessData) => {
 
     if (playerTwoUsername) {
         console.log("Another player already joined this game", playerTwoUsername);
-        lib.net.sendResponse(400, "Can't join this game another player already joined", callback)
+        lib.net.sendResponse(400, "Can't join this game another player already joined", callback);
         return;
     }
 
@@ -117,7 +117,7 @@ const putHandler = (lib) => async (event, context, callback, accessData) => {
     //     console.log("Failed to notify players about the join event", e);
     // }
 
-    const joinedGameResponse = { ...joinedGame, playerConnections: [] };
+    const joinedGameResponse = { ...joinedGame, playerConnections: null };
 
     lib.net.sendResponse(200, joinedGameResponse, callback);
 };

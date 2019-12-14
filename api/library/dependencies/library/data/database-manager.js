@@ -236,7 +236,10 @@ const DAO = {
                 return Promise.reject(e);
             }
 
-            const newConnections = game.playerConnections ? game.playerConnections : [];
+            let newConnections = game.playerConnections ? game.playerConnections : [];
+            newConnections = newConnections.filter(connection => {
+                return connection.authentity.key !== item.authentity.key
+            });
             newConnections.push(item);
 
             const params = {
