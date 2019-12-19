@@ -13,7 +13,14 @@
     }
 }
 
+@media (max-width: 620px) {
+    .page-body {
+        margin-top: 0;
+    }
+}
+
 body * {
+    color: white;
     user-select: none;
 }
 

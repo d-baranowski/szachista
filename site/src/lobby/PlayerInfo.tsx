@@ -3,6 +3,7 @@ import "./PlayerInfo.css"
 import VS from "./VS";
 
 type Props = {
+    style?: React.CSSProperties,
     playerOnePicture?: string,
     playerTwoPicture?: string
     playerOneReady?: boolean,
@@ -20,7 +21,7 @@ const readyBoxShadow = {
 
 const PlayerInfo: React.FunctionComponent<Props> = (props) => {
     return (
-        <div className="player-info">
+        <div style={props.style} className="player-info">
             <div className="player-one">
                 <img className="player-avatar"
                      style={props.playerOneReady ? readyBoxShadow : notReady}

@@ -3,7 +3,7 @@ import scriptjs from "scriptjs";
 import "./chess.css"
 import App from "./game/src/App";
 
-class ChessGame extends Component {
+class ChessBoard extends Component {
     componentDidMount() {
         scriptjs("/chess/js/bundle.js");
     }
@@ -17,6 +17,4 @@ class ChessGame extends Component {
     }
 }
 
-ChessGame.propTypes = {};
-
-export default ChessGame;
+export default ChessBoard;

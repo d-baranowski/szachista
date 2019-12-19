@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import Media from 'react-media';
 import ChatWidowContainer from "../chat/containers/ChatWindowContainer";
-import GameRoom from "./GameRoom";
+import GameRoom from "../lobby/GameRoom";
 import styles from "./Lobby.css";
-import fetchActiveGames from "./FetchActiveGames";
-import ActiveGamesStore, {IActiveGame} from "./ActiveGamesStore";
+import fetchActiveGames from "../lobby/FetchActiveGames";
+import ActiveGamesStore, {IActiveGame} from "../lobby/ActiveGamesStore";
 import ErrorHandler from "../error/ErrorHandler";
 import connect from "../state/connect";
-import CreateGameModal from "./CreateGameModal";
-import CreateGamesStore from "./CreateGameStore";
+import CreateGameModal from "../lobby/CreateGameModal";
+import CreateGamesStore from "../lobby/CreateGameStore";
 import GameManager from "../sockets/GameManager"
 import SuccessBtn from "../elements/btn/SuccessBtn";
-import GameWaitingRoom from "./GameWaitingRoom";
-import joinGame from "./JoinGame";
-import gameStore, {gameCreated, sendPlayerJoinedAction, showModal} from "./GameStore";
+import GameWaitingRoom from "../lobby/GameWaitingRoom";
+import joinGame from "../lobby/JoinGame";
+import gameStore, {gameCreated, sendPlayerJoinedAction, showModal} from "../lobby/GameStore";
 
 type Props = {
     items: IActiveGame[]

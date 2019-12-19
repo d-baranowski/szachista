@@ -37,6 +37,8 @@ class App extends Component {
             board: chess.board(),
             lastMove: chess.history({verbose: true}).last()
         });
+
+        console.log(this.state.lastMove)
     };
 
     componentDidMount() {
@@ -49,7 +51,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Style/>
+                <Style />
                 <div style={{maxWidth: 500}}>
                     <Board
                         getValidMoves={(square) => {

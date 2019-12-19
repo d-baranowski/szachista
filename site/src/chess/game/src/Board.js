@@ -113,12 +113,27 @@ class Board extends Component {
                                 }
 
                                 const validMoves = this.state.from ? this.props.getValidMoves(this.state.from) : [];
+                                const isValidMove = !!validMoves.find((elem) => elem.to === `${letter}${number}`);
+                                const name = letter + number;
+
+                                let highlight = false;
+
+                                if (isValidMove) {
+                                    highlight = true
+                                }
+
+                                if (validMoves.length === 0 && this.props.lastMove.from === name) {
+                                    highlight = true
+                                }
+
+                                if (validMoves.length === 0 && this.props.lastMove.to === name) {
+                                    highlight = true
+                                }
 
                                 return (
                                     <BoardSquare
-                                        validMove={!!validMoves.find((elem) => elem.to === `${letter}${number}`)}
-                                        number={number}
-                                        letter={letter}
+                                        highlight={highlight}
+                                        name={name}
                                         onClick={this.onSquareClick}
                                         width={this.state.width / 8}
                                     >

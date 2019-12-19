@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import Encryption from "./Encryption";
 import {RouteComponentProps, withRouter} from "react-router";
 
-import TokenFetcher from "./TokenFetcher";
+import TokenFetcher from "../auth/TokenFetcher";
 import ErrorHandler from "../error/ErrorHandler";
-import saveSecret from "./saveSecret";
-import secureSecret from "./secureSecret";
-import setupTokenRefresh from "./setupTokenRefresh";
+import saveSecret from "../auth/saveSecret";
+import secureSecret from "../auth/secureSecret";
+import setupTokenRefresh from "../auth/setupTokenRefresh";
 
 interface MatchParams {
     code: string;

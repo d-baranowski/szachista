@@ -1,5 +1,5 @@
 import React from 'react';
-import GameTile from "./GameTile";
+import GameTile from "../games/GameTile";
 import "./GameTiles.css"
 
 const GamesList = () => (

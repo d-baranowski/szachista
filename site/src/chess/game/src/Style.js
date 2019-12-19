@@ -1,11 +1,11 @@
 import React from 'react';
 
-const inject = {
+const getInject = () => ({
     __html: `
 <style>
-.highlight {
-    box-sizing: border-box;
-    border: 2px solid cornflowerblue;
+.highlight.board-element {
+  outline: 1px solid teal;
+  outline-offset: -2px;
 }
 
 .floating-modal {
@@ -51,11 +51,13 @@ const inject = {
 }
 
 .board-element {
+  box-sizing: border-box;
   /*background-size: cover;
   background-blend-mode: saturation;
   background-image: linear-gradient(rgb(125, 0, 0), rgb(125, 0, 0)), url("/wood.svg");*/
   background-color: #F8CFA4;
 }
+
 
 .row:nth-child(2n) .board-element:nth-child(2n) {
   /*background-image: linear-gradient(rgb(125, 0, 0), rgb(125, 0, 0)), url("/wood.svg");*/
@@ -75,12 +77,15 @@ const inject = {
 }
 </style>
 `
+});
+
+const Style = () => {
+    const inject = getInject();
+
+    return (
+        <div dangerouslySetInnerHTML={inject}/>
+    )
 };
 
-const Style = () => (
-    <div dangerouslySetInnerHTML={inject}/>
-);
-
-Style.propTypes = {};
 
 export default Style;
