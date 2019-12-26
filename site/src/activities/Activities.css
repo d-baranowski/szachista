@@ -1,0 +1,47 @@
+.activities {
+    box-sizing: border-box;
+    height: 60px;
+
+    font-size: calc(10px + 2vmin);
+    color: white;
+    background: linear-gradient(#09090D, #0D1017);
+
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.activities svg {
+    fill: #38EBAE;
+}
+
+.activities-container {
+    width: 100%;
+    max-width: 500px;
+
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.button {
+    width: calc(100% / 3);
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+
+}

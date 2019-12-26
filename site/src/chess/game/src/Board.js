@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import debounce from "./debounce";
 import BoardSquare from "./BoardSquare";
-import Figure from "./Figure";
 import PromotionModal from "./PromotionModal";
+import AnimatedFigure from "./AnimatedFigure";
 
 const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
@@ -99,7 +99,7 @@ class Board extends Component {
                     this.domElement = ref
                 }}>
                     {this.props.board && Array(8).fill(1).map((__, i) =>
-                        <div className="row">
+                        <div key={`board-row-${i}`} className="row">
                             {this.props.board[i] && Array(8).fill(1).map((_, j) => {
                                 let animateFrom = {x: 0, y: 0};
                                 const letter = letters[j];
@@ -132,13 +132,14 @@ class Board extends Component {
 
                                 return (
                                     <BoardSquare
+                                        key={`board-square-${name}`}
                                         highlight={highlight}
                                         name={name}
                                         onClick={this.onSquareClick}
                                         width={this.state.width / 8}
                                     >
                                         {this.props.board[i][j] &&
-                                        <Figure animateFrom={animateFrom} figure={this.props.board[i][j]}/>}
+                                        <AnimatedFigure animateFrom={animateFrom} figure={this.props.board[i][j]}/>}
                                     </BoardSquare>
                                 )
                             })

@@ -28,7 +28,7 @@ class App extends Component {
                 <div className="App">
                     <Navbar/>
                     <div className="page-body">
-                        <Route path="/" component={ChessGame}/>
+                        <Route path="/" exact component={ChessGame}/>
                         <Route path="/shouldbeingex" exact component={GamesList}/>
                         <Route path="/chess" exact component={Lobby}/>
                         <Route path="/oauth2/idpresponse" component={Login}/>

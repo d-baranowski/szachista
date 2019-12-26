@@ -1,5 +1,29 @@
 @media (min-width: 620px) {
-    .game-container {
+    .game-history-container {
+        width: 130px;
+    }
+
+    .chess-board-container {
+        width: calc(100% - 260px);
+    }
+
+    .game-screen-container {
+        display: flex;
         margin-top: 30px;
+    }
+}
+
+
+@media (max-width: 619px) {
+    .game-history-container {
+        display: none;
+    }
+
+    .chess-board-container {
+        width: 100%;
+    }
+
+    .game-screen-container {
+        display: flex;
     }
 }

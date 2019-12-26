@@ -32,18 +32,16 @@ class App extends Component {
     };
 
     updateState = () => {
+        this.props.onChessMove({...chess.history({verbose: true}).last(), pgn: chess.pgn()});
         this.setState({
             moves: chess.moves(),
             board: chess.board(),
             lastMove: chess.history({verbose: true}).last()
         });
-
-        console.log(this.state.lastMove)
     };
 
     componentDidMount() {
         chess.load_pgn("1. g4 g5 2. f4 gxf4 3. g5 Nh6 4. g6 f5 5. g7 e6 6. e4 fxe4 7. h4 f3");
-
         this.updateState();
         //this.makeRandomMove();
     }

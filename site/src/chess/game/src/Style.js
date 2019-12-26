@@ -45,8 +45,8 @@ const getInject = () => ({
 }
 
 .figure.figure-white svg {
-  filter: invert(1);
-  stroke: white;
+  stroke: black;
+  fill: white;
   stroke-width: 25px;
 }
 

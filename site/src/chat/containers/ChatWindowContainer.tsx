@@ -1,4 +1,4 @@
-import React, {CSSProperties, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ChatWindow from "../../chat/components/ChatWindow";
 import createStore from "../../state/createStore";
 import connect from "../../state/connect";
@@ -6,6 +6,7 @@ import UserDetailStore, {IUserDetail} from "../../auth/UserDetailStore";
 import ManagedSocketConnection, {IConnection} from "../../sockets/ManagedSocketConnection";
 import uuidv4 from "../../util/uuid";
 import {getParams} from "../connection/GetChatParams";
+import {ChatBubble, ChatBubbleOpen} from "../../icons";
 
 const chatLobbyStore = createStore({
     messages: {},
@@ -33,13 +34,6 @@ interface Props {
     },
     user: IUserDetail
 }
-
-const iconStyle: CSSProperties = {
-    width: "fit-content",
-    position: "absolute",
-    right: 15,
-    bottom: 15,
-};
 
 const ChatWidowContainer: React.FunctionComponent<Props> = (props) => {
     useEffect(() => {
@@ -124,8 +118,13 @@ const ChatWidowContainer: React.FunctionComponent<Props> = (props) => {
                 }}
             />
             {!isOpen && (
-                <div style={iconStyle} onClick={() => setIsOpen(true)}>
-                    <img className="sc-header--img" src={"http://placekitten.com/200/300"} alt="" />
+                <div onClick={() => setIsOpen(true)}>
+                    <ChatBubble/>
+                </div>
+            )}
+            {isOpen && (
+                <div onClick={() => setIsOpen(false)}>
+                    <ChatBubbleOpen />
                 </div>
             )}
         </>

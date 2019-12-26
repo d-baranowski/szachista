@@ -10,8 +10,10 @@ class ChessBoard extends Component {
 
     render() {
         return (
-            <div className="game-container">
-                <App/>
+            <div className="game-screen">
+                <div className="game-container">
+                    <App onChessMove={this.props.onChessMove}/>
+                </div>
             </div>
         );
     }

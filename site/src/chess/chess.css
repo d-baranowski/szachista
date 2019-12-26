@@ -5,3 +5,8 @@
 .game-container * {
     margin: 0 auto;
 }
+
+.game-screen {
+    display: flex;
+    align-content: center;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const bishop = ({color}) => (
+const bishop = (props) => (
     <svg version="1.1" id="Layer_1" x="0"
          y="0" viewBox="0 0 2000 2000" xmlSpace="preserve">
         <g>
@@ -59,6 +59,7 @@ const bishop = ({color}) => (
                     clipPath="url(#SVGID_10_)"/>
             </g>
         </g>
+        {props.crossOut && <line x1="0" y1="0" x2="2000" y2="2000" style={{stroke: "red", strokeWidth: 100}}/>}
     </svg>
 );
 
