@@ -1,4 +1,11 @@
 .game-history {
     background-color: #494e55;
     padding: 5px;
+    position: relative;
+    left: -1000px;
+    transition: left .3s cubic-bezier(0.9,-0.15, 0.1, 1.15);
+}
+
+.open {
+    left: 0;
 }

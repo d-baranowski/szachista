@@ -16,10 +16,13 @@
 
 @media (max-width: 619px) {
     .game-history-container {
-        display: none;
+        position: fixed;
+        min-width: 120px;
+        z-index: 2;
     }
 
     .chess-board-container {
+        z-index: -2;
         width: 100%;
     }
 

@@ -2,17 +2,23 @@ import React from 'react';
 import "./Activities.css";
 import {ChatBubble, List, Tokens} from "../icons";
 import ChatWidowContainer from "../chat/containers/ChatWindowContainer";
+import TokensMenu from "../tokens-menu/TokensMenu";
 
-const Activities = () => {
+interface Props {
+    toggleEvents: () => void
+}
+
+
+const Activities = (props:Props) => {
     return (
         <div className="activities">
             <div className="activities-container">
-                <div className="button">
+                <div onClick={props.toggleEvents} className="button">
                     <List/>
                     <div>Events</div>
                 </div>
                 <div className="button">
-                    <Tokens/>
+                    <TokensMenu />
                     <div>Tokens</div>
                 </div>
                 <div className="button">

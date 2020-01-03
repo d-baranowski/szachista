@@ -1,0 +1,12 @@
+.player-timers {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.player-timers div {
+    width: 50px;
+}

@@ -30,6 +30,7 @@ interface HistoryEntry {
 }
 
 interface Props {
+    isOpen: boolean
     history: Array<HistoryEntry>
 }
 
@@ -44,29 +45,31 @@ const lineStyle = {
 
 const figureStyle = {height: 25, width: 25, marginRight: 2};
 
-const GameHistory: React.FunctionComponent<Props> = (props) => (
-    <div className="game-history">
-        {
-            props.history.map((elem) => {
-                return (
-                    <div key={elem.pgn} style={rowStyle}>
-                        <div style={figureStyle}>
-                            <Figure crossOut={false} style={{}} figure={{color: elem.color, type: elem.piece}}/>
+function GameHistory(props: Props) {
+    return (
+        <div className={`game-history ${props.isOpen ? "open" : ""}`}>
+            {
+                props.history.map((elem) => {
+                    return (
+                        <div key={elem.pgn} style={rowStyle}>
+                            <div style={figureStyle}>
+                                <Figure crossOut={false} style={{}} figure={{color: elem.color, type: elem.piece}}/>
+                            </div>
+                            <div style={lineStyle}>{elem.from} </div>
+                            <div style={{...lineStyle, marginLeft: 2, marginRight: 4}}>&rarr;</div>
+                            <div style={lineStyle}>{elem.to}</div>
+                            {elem.flags.includes(FLAG_CAPTURE) &&
+                            <div style={figureStyle}>
+                                <Figure crossOut style={{}}
+                                        figure={{color: elem.color == "w" ? "b" : "w", type: elem.captured}}/>
+                            </div>
+                            }
                         </div>
-                        <div style={lineStyle}>{elem.from} </div>
-                        <div style={{...lineStyle, marginLeft: 2, marginRight: 4}}>&rarr;</div>
-                        <div style={lineStyle}>{elem.to}</div>
-                        {elem.flags.includes(FLAG_CAPTURE) &&
-                        <div style={figureStyle}>
-                            <Figure crossOut style={{}}
-                                    figure={{color: elem.color == "w" ? "b" : "w", type: elem.captured}}/>
-                        </div>
-                        }
-                    </div>
-                )
-            })
-        }
-    </div>
-);
+                    )
+                })
+            }
+        </div>
+    );
+}
 
 export default GameHistory;
