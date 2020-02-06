@@ -5,7 +5,7 @@ import gameStore, {
     gameCreated,
     gameSocketStatusChange,
     ICreateGameAction,
-    IGameCreatedAction,
+    IGameCreatedAction, ISendGameStartAction,
     ISendPlayerReadyAction,
     showModal
 } from "../lobby/GameStore";
@@ -34,6 +34,15 @@ interface IGamePlayerJoinedSocketMessage {
     message: "sendmessage"
 }
 
+interface IGameStartSocketMessage {
+    data: {
+        gameId: string,
+        action: string,
+        payload: {}
+    },
+    message: "sendmessage"
+}
+
 function readyStateMessage(gameId: string, readyState: boolean): IGameReadySocketMessage {
     return {
         "data": {
@@ -49,6 +58,17 @@ function joinedStateMessage(gameId: string): IGamePlayerJoinedSocketMessage {
         "data": {
             "gameId": gameId,
             "action": "JOINED_GAME",
+            "payload": {}
+        }, "message": "sendmessage"
+    };
+}
+
+
+function gameStartMessage(gameId: string): IGameStartSocketMessage {
+    return {
+        "data": {
+            "gameId": gameId,
+            "action": "GAME_START",
             "payload": {}
         }, "message": "sendmessage"
     };
@@ -94,6 +114,16 @@ class GameManager {
 
                 this.socketConnection.send(joinedStateMessage(gameId))
 
+            } else if (action.type === "SEND_GAME_START_ACTION") {
+                if (!this.socketConnection) {
+                    return;
+                }
+
+                const {
+                    gameId
+                } = (action as ISendGameStartAction).payload;
+
+                this.socketConnection.send(gameStartMessage(gameId))
             }
         })
     }

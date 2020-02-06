@@ -1,6 +1,14 @@
-const playerReadyAction = (lib) => async (messageContext) => {
+const gameStartAction = (lib) => async (messageContext) => {
+    if (messageContext.player !== "playerOne") {
+        return {statusCode: 400, body: "Only player one can start the game"}
+    }
+
+    if (messageContext.chessGame.gameStartTime) {
+        return {statusCode: 400, body: "Game has already started"}
+    }
+
     try {
-        await lib.data.chess_lobby.setPlayerReady(messageContext.message.data.gameId, messageContext.authentity.Username, messageContext.message.data.payload.readyState)
+        await lib.data.chess_lobby.startTheGame(messageContext.message.data.gameId)
     } catch (e) {
         console.log(e);
         return {statusCode: 500, msg: "Failed to update game state"}
@@ -11,11 +19,9 @@ const playerReadyAction = (lib) => async (messageContext) => {
     };
 
     const message = {
-        type: "PLAYER_READY_STATE_CHANGED",
+        type: "GAME_STARTED",
         payload: {
-            player: messageContext.player,
-            gameId: messageContext.chessGame.key,
-            ready: messageContext.message.data.payload.readyState
+            gameId: messageContext.chessGame.key
         }
     };
 
@@ -33,4 +39,4 @@ const playerReadyAction = (lib) => async (messageContext) => {
     return {statusCode: 200, body: "Successfully updated player ready state"}
 };
 
-module.exports = playerReadyAction;
+module.exports = gameStartAction;

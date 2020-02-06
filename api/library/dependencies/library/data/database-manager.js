@@ -319,6 +319,39 @@ const DAO = {
 
             return dynamo.update(params).promise();
         },
+        startTheGame: async (gameId) => {
+            const NOW = Date.now();
+            let game;
+            try {
+                game = await DAO.chess_lobby.getChessGame(gameId).then(response => response.Items[0]);
+            } catch (e) {
+                return Promise.reject({msg: "Could not find the game", error: e})
+            }
+
+            let dynamo;
+
+            try {
+                dynamo = getDynamoDbDocumentClient();
+            } catch (e) {
+                return Promise.reject({msg: "Failed to setup dynamo client", error: e});
+            }
+
+            const params = {
+                TableName: CHESS_LOBBY_TABLE_NAME,
+                Key: {
+                    key: game.key,
+                    createdTime: game.createdTime
+                },
+                UpdateExpression: `set gameStartTime = :gameStartTime, lastActivity = :lastActivity, lastActivityDay = :lastActivityDay`,
+                ExpressionAttributeValues: {
+                    ":gameStartTime": NOW,
+                    ":lastActivity": NOW,
+                    ":lastActivityDay": new Date().toISOString().substr(0, 10)
+                }
+            };
+
+            return dynamo.update(params).promise();
+        },
         setPlayerReady: async (gameId, playerUsername, status) => {
             const NOW = Date.now();
             let game;
@@ -334,7 +367,6 @@ const DAO = {
             try {
                 dynamo = getDynamoDbDocumentClient();
             } catch (e) {
-                console.log(e);
                 return Promise.reject({msg: "Failed to setup dynamo client", error: e});
             }
 

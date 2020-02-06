@@ -1,3 +1,4 @@
+const gameStartAction = require("./gameStartAction");
 const playerReadyAction = require("./playerReadyAction");
 const playerJoinedGameAction = require("./playerJoinedGameAction");
 
@@ -9,6 +10,9 @@ const actionRouter = (lib) => (messageContext) => {
     if (messageContext.action === "JOINED_GAME") {
         console.log("Performing joined game action");
         return playerJoinedGameAction(lib)(messageContext)
+    }
+    if (messageContext.action === "GAME_START") {
+        return gameStartAction(lib)(messageContext)
     }
 };
 

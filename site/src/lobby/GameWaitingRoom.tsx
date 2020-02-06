@@ -6,7 +6,7 @@ import FailBtn from "../elements/btn/FailBtn";
 import GameRoomName from "./GameRoomName";
 import GameInfo from "./GameInfo";
 import connect from "../state/connect";
-import gameStore, {IGameStore, sendPlayerReadyAction, showModal} from "./GameStore";
+import gameStore, {IGameStore, sendGameStartAction, sendPlayerReadyAction, showModal} from "./GameStore";
 import User from "../auth/User";
 
 const styleSuccessBtn = {
@@ -54,6 +54,7 @@ export const GameWaitingRoom: React.FunctionComponent<IGameStore> = (props) => {
     // @ts-ignore
     const activePlayerReady: boolean = props.state[`${playerSeat}Ready`];
 
+    const buttonLabel = getReadyLabel(props.state.playerOneReady, props.state.playerTwoReady, playerSeat);
     return (
         <Modal
             isVisible={props.state.showModal}
@@ -81,12 +82,18 @@ export const GameWaitingRoom: React.FunctionComponent<IGameStore> = (props) => {
             <SuccessBtn
                 style={styleSuccessBtn}
                 onClick={() => {
-                    props.dispatch(sendPlayerReadyAction({
-                        gameId: props.state.key,
-                        readyState: !activePlayerReady
-                    }))
+                    if (buttonLabel === "Start Game") {
+                        props.dispatch(sendGameStartAction({
+                            gameId: props.state.key
+                        }))
+                    } else {
+                        props.dispatch(sendPlayerReadyAction({
+                            gameId: props.state.key,
+                            readyState: !activePlayerReady
+                        }))
+                    }
                 }}
-                label={getReadyLabel(props.state.playerOneReady, props.state.playerTwoReady, playerSeat)}
+                label={buttonLabel}
             />
             <FailBtn
                 style={styleFailBtn}

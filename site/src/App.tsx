@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Navbar from "./navbar/navbar";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, RouteComponentProps} from "react-router-dom";
 import GamesList from "./pages/GamesList";
 import Login from "./pages/Login"
 import UserDetailStore from "./auth/UserDetailStore";
@@ -12,7 +12,7 @@ import Lobby from "./pages/Lobby";
 import GameManager from "../src/sockets/GameManager"
 import ChessGame from "./pages/ChessGame";
 
-class App extends Component {
+class App extends Component<RouteComponentProps> {
     componentDidMount(): void {
         const userInfo = User.getUserInfo();
         if (userInfo !== EMPTY_USER_INFO) {
@@ -28,8 +28,8 @@ class App extends Component {
                 <div className="App">
                     <Navbar/>
                     <div className="page-body">
-                        <Route path="/" exact component={ChessGame}/>
-                        <Route path="/shouldbeingex" component={GamesList}/>
+                        <Route path="/" exact component={GamesList}/>
+                        <Route path="/chess-game" exact component={ChessGame}/>
                         <Route path="/chess" component={Lobby}/>
                         <Route path="/oauth2/idpresponse" component={Login}/>
                     </div>

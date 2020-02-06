@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Media from 'react-media';
-import ChatWidowContainer from "../chat/containers/ChatWindowContainer";
 import GameRoom from "../lobby/GameRoom";
 import styles from "./Lobby.css";
 import fetchActiveGames from "../lobby/FetchActiveGames";
@@ -13,9 +12,10 @@ import GameManager from "../sockets/GameManager"
 import SuccessBtn from "../elements/btn/SuccessBtn";
 import GameWaitingRoom from "../lobby/GameWaitingRoom";
 import joinGame from "../lobby/JoinGame";
-import gameStore, {gameCreated, sendPlayerJoinedAction, showModal} from "../lobby/GameStore";
+import gameStore, {gameCreated, GameStoreState, IAction, sendPlayerJoinedAction, showModal} from "../lobby/GameStore";
+import {RouteComponentProps, withRouter} from "react-router";
 
-type Props = {
+interface Props extends RouteComponentProps{
     items: IActiveGame[]
 }
 
@@ -46,16 +46,24 @@ const styleLargeButton = {
 
 class Lobby extends Component<Props> {
     private intervalId!: any;
+    private deregister: any;
 
     componentDidMount(): void {
         fetchActiveGames().then(ActiveGamesStore.setActiveGames).catch(ErrorHandler.handle);
         this.intervalId = setInterval(() => {
             fetchActiveGames().then(ActiveGamesStore.setActiveGames).catch(console.log);
-        }, 30 * 1000)
+        }, 30 * 1000);
+
+        this.deregister = gameStore.registerMiddleware((action: IAction, newState: GameStoreState) => {
+            if (action.type === "GAME_STARTED") {
+                this.props.history.push("chess-game")
+            }
+        });
     }
 
     componentWillUnmount(): void {
-        clearInterval(this.intervalId)
+        clearInterval(this.intervalId);
+        this.deregister();
     }
 
     render() {
@@ -98,7 +106,6 @@ class Lobby extends Component<Props> {
 
                 <CreateGameModal/>
                 <GameWaitingRoom/>
-                <ChatWidowContainer/>
             </div>
         );
     }
@@ -106,4 +113,4 @@ class Lobby extends Component<Props> {
 
 const mapStateToProps = (state: any) => state;
 
-export default connect(ActiveGamesStore, Lobby, mapStateToProps);
+export default connect(ActiveGamesStore, withRouter(Lobby), mapStateToProps);
