@@ -1,3 +1,5 @@
+const getStartingState = require("./helpers/getStartingState");
+
 const gameStartAction = (lib) => async (messageContext) => {
     if (messageContext.player !== "playerOne") {
         return {statusCode: 400, body: "Only player one can start the game"}
@@ -7,12 +9,15 @@ const gameStartAction = (lib) => async (messageContext) => {
         return {statusCode: 400, body: "Game has already started"}
     }
 
+    let dynamoResponse;
     try {
-        await lib.data.chess_lobby.startTheGame(messageContext.message.data.gameId)
+        dynamoResponse = await lib.data.chess_lobby.startTheGame(messageContext.message.data.gameId, getStartingState)
     } catch (e) {
         console.log(e);
         return {statusCode: 500, msg: "Failed to update game state"}
     }
+
+    const gameState = dynamoResponse.Attributes.gameState;
 
     const dropConnection = (connectionId) => {
         lib.data.chess_lobby.dropChessConnection(messageContext.chessGame, connectionId)
@@ -21,7 +26,9 @@ const gameStartAction = (lib) => async (messageContext) => {
     const message = {
         type: "GAME_STARTED",
         payload: {
-            gameId: messageContext.chessGame.key
+            gameId: messageContext.chessGame.key,
+            fen: gameState.fen,
+            turn: gameState.turn
         }
     };
 

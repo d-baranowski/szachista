@@ -319,7 +319,7 @@ const DAO = {
 
             return dynamo.update(params).promise();
         },
-        startTheGame: async (gameId) => {
+        startTheGame: async (gameId, getStartingState) => {
             const NOW = Date.now();
             let game;
             try {
@@ -336,17 +336,21 @@ const DAO = {
                 return Promise.reject({msg: "Failed to setup dynamo client", error: e});
             }
 
+            const startState = getStartingState(game.playerOneUsername, game.playerTwoUsername, NOW);
+
             const params = {
                 TableName: CHESS_LOBBY_TABLE_NAME,
                 Key: {
                     key: game.key,
                     createdTime: game.createdTime
                 },
-                UpdateExpression: `set gameStartTime = :gameStartTime, lastActivity = :lastActivity, lastActivityDay = :lastActivityDay`,
+                ReturnValues: "UPDATED_NEW",
+                UpdateExpression: `set gameStartTime = :gameStartTime, lastActivity = :lastActivity, lastActivityDay = :lastActivityDay, set gameState = :gameState`,
                 ExpressionAttributeValues: {
                     ":gameStartTime": NOW,
                     ":lastActivity": NOW,
-                    ":lastActivityDay": new Date().toISOString().substr(0, 10)
+                    ":lastActivityDay": new Date().toISOString().substr(0, 10),
+                    ":gameState": startState
                 }
             };
 
