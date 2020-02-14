@@ -345,7 +345,7 @@ const DAO = {
                     createdTime: game.createdTime
                 },
                 ReturnValues: "UPDATED_NEW",
-                UpdateExpression: `set gameStartTime = :gameStartTime, lastActivity = :lastActivity, lastActivityDay = :lastActivityDay, set gameState = :gameState`,
+                UpdateExpression: `set gameStartTime = :gameStartTime, lastActivity = :lastActivity, lastActivityDay = :lastActivityDay, gameState = :gameState`,
                 ExpressionAttributeValues: {
                     ":gameStartTime": NOW,
                     ":lastActivity": NOW,

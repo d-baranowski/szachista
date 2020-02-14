@@ -12,7 +12,7 @@ import Lobby from "./pages/Lobby";
 import GameManager from "../src/sockets/GameManager"
 import ChessGame from "./pages/ChessGame";
 
-class App extends Component<RouteComponentProps> {
+class App extends Component {
     componentDidMount(): void {
         const userInfo = User.getUserInfo();
         if (userInfo !== EMPTY_USER_INFO) {

@@ -153,6 +153,10 @@ class Board extends Component {
     }
 }
 
+Board.defaultProps = {
+    lastMove: {}
+};
+
 Board.propTypes = {};
 
 export default Board;

@@ -25,7 +25,7 @@ const Figure = ({figure, style, crossOut}) => {
 
     return (
         <div style={style} className={"figure figure-" + color}>
-            <Type crossOut={crossOut}/>
+            {Type && <Type crossOut={crossOut}/>}
         </div>
     )
 };

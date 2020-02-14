@@ -46,6 +46,8 @@ const lineStyle = {
 const figureStyle = {height: 25, width: 25, marginRight: 2};
 
 function GameHistory(props: Props) {
+    console.log(props.history)
+
     return (
         <div className={`game-history ${props.isOpen ? "open" : ""}`}>
             {
@@ -58,7 +60,7 @@ function GameHistory(props: Props) {
                             <div style={lineStyle}>{elem.from} </div>
                             <div style={{...lineStyle, marginLeft: 2, marginRight: 4}}>&rarr;</div>
                             <div style={lineStyle}>{elem.to}</div>
-                            {elem.flags.includes(FLAG_CAPTURE) &&
+                            {elem.flags && elem.flags.includes(FLAG_CAPTURE) &&
                             <div style={figureStyle}>
                                 <Figure crossOut style={{}}
                                         figure={{color: elem.color == "w" ? "b" : "w", type: elem.captured}}/>

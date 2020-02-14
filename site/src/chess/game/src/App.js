@@ -12,23 +12,39 @@ class App extends Component {
         lastMove: {}
     };
 
-    makeRandomMove = () => {
+    setFen = (fen) => {
+        chess.load(fen);
+        this.setState({
+            moves: chess.moves(),
+            board: chess.board(),
+            lastMove: chess.history({verbose: true}).last()
+        });
+    };
+
+    makeMove = (move, received = false) => {
         const possibleMoves = chess.moves();
+
+        const includes = possibleMoves.filter(possibleMove => {
+            return possibleMove === move
+        });
+
+        if (!includes) {
+            return;
+        }
 
         // exit if the game is over
         if (chess.game_over() === true ||
             chess.in_draw() === true ||
             possibleMoves.length === 0) return;
 
-        const randomIndex = Math.floor(Math.random() * possibleMoves.length);
-        chess.move(possibleMoves[randomIndex]);
+        chess.move(move);
         this.setState({
             moves: chess.moves(),
             board: chess.board(),
             lastMove: chess.history({verbose: true}).last()
         });
 
-        window.setTimeout(this.makeRandomMove, 1000);
+        window.setTimeout(this.makeMove, 1000);
     };
 
     updateState = () => {
@@ -41,9 +57,7 @@ class App extends Component {
     };
 
     componentDidMount() {
-        chess.load_pgn("1. g4 g5 2. f4 gxf4 3. g5 Nh6 4. g6 f5 5. g7 e6 6. e4 fxe4 7. h4 f3");
         this.updateState();
-        //this.makeRandomMove();
     }
 
     render() {

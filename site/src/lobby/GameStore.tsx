@@ -16,7 +16,12 @@ export type GameStoreState = {
     timeAllowed: number,
     tokensToEnter: number,
     showModal: boolean,
-    socketConState: string
+    socketConState: string,
+    gameState: {
+        gameId: string,
+        fen: string,
+        turn: string
+    }
 }
 
 const defaultState: GameStoreState = {
@@ -32,7 +37,12 @@ const defaultState: GameStoreState = {
     timeAllowed: 0,
     tokensToEnter: 0,
     showModal: false,
-    socketConState: "CONNECTION_NOT_ATTEMPTED"
+    socketConState: "CONNECTION_NOT_ATTEMPTED",
+    gameState: {
+        gameId: "",
+        fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        turn: ""
+    }
 };
 
 export type IGameStore = {
@@ -168,6 +178,13 @@ function handlePlayerReadyStateChanged(state: GameStoreState, action: IPlayerRea
     };
 }
 
+function handleGameStarted(state: GameStoreState, action: IGameStarted): GameStoreState {
+    return {
+        ...state,
+        gameState: action.payload
+    }
+}
+
 function handlePlayerJoined(state: GameStoreState, action: IPlayerJoined): GameStoreState {
     return {
         ...state,
@@ -194,6 +211,15 @@ interface IPlayerJoined extends IAction {
     }
 }
 
+interface IGameStarted extends IAction {
+    type: "GAME_STARTED",
+    payload: {
+        gameId: string
+        fen: string
+        turn: string
+    }
+}
+
 const reduce: (state: GameStoreState, action: IAction) => GameStoreState = (state: GameStoreState, action: IAction) => {
     let newState: GameStoreState = state || defaultState;
     if (action.type === "GAME_CREATED") {
@@ -206,6 +232,8 @@ const reduce: (state: GameStoreState, action: IAction) => GameStoreState = (stat
         newState = handlePlayerReadyStateChanged(state, action as IPlayerReadyStateChanged);
     } else if (action.type === "PLAYER_JOINED") {
         newState = handlePlayerJoined(state, action as IPlayerJoined)
+    } else if (action.type === "GAME_STARTED") {
+        newState = handleGameStarted(state, action as IGameStarted)
     }
 
     callMiddleware(action, newState);
@@ -214,7 +242,7 @@ const reduce: (state: GameStoreState, action: IAction) => GameStoreState = (stat
 
 
 const gameStore: IGameStore = createStore({
-    state: {},
+    state: defaultState,
     dispatch: (event: IAction) => {
         console.log(event);
         gameStore.state = reduce(gameStore.state, event)
