@@ -356,6 +356,34 @@ const DAO = {
 
             return dynamo.update(params).promise();
         },
+        updateGameState: async(key, createdTime, gameState) => {
+            const NOW = Date.now();
+
+            let dynamo;
+
+            try {
+                dynamo = getDynamoDbDocumentClient();
+            } catch (e) {
+                return Promise.reject({msg: "Failed to setup dynamo client", error: e});
+            }
+
+            const params = {
+                TableName: CHESS_LOBBY_TABLE_NAME,
+                Key: {
+                    key: key,
+                    createdTime: createdTime
+                },
+                ReturnValues: "UPDATED_NEW",
+                UpdateExpression: `set lastActivity = :lastActivity, lastActivityDay = :lastActivityDay, gameState = :gameState`,
+                ExpressionAttributeValues: {
+                    ":lastActivity": NOW,
+                    ":lastActivityDay": new Date().toISOString().substr(0, 10),
+                    ":gameState": gameState
+                }
+            };
+
+            return dynamo.update(params).promise();
+        },
         setPlayerReady: async (gameId, playerUsername, status) => {
             const NOW = Date.now();
             let game;

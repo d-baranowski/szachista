@@ -5,8 +5,9 @@ import gameStore, {
     gameCreated,
     gameSocketStatusChange,
     ICreateGameAction,
-    IGameCreatedAction, ISendGameStartAction,
+    IGameCreatedAction, ISendChessPieceMoveAction, ISendGameStartAction,
     ISendPlayerReadyAction,
+    ISendChessPieceMoveActionPayload,
     showModal
 } from "../lobby/GameStore";
 import lobbyGameCreate from "../lobby/lobbyGameCreate";
@@ -74,6 +75,16 @@ function gameStartMessage(gameId: string): IGameStartSocketMessage {
     };
 }
 
+function chessPieceMoveMessage(gameId: string, payload: ISendChessPieceMoveActionPayload): IGameStartSocketMessage {
+    return {
+        "data": {
+            "gameId": gameId,
+            "action": "CHESS_PIECE_MOVE",
+            "payload": payload
+        }, "message": "sendmessage"
+    };
+}
+
 class GameManager {
     private socketConnection: IConnection | undefined;
 
@@ -124,6 +135,18 @@ class GameManager {
                 } = (action as ISendGameStartAction).payload;
 
                 this.socketConnection.send(gameStartMessage(gameId))
+            } else if (action.type === "SEND_CHESS_PIECE_MOVE_ACTION") {
+                if (!this.socketConnection) {
+                    return;
+                }
+
+                const actionPayload = (action as ISendChessPieceMoveAction).payload;
+
+                const {
+                    gameId
+                } = actionPayload;
+
+                this.socketConnection.send(chessPieceMoveMessage(gameId, actionPayload))
             }
         })
     }

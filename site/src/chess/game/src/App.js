@@ -21,6 +21,10 @@ class App extends Component {
         });
     };
 
+    getFen = () => {
+        return chess.fen()
+    };
+
     makeMove = (move, received = false) => {
         const possibleMoves = chess.moves();
 

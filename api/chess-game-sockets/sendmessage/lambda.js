@@ -1,6 +1,7 @@
 const gameStartAction = require("./gameStartAction");
 const playerReadyAction = require("./playerReadyAction");
 const playerJoinedGameAction = require("./playerJoinedGameAction");
+const chessPieceMoveAction = require("./chessPieceMoveAction");
 
 const actionRouter = (lib) => (messageContext) => {
     if (messageContext.action === "READY") {
@@ -12,7 +13,12 @@ const actionRouter = (lib) => (messageContext) => {
         return playerJoinedGameAction(lib)(messageContext)
     }
     if (messageContext.action === "GAME_START") {
+        console.log("Performing game start action");
         return gameStartAction(lib)(messageContext)
+    }
+    if (messageContext.action === "CHESS_PIECE_MOVE") {
+        console.log("Performing move action");
+        return chessPieceMoveAction(lib)(messageContext)
     }
 };
 

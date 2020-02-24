@@ -7,7 +7,17 @@ import GameHistory from "../chess/GameHistory";
 import Activities from "../activities/Activities";
 import PlayerTimers from "../player-timers/PlayerTimers";
 import connect from "../state/connect";
-import GameStore, {IGameStore} from "../lobby/GameStore";
+import GameStore, {IGameStore, ISendChessPieceMoveActionPayload, sendChessPieceMoveAction,} from "../lobby/GameStore";
+
+export interface IChessMove {
+    color: "w" | "b"
+    from: string
+    to: string
+    flags: string
+    piece: string
+    san: string
+    pgn: string
+}
 
 class ChessGame extends Component<IGameStore> {
     state = {
@@ -15,8 +25,20 @@ class ChessGame extends Component<IGameStore> {
         history: []
     };
 
-    onChessMove = (history: any) => {
-        this.setState({history: [...this.state.history, history]});
+    onChessMove = (move: IChessMove) => {
+        if (!this.chessBoard) {
+            return;
+        }
+
+        const currentFen = this.chessBoard.getFen();
+        this.setState({history: [...this.state.history, move]});
+        const payload: ISendChessPieceMoveActionPayload = {
+            gameId: this.props.state.key,
+            move: move,
+            suggestedNewState: currentFen
+        };
+
+        this.props.dispatch(sendChessPieceMoveAction(payload));
     };
 
     toggleEvents = () => {
@@ -26,6 +48,14 @@ class ChessGame extends Component<IGameStore> {
     chessBoard: ChessBoard | undefined | null;
 
     componentDidMount(): void {
+        if (!this.chessBoard) {
+            return;
+        }
+        console.log(this.props);
+        this.chessBoard.setFen(this.props.state.gameState.fen)
+    }
+
+    componentDidUpdate(prevProps: Readonly<IGameStore>, prevState: Readonly<{}>, snapshot?: any): void {
         if (!this.chessBoard) {
             return;
         }

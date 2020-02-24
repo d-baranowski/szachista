@@ -2,6 +2,8 @@ import createStore from "../state/createStore";
 import {IActiveGame} from "./ActiveGamesStore";
 import uuid from "../util/uuid";
 import {ILobbyParams} from "./lobbyGameCreate";
+import {IChessMove} from "../pages/ChessGame";
+import {act} from "react-dom/test-utils";
 
 export type GameStoreState = {
     key: string,
@@ -135,8 +137,31 @@ export interface ISendGameStartAction extends IAction {
     payload: ISendGameStartActionPayload
 }
 
+interface ISendGameStartActionPayload {
+    gameId: string
+}
+
+export interface ISendGameStartAction extends IAction {
+    payload: ISendGameStartActionPayload
+}
+
 export const sendGameStartAction: (payload: ISendGameStartActionPayload) => ISendGameStartAction = (payload) => ({
     type: "SEND_GAME_START_ACTION",
+    payload: payload
+});
+
+export interface ISendChessPieceMoveActionPayload {
+    gameId: string,
+    move: IChessMove,
+    suggestedNewState: string
+}
+
+export interface ISendChessPieceMoveAction extends IAction {
+    payload: ISendChessPieceMoveActionPayload
+}
+
+export const sendChessPieceMoveAction: (payload: ISendChessPieceMoveActionPayload) => ISendChessPieceMoveAction = (payload) => ({
+    type: "SEND_CHESS_PIECE_MOVE_ACTION",
     payload: payload
 });
 
@@ -193,6 +218,17 @@ function handlePlayerJoined(state: GameStoreState, action: IPlayerJoined): GameS
     }
 }
 
+function handleMoveMade(state: GameStoreState, action: IMoveMade): GameStoreState {
+    return {
+        ...state,
+        gameState: {
+            fen: action.payload.fen,
+            gameId: action.payload.gameId,
+            turn: action.payload.turn
+        }
+    }
+}
+
 const middleware: {
     [key: string]: any;
 } = {};
@@ -220,6 +256,16 @@ interface IGameStarted extends IAction {
     }
 }
 
+interface IMoveMade extends IAction {
+    type: "MOVE_MADE",
+    payload: {
+        move: IChessMove,
+        gameId: string,
+        fen: string
+        turn: string
+    }
+}
+
 const reduce: (state: GameStoreState, action: IAction) => GameStoreState = (state: GameStoreState, action: IAction) => {
     let newState: GameStoreState = state || defaultState;
     if (action.type === "GAME_CREATED") {
@@ -234,6 +280,8 @@ const reduce: (state: GameStoreState, action: IAction) => GameStoreState = (stat
         newState = handlePlayerJoined(state, action as IPlayerJoined)
     } else if (action.type === "GAME_STARTED") {
         newState = handleGameStarted(state, action as IGameStarted)
+    } else if (action.type === "MOVE_MADE") {
+        newState = handleMoveMade(state, action as IMoveMade)
     }
 
     callMiddleware(action, newState);

@@ -8,6 +8,10 @@ class ChessBoard extends Component {
         this.child.setFen(fen)
     };
 
+    getFen = () => {
+        return this.child.getFen()
+    };
+
     render() {
         return (
             <div className="game-screen">
