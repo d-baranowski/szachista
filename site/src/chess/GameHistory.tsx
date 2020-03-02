@@ -1,6 +1,7 @@
 import React from 'react';
 import Figure from "./game/src/Figure";
 import "./GameHistory.css";
+import {IChessMove} from "../pages/ChessGame";
 
 const FLAG_NORMAL = 'n';
 const FLAG_CAPTURE = 'c';
@@ -18,20 +19,9 @@ const QUEEN = 'q';
 const KING = 'k';
 
 
-interface HistoryEntry {
-    color: "w" | "b"
-    from: string
-    to: string
-    flags: string // "n" | "c" | "b" | "e" | "p" | "k" | "q"
-    pgn: string,
-    piece: "p" | "n" | "b" | "r" | "q" | "k",
-    captured?: "p" | "n" | "b" | "r" | "q" | "k"
-    promotion?: "n" | "b" | "r" | "q" | "k"
-}
-
 interface Props {
     isOpen: boolean
-    history: Array<HistoryEntry>
+    history: Array<IChessMove>
 }
 
 const rowStyle = {

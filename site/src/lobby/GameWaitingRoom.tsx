@@ -63,8 +63,8 @@ export const GameWaitingRoom: React.FunctionComponent<IGameStore> = (props) => {
             }}
         >
             <PlayerInfo
-                playerOneReady={props.state.playerOneReady}
-                playerTwoReady={props.state.playerTwoReady}
+                playerOneHighlight={props.state.playerOneReady}
+                playerTwoHighlight={props.state.playerTwoReady}
                 playerOnePicture={props.state.playerOnePicture}
                 playerTwoPicture={props.state.playerTwoPicture}
             />

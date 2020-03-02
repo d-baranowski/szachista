@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import scriptjs from "scriptjs";
 import "./chess.css"
 import App from "./game/src/App";
 

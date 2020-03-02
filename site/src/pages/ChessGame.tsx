@@ -13,16 +13,16 @@ export interface IChessMove {
     color: "w" | "b"
     from: string
     to: string
-    flags: string
-    piece: string
-    san: string
-    pgn: string
+    flags: string // "n" | "c" | "b" | "e" | "p" | "k" | "q"
+    pgn: string,
+    piece: "p" | "n" | "b" | "r" | "q" | "k",
+    captured?: "p" | "n" | "b" | "r" | "q" | "k"
+    promotion?: "n" | "b" | "r" | "q" | "k"
 }
 
 class ChessGame extends Component<IGameStore> {
     state = {
-        isOpen: false,
-        history: []
+        isOpen: false
     };
 
     onChessMove = (move: IChessMove) => {
@@ -31,7 +31,6 @@ class ChessGame extends Component<IGameStore> {
         }
 
         const currentFen = this.chessBoard.getFen();
-        this.setState({history: [...this.state.history, move]});
         const payload: ISendChessPieceMoveActionPayload = {
             gameId: this.props.state.key,
             move: move,
@@ -66,11 +65,17 @@ class ChessGame extends Component<IGameStore> {
     render() {
         return (
             <div>
-                <PlayerInfo style={{margin: 5}}/>
+                <PlayerInfo
+                    playerOnePicture={this.props.state.playerOnePicture}
+                    playerTwoPicture={this.props.state.playerTwoPicture}
+                    playerOneHighlight={this.props.state.gameState.turn === this.props.state.playerOneUsername}
+                    playerTwoHighlight={this.props.state.gameState.turn === this.props.state.playerTwoUsername}
+                    style={{margin: 5}}
+                />
                 <PlayerTimers />
                 <div className="game-screen-container">
                     <div className="game-history-container">
-                        <GameHistory isOpen={this.state.isOpen} history={this.state.history}/>
+                        <GameHistory isOpen={this.state.isOpen} history={this.props.state.gameHistory}/>
                     </div>
                     <div className="chess-board-container">
                         <ChessBoard ref={el => this.chessBoard = el} onChessMove={this.onChessMove}/>

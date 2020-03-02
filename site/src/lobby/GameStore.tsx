@@ -3,7 +3,6 @@ import {IActiveGame} from "./ActiveGamesStore";
 import uuid from "../util/uuid";
 import {ILobbyParams} from "./lobbyGameCreate";
 import {IChessMove} from "../pages/ChessGame";
-import {act} from "react-dom/test-utils";
 
 export type GameStoreState = {
     key: string,
@@ -19,6 +18,7 @@ export type GameStoreState = {
     tokensToEnter: number,
     showModal: boolean,
     socketConState: string,
+    gameHistory: IChessMove[],
     gameState: {
         gameId: string,
         fen: string,
@@ -40,6 +40,7 @@ const defaultState: GameStoreState = {
     tokensToEnter: 0,
     showModal: false,
     socketConState: "CONNECTION_NOT_ATTEMPTED",
+    gameHistory: [],
     gameState: {
         gameId: "",
         fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -221,6 +222,7 @@ function handlePlayerJoined(state: GameStoreState, action: IPlayerJoined): GameS
 function handleMoveMade(state: GameStoreState, action: IMoveMade): GameStoreState {
     return {
         ...state,
+        gameHistory: [ ...state.gameHistory, action.payload.move ],
         gameState: {
             fen: action.payload.fen,
             gameId: action.payload.gameId,

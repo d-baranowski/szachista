@@ -6,15 +6,15 @@ type Props = {
     style?: React.CSSProperties,
     playerOnePicture?: string,
     playerTwoPicture?: string
-    playerOneReady?: boolean,
-    playerTwoReady?: boolean
+    playerOneHighlight?: boolean,
+    playerTwoHighlight?: boolean
 }
 
 const notReady = {
     transition: "box-shadow 0.5s ease-in-out",
 };
 
-const readyBoxShadow = {
+const highlightShadow = {
     transition: "box-shadow 0.5s ease-in-out",
     boxShadow: "0 0 10px 1px green"
 };
@@ -24,7 +24,7 @@ const PlayerInfo: React.FunctionComponent<Props> = (props) => {
         <div style={props.style} className="player-info">
             <div className="player-one">
                 <img className="player-avatar"
-                     style={props.playerOneReady ? readyBoxShadow : notReady}
+                     style={props.playerOneHighlight ? highlightShadow : notReady}
                      src={props.playerOnePicture || "/question.svg"}/>
             </div>
             <div className="vs">
@@ -32,7 +32,7 @@ const PlayerInfo: React.FunctionComponent<Props> = (props) => {
             </div>
             <div className="player-two">
                 <img className="player-avatar"
-                     style={props.playerTwoReady ? readyBoxShadow : notReady}
+                     style={props.playerTwoHighlight ? highlightShadow : notReady}
                      src={props.playerTwoPicture || "/question.svg"}/>
             </div>
         </div>
