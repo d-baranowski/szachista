@@ -1,6 +1,8 @@
 const Chess = require('chess.js').Chess;
+const calculatePlayersTimeUsed = require("./helpers/calculatePlayersTimeUsed");
 
 const actionHandler = (lib) => async (messageContext) => {
+    const now = Date.now();
     const chessGame = messageContext.chessGame;
     const username = messageContext.authentity.Username;
     const playerMove = messageContext.message.data.payload.move;
@@ -40,12 +42,14 @@ const actionHandler = (lib) => async (messageContext) => {
     }
 
     gameState.log.push({
-        timestamp: Date.now(),
+        timestamp: now,
         move: playerMove,
         fen: gameState.fen,
         event: "PLAYER_MOVED",
         turn: gameState.turn
     });
+
+    const timesUsed = calculatePlayersTimeUsed(gameState.log);
 
     gameState.turn = nextPlayer;
     gameState.fen = nextFen;
@@ -65,12 +69,19 @@ const actionHandler = (lib) => async (messageContext) => {
     const message = {
         type: "MOVE_MADE",
         payload: {
+            timestamp: now,
             move: playerMove,
             gameId: messageContext.chessGame.key,
             fen: nextFen,
-            turn: nextPlayer
+            turn: nextPlayer,
+            timesUsed
         }
     };
+
+
+    if (timesUsed[chessGame.playerOneUsername] > chessGame.timeAllowed  || timesUsed[chessGame.playerTwoUsername] > chessGame.timeAllowed) {
+        message.type = "PLAYER_OUT_OF_TIME"
+    }
 
     try {
         console.log("Notifying plauers " + message);

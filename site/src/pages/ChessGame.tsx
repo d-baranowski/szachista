@@ -63,19 +63,28 @@ class ChessGame extends Component<IGameStore> {
     }
 
     render() {
+        const gameStoreState = this.props.state;
+
         return (
             <div>
                 <PlayerInfo
-                    playerOnePicture={this.props.state.playerOnePicture}
-                    playerTwoPicture={this.props.state.playerTwoPicture}
-                    playerOneHighlight={this.props.state.gameState.turn === this.props.state.playerOneUsername}
-                    playerTwoHighlight={this.props.state.gameState.turn === this.props.state.playerTwoUsername}
+                    playerOnePicture={gameStoreState.playerOnePicture}
+                    playerTwoPicture={gameStoreState.playerTwoPicture}
+                    playerOneHighlight={gameStoreState.gameState.turn === gameStoreState.playerOneUsername}
+                    playerTwoHighlight={gameStoreState.gameState.turn === gameStoreState.playerTwoUsername}
                     style={{margin: 5}}
                 />
-                <PlayerTimers />
+                <PlayerTimers
+                    key={gameStoreState.gameState.turn }
+                    playerOneUsername={gameStoreState.playerOneUsername}
+                    playerTwoUsername={gameStoreState.playerTwoUsername}
+                    timeAllowed={gameStoreState.timeAllowed}
+                    timesUsed={gameStoreState.timesUsed}
+                    activePlayer={gameStoreState.gameState.turn}
+                />
                 <div className="game-screen-container">
                     <div className="game-history-container">
-                        <GameHistory isOpen={this.state.isOpen} history={this.props.state.gameHistory}/>
+                        <GameHistory isOpen={this.state.isOpen} history={gameStoreState.gameHistory}/>
                     </div>
                     <div className="chess-board-container">
                         <ChessBoard ref={el => this.chessBoard = el} onChessMove={this.onChessMove}/>

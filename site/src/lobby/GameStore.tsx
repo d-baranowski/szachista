@@ -19,6 +19,9 @@ export type GameStoreState = {
     showModal: boolean,
     socketConState: string,
     gameHistory: IChessMove[],
+    timesUsed: {
+        [key:string]:number
+    }
     gameState: {
         gameId: string,
         fen: string,
@@ -41,6 +44,7 @@ const defaultState: GameStoreState = {
     showModal: false,
     socketConState: "CONNECTION_NOT_ATTEMPTED",
     gameHistory: [],
+    timesUsed: {},
     gameState: {
         gameId: "",
         fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -223,6 +227,7 @@ function handleMoveMade(state: GameStoreState, action: IMoveMade): GameStoreStat
     return {
         ...state,
         gameHistory: [ ...state.gameHistory, action.payload.move ],
+        timesUsed: action.payload.timesUsed,
         gameState: {
             fen: action.payload.fen,
             gameId: action.payload.gameId,
@@ -264,7 +269,10 @@ interface IMoveMade extends IAction {
         move: IChessMove,
         gameId: string,
         fen: string
-        turn: string
+        turn: string,
+        timesUsed: {
+            [key:string]:number
+        }
     }
 }
 
