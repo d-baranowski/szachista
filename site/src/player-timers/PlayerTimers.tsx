@@ -11,7 +11,7 @@ interface Props {
 
 const PlayerTimers: React.FC<Props> =
     ({
-         timesUsed,
+         timesUsed = {},
          playerOneUsername,
          playerTwoUsername,
          activePlayer,
@@ -25,11 +25,24 @@ const PlayerTimers: React.FC<Props> =
             }, 100);
         });
 
-        const playerOneTimeLeft = timeAllowed - (timesUsed[playerOneUsername] || 0) - (activePlayer == playerOneUsername ? elapsed : 0);
-        const playerTwoTimeLeft = timeAllowed - (timesUsed[playerTwoUsername] || 0) - (activePlayer == playerTwoUsername ? elapsed : 0);
+        let playerOneTimeLeft = timeAllowed;
+        let playerTwoTimeLeft = timeAllowed;
 
-        const playerOneDisplayTime = new Date(playerOneTimeLeft || 0).toISOString().substr(14, 5);
-        const playerTwoDisplayTime = new Date(playerTwoTimeLeft || 0).toISOString().substr(14, 5);
+        if (timesUsed) {
+            playerOneTimeLeft = timeAllowed - (timesUsed[playerOneUsername] || 0) - (activePlayer == playerOneUsername ? elapsed : 0);
+            playerTwoTimeLeft = timeAllowed - (timesUsed[playerTwoUsername] || 0) - (activePlayer == playerTwoUsername ? elapsed : 0);
+        }
+
+        if (playerOneTimeLeft < 0) {
+            playerOneTimeLeft = 0
+        }
+
+        if (playerTwoTimeLeft < 0) {
+            playerTwoTimeLeft = 0
+        }
+
+        const playerOneDisplayTime = new Date(playerOneTimeLeft || 1).toISOString().substr(14, 5);
+        const playerTwoDisplayTime = new Date(playerTwoTimeLeft || 1).toISOString().substr(14, 5);
 
         return (
             <div className="player-timers">

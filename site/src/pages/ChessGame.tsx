@@ -75,7 +75,7 @@ class ChessGame extends Component<IGameStore> {
                     style={{margin: 5}}
                 />
                 <PlayerTimers
-                    key={gameStoreState.gameState.turn }
+                    key={gameStoreState.gameState.turn}
                     playerOneUsername={gameStoreState.playerOneUsername}
                     playerTwoUsername={gameStoreState.playerTwoUsername}
                     timeAllowed={gameStoreState.timeAllowed}
