@@ -26,10 +26,11 @@ const calculatePlayersTimeUsed = (gameLog) => {
             const nextEvent = gameLog[i + 1];
 
             if (!nextEvent) {
-                return null;
+                timeUsed[gameLogEntry.turn] += Date.now() - gameLogEntry.timestamp;
+            } else {
+                timeUsed[gameLogEntry.turn] += nextEvent.timestamp - gameLogEntry.timestamp;
             }
 
-            timeUsed[gameLogEntry.turn] += nextEvent.timestamp - gameLogEntry.timestamp;
             i+= 2;
         } else {
             const previousRelevantEvent = findPreviousRelevantEvent(gameLog, i);

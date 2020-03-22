@@ -1,0 +1,46 @@
+{
+  "match": {
+    "path": "/chess-game",
+    "url": "/chess-game",
+    "isExact": true,
+    "params": {}
+  },
+  "location": {
+    "pathname": "/chess-game",
+    "search": "",
+    "hash": "",
+    "key": "uf7558"
+  },
+  "history": {
+    "length": 24,
+    "action": "PUSH",
+    "location": {
+      "pathname": "/chess-game",
+      "search": "",
+      "hash": "",
+      "key": "uf7558"
+    }
+  },
+  "state": {
+    "key": "0f1ac240-6c8a-11ea-84d9-df75fa2a7e0c",
+    "gameName": "qdqwdqwdqwd",
+    "passwordRequired": false,
+    "playerOnePicture": "https://lh3.googleusercontent.com/a-/AOh14GjEUZoVup3yWpFBsHLTb3GPnQbDNAhwTmsLHi38=s96-c",
+    "playerOneUsername": "Google_109354484677663308178",
+    "playerOneReady": true,
+    "playerTwoPicture": null,
+    "playerTwoUsername": null,
+    "playerTwoReady": true,
+    "timeAllowed": 60000,
+    "tokensToEnter": 0,
+    "showModal": true,
+    "socketConState": "open",
+    "gameHistory": [],
+    "timesUsed": {},
+    "gameState": {
+      "gameId": "0f1ac240-6c8a-11ea-84d9-df75fa2a7e0c",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "Google_109343845491313351199"
+    }
+  }
+}

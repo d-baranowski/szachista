@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "./PlayerTimers.css"
+import gameStore, {sendPlayerTimedOutAction} from "../lobby/GameStore";
 
 interface Props {
     timesUsed: any
@@ -18,6 +19,7 @@ const PlayerTimers: React.FC<Props> =
          timeAllowed
     }) => {
         const [elapsed, setElapsed] = useState(0);
+        const [sent, setSent] = useState(false);
 
         useEffect(() => {
             setTimeout(() => {
@@ -43,6 +45,14 @@ const PlayerTimers: React.FC<Props> =
 
         const playerOneDisplayTime = new Date(playerOneTimeLeft || 1).toISOString().substr(14, 5);
         const playerTwoDisplayTime = new Date(playerTwoTimeLeft || 1).toISOString().substr(14, 5);
+
+        if (playerOneDisplayTime == "00:00" || playerTwoDisplayTime == "00:00") {
+            if (!sent) {
+                setSent(true);
+                gameStore.dispatch(sendPlayerTimedOutAction())
+            }
+
+        }
 
         return (
             <div className="player-timers">

@@ -85,6 +85,16 @@ function chessPieceMoveMessage(gameId: string, payload: ISendChessPieceMoveActio
     };
 }
 
+function playerTimedOutMessage(gameId: string) {
+    return {
+        "data": {
+            "gameId": gameId,
+            "action": "PLAYER_TIMED_OUT",
+            "payload": {}
+        }, "message": "sendmessage"
+    }
+}
+
 class GameManager {
     private socketConnection: IConnection | undefined;
 
@@ -147,6 +157,12 @@ class GameManager {
                 } = actionPayload;
 
                 this.socketConnection.send(chessPieceMoveMessage(gameId, actionPayload))
+            } else if (action.type === "SEND_PLAYER_TIMED_OUT_ACTION") {
+                if (!this.socketConnection) {
+                    return;
+                }
+
+                this.socketConnection.send(playerTimedOutMessage(gameStore.state.key))
             }
         })
     }

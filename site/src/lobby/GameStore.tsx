@@ -170,6 +170,14 @@ export const sendChessPieceMoveAction: (payload: ISendChessPieceMoveActionPayloa
     payload: payload
 });
 
+export interface ISendPlayerTimedOutAction extends IAction {
+    type: "SEND_PLAYER_TIMED_OUT_ACTION",
+}
+
+export const sendPlayerTimedOutAction: () => ISendPlayerTimedOutAction = (() => ({
+    type: "SEND_PLAYER_TIMED_OUT_ACTION",
+}));
+
 const handleGameCreated: (state: GameStoreState, action: IGameCreatedAction) => GameStoreState = (state, action) => {
     return {
         ...state,

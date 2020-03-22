@@ -96,4 +96,6 @@ class ChessGame extends Component<IGameStore> {
     }
 }
 
+export const chessGame = ChessGame;
+
 export default connect(GameStore, ChessGame);

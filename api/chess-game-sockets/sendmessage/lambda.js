@@ -2,24 +2,37 @@ const gameStartAction = require("./gameStartAction");
 const playerReadyAction = require("./playerReadyAction");
 const playerJoinedGameAction = require("./playerJoinedGameAction");
 const chessPieceMoveAction = require("./chessPieceMoveAction");
+const playerTimedOutAction = require("./playerTimedOutAction");
 
 const actionRouter = (lib) => (messageContext) => {
-    if (messageContext.action === "READY") {
-        console.log("Performing ready action");
-        return playerReadyAction(lib)(messageContext)
+    try {
+        if (messageContext.action === "READY") {
+            console.log("Performing ready action");
+            return playerReadyAction(lib)(messageContext)
+        }
+        else if (messageContext.action === "JOINED_GAME") {
+            console.log("Performing joined game action");
+            return playerJoinedGameAction(lib)(messageContext)
+        }
+        else if (messageContext.action === "GAME_START") {
+            console.log("Performing game start action");
+            return gameStartAction(lib)(messageContext)
+        }
+        else if (messageContext.action === "CHESS_PIECE_MOVE") {
+            console.log("Performing move action");
+            return chessPieceMoveAction(lib)(messageContext)
+        }
+        else if (messageContext.action === "PLAYER_TIMED_OUT") {
+            console.log("Performing player timed out action");
+            return playerTimedOutAction(lib)(messageContext)
+        } else {
+            return {statusCode: 200, body: "Unknown action noop"}
+        }
+    } catch (err) {
+        console.log("Unexpected error caught");
+        console.log(err)
     }
-    if (messageContext.action === "JOINED_GAME") {
-        console.log("Performing joined game action");
-        return playerJoinedGameAction(lib)(messageContext)
-    }
-    if (messageContext.action === "GAME_START") {
-        console.log("Performing game start action");
-        return gameStartAction(lib)(messageContext)
-    }
-    if (messageContext.action === "CHESS_PIECE_MOVE") {
-        console.log("Performing move action");
-        return chessPieceMoveAction(lib)(messageContext)
-    }
+
 };
 
 
