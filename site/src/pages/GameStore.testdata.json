@@ -38,6 +38,7 @@
     "gameHistory": [],
     "timesUsed": {},
     "gameState": {
+      "over": false,
       "gameId": "0f1ac240-6c8a-11ea-84d9-df75fa2a7e0c",
       "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
       "turn": "Google_109343845491313351199"

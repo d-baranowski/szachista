@@ -4,10 +4,18 @@ import App from "./game/src/App";
 
 class ChessBoard extends Component {
     setFen = (fen) => {
+        if (!this.child) {
+            return;
+        }
+
         this.child.setFen(fen)
     };
 
     getFen = () => {
+        if (!this.child) {
+            return "";
+        }
+
         return this.child.getFen()
     };
 
